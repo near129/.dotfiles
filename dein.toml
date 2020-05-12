@@ -1,0 +1,73 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+on_if = '!has("nvim")'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+on_if = '!has("nvim")'
+
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+build = './install.sh'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+hook_add = '''
+  set background=dark
+  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
+  autocmd VimEnter * nested colorscheme iceberg
+'''
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add= '''
+let g:lightline = {
+    \ 'colorscheme': 'iceberg',
+    \ 'component_function': {
+    \     'ale': 'ALEStatus'
+    \ }
+    \}
+function! ALEStatus()
+  return ALEGetStatusLine()
+endfunction
+'''
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_source = '''
+let b:ale_linters = {'python': ['flake8', 'pylint'], 'vim': ['vint'], 'cpp': ['gcc']}
+let g:syntastic_cpp_compiler='gcc'
+'''
+
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+hook_add= '''
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
+let g:auto_save_silent = 1  " do not display the auto-save notification
+'''
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+build = 'sh -c "PY3=ON .install.sh"'
+
+[[plugins]]
+repo = 'Yggdroot/indentline'
+
+[[plugins]]
+repo = 'kassio/neoterm'
+hook_add = '''
+let g:neoterm_size = 20
+let g:neoterm_default_mod = 'botright'
+let g:neoterm_autoscroll = 1
+'''
