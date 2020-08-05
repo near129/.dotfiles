@@ -125,6 +125,11 @@ denite = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_event = 'TextYankPost'
+on_source = ['denite.nvim']
+
+[[plugins]]
 repo = 'zchee/deoplete-zsh'
 on_ft = ['zsh', 'sh']
 
@@ -159,6 +164,7 @@ call deoplete#custom#source('tabnine', 'rank', 1)
 call deoplete#custom#option('sources', {
 \ 'python': ['neosnippet', 'jedi', 'tabnine',  'dictionary', 'file'],
 \ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
+\ 'tex': ['omni', 'file', 'buffer', 'dictionary', 'tabnine'],
 \ '_': ['tabnine', 'file', 'dictionary'],
 \})
 " 一つ目の候補を選択状態にする
@@ -188,3 +194,12 @@ let g:fruzzy#sortonempty = 0
 let g:fruzzy#use_native = 1
 '''
 hook_post_update = 'call fruzzy#install()'
+
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = 'tex'
+hook_post_source = '''
+call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'tex' : g:vimtex#re#deoplete
+    \})
+'''

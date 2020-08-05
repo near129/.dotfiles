@@ -2,6 +2,7 @@
 """ 表示関係
 set t_Co=256
 set background=dark
+let g:tex_conceal='' " TeXで数式のリアルタイム変換を無効化
 syntax on
 " set list                " 不可視文字の可視化
 set number              " 行番号の表示
@@ -50,9 +51,11 @@ set nowritebackup
 set nobackup
 set noswapfile
 
+let g:tex_flavor = 'latex'
+
 """ 検索関係
 set ignorecase          " 大文字小文字を区別しない
-set smartcase           " 検索文字に大文字がある場合は大文字小文字を区別
+set smartcase           "smartcase 検索文字に大文字がある場合は大文字小文字を区別
 set incsearch           " インクリメンタルサーチ
 set hlsearch            " 検索マッチテキストをハイライト
 " 行番号の色を設定

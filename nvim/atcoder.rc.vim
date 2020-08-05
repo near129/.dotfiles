@@ -18,8 +18,8 @@ nnoremap <Leader>a :<C-u>AtCoderContest
 nnoremap <Leader>c :<C-u>T g++ % -o %:p:h/a.out<CR>
 nnoremap <Leader>t :<C-u>T t %:p:h<CR>
 nnoremap <Leader>s :<C-u>T s %:p:h<CR>
-nnoremap <Leader><silent>ss :<C-u>T ss %:p:h<CR>
-nnoremap <Leader><silent>sp :<C-u>T sp %:p:h<CR>
+nnoremap <silent><Leader>ss :<C-u>T ss %:p:h<CR>
+nnoremap <silent><Leader>sp :<C-u>T sp %:p:h<CR>
 
 au BufEnter ~/AtCoder/*/main.py lcd %:h:h
 au VimEnter ~/AtCoder 20sp Tnew | winc w | 
