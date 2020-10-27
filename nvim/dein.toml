@@ -67,3 +67,10 @@ let g:neoterm_size = 20
 let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoscroll = 1
 '''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <Leader> <Plug>(easymotion-s)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+'''
