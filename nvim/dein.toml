@@ -10,10 +10,6 @@ repo = 'roxma/nvim-yarp'
 on_if = '!has("nvim")'
 
 [[plugins]]
-repo = 'tbodt/deoplete-tabnine'
-build = './install.sh'
-
-[[plugins]]
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
