@@ -10,10 +10,6 @@ repo = 'roxma/nvim-yarp'
 on_if = '!has("nvim")'
 
 [[plugins]]
-repo = 'tbodt/deoplete-tabnine'
-build = './install.sh'
-
-[[plugins]]
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
@@ -70,4 +66,11 @@ hook_add = '''
 let g:neoterm_size = 20
 let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoscroll = 1
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <Leader> <Plug>(easymotion-s)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 '''

@@ -1,0 +1,369 @@
+let g:python3_host_prog = $PYENV_ROOT.'/versions/3.8.2/bin/python'
+
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+"  call dein#add('lighttiger2505/deoplete-vim-lsp')
+  call dein#add('deoplete-plugins/deoplete-jedi')
+  call dein#add('deoplete-plugins/deoplete-dictionary')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+  call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/neosnippet.vim') " vimのsnippet機能。:NeoSnippetEditで編集可能。
+  call dein#add('Shougo/neosnippet-snippets') " 基本的なsnippetのセット
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('Shougo/deol.nvim')
+  call dein#add('Shougo/denite.nvim')
+  call dein#add('kassio/neoterm')
+  call dein#add('scrooloose/nerdtree') " ディレクトリをツリー表示できる
+"  call dein#add('vim-scripts/YankRing.vim') " テキストコピーの履歴を順々に参照できる。<C-p>, <C-n>で循環。
+  call dein#add('cocopon/iceberg.vim')
+  call dein#add('w0ng/vim-hybrid')
+  call dein#add('prabirshrestha/async.vim')
+"  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('Vimjas/vim-python-pep8-indent')
+  call dein#add('vim-airline/vim-airline-themes')
+"  call dein#add('mattn/vim-lsp-settings')
+  call dein#add('dense-analysis/ale')
+  call dein#add('vim-scripts/vim-auto-save')
+  call dein#add('Yggdroot/indentline')
+"  call dein#add('terryma/vim-multiple-cursors')
+"  call dein#add('kassio/neoterm')
+  if has('win32') || has('win64')
+  call dein#add('tbodt/deoplete-tabnine', { 'build': 'powershell.exe .\install.ps1' })
+    else
+  call dein#add('tbodt/deoplete-tabnine', { 'build': './install.sh' })
+    endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+let g:dein#auto_recache = 1
+""" 表示関係
+set t_Co=256
+set background=dark
+syntax on
+" set list                " 不可視文字の可視化
+set number              " 行番号の表示
+set ruler               " カーソル位置が右下に表示される
+set wildmenu            " コマンドライン補完が強力になる
+set showcmd             " コマンドを画面の最下部に表示する
+set wrap                " 長いテキストの折り返し
+set textwidth=0         " 自動的に改行が入るのを無効化
+" set colorcolumn=80      " その代わり80文字目にラインを入れる
+set cursorline      " その代わり80文字目にラインを入れる
+" 前時代的スクリーンベルを無効化
+set t_vb=
+set novisualbell
+set foldmethod=indent    " 折り畳み
+set foldlevel=100    " ファイルを開くときに折り畳みをしない
+
+""" 編集関係
+set infercase           " 補完時に大文字小文字を区別しない
+set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
+set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
+set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
+set showmatch           " 対応する括弧などをハイライト表示する
+set matchtime=3         " 対応括弧のハイライト表示を3秒にする
+set autoindent          " 改行時にインデントを引き継いで改行する
+set shiftwidth=4        " インデントにつかわれる空白の数
+au BufNewFile,BufRead *.yml set shiftwidth=2
+set softtabstop=4       " <Tab>押下時の空白数
+set expandtab           " <Tab>押下時に<Tab>ではなく、ホワイトスペースを挿入する
+set tabstop=4           " <Tab>が対応する空白の数
+au BufNewFile,BufRead *.yml set tabstop=2
+set shiftround          " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+set nf=                 " インクリメント、デクリメントを10進数にする
+" 対応括弧に'<'と'>'のペアを追加
+set matchpairs& matchpairs+=<:>
+" バックスペースでなんでも消せるようにする
+set backspace=indent,eol,start
+" クリップボードをデフォルトのレジスタとして指定。後にYankRingを使うので
+" 'unnamedplus'が存在しているかどうかで設定を分ける必要がある
+if has('unnamedplus')
+    set clipboard& clipboard+=unnamedplus,unnamed
+else
+    set clipboard& clipboard+=unnamed
+endif
+" Swapファイル, Backupファイルを全て無効化する
+set nowritebackup
+set nobackup
+set noswapfile
+
+""" 検索関係
+set ignorecase          " 大文字小文字を区別しない
+set smartcase           " 検索文字に大文字がある場合は大文字小文字を区別
+set incsearch           " インクリメンタルサーチ
+set hlsearch            " 検索マッチテキストをハイライト
+" 行番号の色を設定
+hi LineNr ctermbg=0 ctermfg=7
+hi CursorLineNr ctermbg=4 ctermfg=0
+set cursorline
+
+let mapleader = "\<Space>"
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-d> <C-g>u<Del>
+hi clear CursorLine
+nnoremap <ESC><ESC> :noh<CR>
+set t_Co=256
+set background=dark
+colorscheme iceberg
+" colorscheme hybrid
+"let g:hybrid_reduced_contrast = 1
+nnoremap <C-p> :<C-u>bp<CR>
+nnoremap <C-n> :<C-u>bn<CR>
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+hi NonText    ctermbg=None ctermfg=59 guibg=NONE guifg=None
+hi SpecialKey ctermbg=None ctermfg=59 guibg=NONE guifg=None
+
+" マウスの有効化
+set mouse=a
+"set ttymouse=xterm2
+
+" コマンドライン はemacs
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+" splitコマンドで下に新しくウィンドウを作る
+set splitbelow
+" ターミナルでノーマルモードにctrl-[でいけるようにする
+tnoremap jj <C-\><C-n>
+nnoremap <Leader>w <C-w>w
+
+" *******************************************************
+" neosnippet
+" *******************************************************
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
+"set snippet file dir
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+" インデントをうまく反映させる
+au BufNewFile, BufRead *.snip set noexpandtab
+
+" *******************************************************
+" NERDTree
+" *******************************************************
+" ブックマーク初期表示
+" let g:NERDTreeShowBookmarks=1
+"
+let g:NERDTreeChDirMode=2
+" windowサイズ設定
+let g:NERDTreeWinSize=20
+" 表示したくないファイル、ディレクトリ
+let g:NERDTreeIgnore=['\.DS_Store$', '\.swp$', '\~$', '\.so']
+nnoremap <Leader>n :NERDTreeToggle<CR>:NERDTreeRefreshRoot<CR>
+" vim起動時に常に表示
+" autocmd vimenter * NERDTree
+" NERDTreeだけが残る場合はvim終了
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" *******************************************************
+" denite.nvim
+" *******************************************************
+if executable('rg')
+  call denite#custom#var('file/rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep,line/external', {
+        \ 'command': ['rg', '--threads', '1'],
+        \ 'recursive_opts': [],
+        \ 'final_opts': [],
+        \ 'separator': ['--'],
+        \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+        \ })
+else
+  call denite#custom#var('file/rec', 'command',
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
+
+call denite#custom#source('file/old', 'matchers', [
+      \ 'matcher/fruzzy', 'matcher/project_files', 'matcher/ignore_globs',
+      \ ])
+call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/rec', 'matchers',
+      \ ['matcher/fruzzy'])
+call denite#custom#source('file/old,ghq', 'converters',
+      \ ['converter/relative_word', 'converter/relative_abbr'])
+
+call denite#custom#alias('source', 'file/git', 'file/rec')
+call denite#custom#var('file/git', 'command',
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+call denite#custom#alias('source', 'file/dirty', 'file/rec')
+call denite#custom#var('file/dirty', 'command',
+      \ ['git', 'ls-files', '-mo',
+      \  '--directory', '--no-empty-directory', '--exclude-standard'])
+
+" call denite#custom#option('default', 'prompt', '>')
+" call denite#custom#option('default', 'short_source_names', v:true)
+if has('nvim')
+  call denite#custom#option('default', {
+        \ 'highlight_filter_background': 'CursorLine',
+        \ 'source_names': 'short',
+        \ 'split': 'floating',
+        \ 'filter_split_direction': 'floating',
+        \ 'vertical_preview': v:true,
+        \ 'floating_preview': v:true,
+        \ })
+else
+  call denite#custom#option('default', {
+        \ 'highlight_filter_background': 'CursorLine',
+        \ 'source_names': 'short',
+        \ 'vertical_preview': v:true,
+        \ })
+endif
+call denite#custom#option('search', {
+      \ 'highlight_filter_background': 'CursorLine',
+      \ 'source_names': 'short',
+      \ 'filter_split_direction': 'floating',
+      \ })
+
+let s:menus = {}
+let s:menus.vim = {
+    \ 'description': 'Vim',
+    \ }
+let s:menus.vim.file_candidates = [
+    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
+
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.ropeproject/', '__pycache__/',
+      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+" *******************************************************
+" deoplete.nvim
+" *******************************************************
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#python_path = '/Users/ryotaro/.pyenv/shims/python'
+
+setlocal dictionary+=/usr/share/dict/words
+
+inoremap <expr><C-h> deoplete#smart_close_popup()."<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."<C-h>"
+inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+    \ neosnippet#expandable_or_jumpable() ?
+    \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+
+call deoplete#custom#option({
+    \ 'auto_complete': v:true,
+    \ 'min_pattern_length': 1,
+    \ 'auto_complete_delay': 0,
+    \ 'auto_refresh_delay': 1,
+    \ 'refresh_always': v:true,
+    \ 'smart_case': v:true,
+    \ 'camel_case': v:false,
+    \ 'max_list': 10,
+    \ })
+call deoplete#custom#source('tabnine', 'rank', 1)
+"call deoplete#custom#source('dictionary', 'min_pattern_length', 4)
+call deoplete#custom#option('sources', {
+\ 'python': ['neosnippet', 'jedi', 'tabnine',  'dictionary', 'file'],
+\ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
+\ '_': ['tabnine', 'file', 'dictionary'],
+\})
+" 一つ目の候補を選択状態にする
+"set completeopt+=noinsert
+" previw windowを消す(関数などの説明が書かれているウィンドウが出る)
+set completeopt-=preview
+" *******************************************************
+"airline
+" *******************************************************
+" カラーテーマ指定してかっこよく
+"let g:airline_theme = 'angr'
+let g:airline_theme = 'iceberg'
+let g:airline#extensins#whitespace#enabled = 0
+
+" *******************************************************
+" ale
+" *******************************************************
+let b:ale_linters = {'python': ['flake8', 'pylint'], 'vim': ['vint'], 'cpp': ['gcc']}
+let g:syntastic_cpp_compiler='gcc'
+" *******************************************************
+" auto-save
+" *******************************************************
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+" *******************************************************
+" vimproc
+" *******************************************************
+
+function! Execcmd(cmd)
+    let l:proc = vimproc#popen2(a:cmd)
+    let l:response = ''
+    while !l:proc.stdout.eof
+        let l:response .= l:proc.stdout.read()
+    endwhile
+    return l:response
+endfunction
+" *******************************************************
+" AtCoder
+" *******************************************************
+function! Submit_python()
+    echo "Testing ..."
+    let test_result = system('t ' . expand("%:h:S"))
+    if match(test_result, "WA") > 0
+        echo "There is WA"
+        echo test_result
+    else
+        echo "Submiting ..."
+        let result = system('s ' . expand("%:h:S"))
+        echo result
+    endif
+endfunction
+function! Submit_pypy()
+    echo "Testing ..."
+    let test_result = system('t ' . expand("%:h:S"))
+    if match(test_result, "WA") > 0
+        echo "There is WA"
+        echo test_result
+    else
+        echo "Submiting ..."
+        let result = system('s ' . expand("%:h:S"))
+        echo result
+    endif
+endfunction
+function! Cd_2_up()
+    return join(split(expand("%"), "/")[:-3], '/')
+endfunction
+
+nnoremap <Leader>t :<C-u>T t %:h<CR>
+nnoremap <Leader>s :<C-u>T s %:h<CR>
+nnoremap <Leader><silent>ss :<C-u>T ss %:h<CR>
+nnoremap <Leader><silent>sp :<C-u>T sp %:h<CR>

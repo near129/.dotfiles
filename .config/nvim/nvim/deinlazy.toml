@@ -60,10 +60,10 @@ hook_add = '''
         \ register neoyank<CR>
   nnoremap <silent> [Window]<Space>
   \ :<C-u>Denite file/rec:~/.vim/rc<CR>
-  nnoremap <silent><expr> / wordcount().chars > 30000 ?
-  \ ":\<C-u>Denite -buffer-name=search -start-filter
-  \  -search line/external\<CR>" :
-  \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
+  "nnoremap <silent><expr> / wordcount().chars > 30000 ?
+  "\ ":\<C-u>Denite -buffer-name=search -start-filter
+  "\  -search line/external\<CR>" :
+  "\ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
   nnoremap <silent><expr> * wordcount().chars > 30000 ?
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
@@ -159,13 +159,12 @@ call deoplete#custom#option({
     \ 'camel_case': v:false,
     \ 'max_list': 10,
     \ })
-call deoplete#custom#source('tabnine', 'rank', 1)
 "call deoplete#custom#source('dictionary', 'min_pattern_length', 4)
 call deoplete#custom#option('sources', {
-\ 'python': ['neosnippet', 'jedi', 'tabnine',  'dictionary', 'file'],
+\ 'python': ['neosnippet', 'jedi',  'dictionary', 'file'],
 \ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
-\ 'tex': ['omni', 'file', 'buffer', 'dictionary', 'tabnine'],
-\ '_': ['tabnine', 'file', 'dictionary'],
+\ 'tex': ['omni', 'file', 'buffer', 'dictionary'],
+\ '_': ['file', 'dictionary'],
 \})
 " 一つ目の候補を選択状態にする
 "set completeopt+=noinsert
