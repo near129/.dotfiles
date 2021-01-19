@@ -1,0 +1,196 @@
+':setl noexpandtab'
+snippet combinaton
+	def comb(n, r, mod):
+		numerator = denominator = 1
+		for i in range(r):
+			numerator = numerator * (n - i) % mod
+			denominator = denominator * (i + 1) % mod
+		return numerator * inv(denominator, mod) % mod
+
+
+	# 逆元を返す関数(非再帰拡張Euclidの互除法))
+	# pow(a, mod-2, mod)と等価
+	def inv(a, mod):
+		b = mod
+		p, q = 1, 0
+		while b > 0:
+			c = a // b
+			a, b = b, a-c*b
+			p, q = q, p-c*q
+		return p + mod if p < 0 else p
+
+
+snippet combinaton_table
+	m = 10 ** 6
+	mod = 1000000007
+
+	fac = [1] * m
+	finv = [1] * m
+	inv = [1] * m
+
+
+	def COMinit():
+		for i in range(2, m):
+			fac[i] = fac[i - 1] * i % mod
+			inv[i] = mod - inv[mod % i] * (mod // i) % mod
+			finv[i] = finv[i - 1] * inv[i] % mod
+
+
+	def COM(n, k):
+		if n < 0 or k < 0 or n < k:
+			return 0
+		return fac[n] * (finv[k] * finv[n - k] % mod) % mod
+
+snippet factorial
+
+
+	def factorial(n, m=mod):
+	ans = 1
+	for i in range(1, n+1):
+		ans = ans * i % m
+	return ans
+
+
+snippet eratosthenespypy
+	def eratosthenes(n):
+		is_prime = [True] * n
+		is_prime[0] = is_prime[1] = False
+		for i in range(4, n, 2):
+			is_prime[i] = False
+		m = int(n**.5) + 1
+		for i in range(3, m, 2):
+			if is_prime[i]:
+				for j in range(i*i, n, 2*i):
+					is_prime[j] = False
+		#return (i for i in range(n) if is_prime[i])
+		return is_prime
+	
+ 
+snippet eratosthenes
+	def eratosthenes(n):
+		is_prime = [True] * n
+		is_prime[0] = is_prime[1] = False
+		is_prime[4::2] = [False] * (n // 2 - 2)
+		m = int(n**.5) + 1
+		for i in range(3, m, 2):
+			if is_prime[i]:
+				is_prime[i*i::2*i] = [False] * ((n - i*i - 1) // (2*i) + 1)
+		#return [2] + [i for i in range(3, n, 2) if is_prime[i]]
+		return is_prime
+
+
+snippet divisor
+	
+	def divisor(x):
+		div = []
+		div_append = div.append
+		for i in range(1, int(x**.5)+1):
+			if x % i == 0:
+				div_append(i)
+				div_append(x//i)
+		div.sort()
+		return div
+
+
+snippet factorizations
+	def factorization_in_prime_number(x):
+		prime_factor = []
+		if x % 2 == 0:
+			prime_factor.append(2)
+		while x % 2 == 0:
+			x //= 2
+		m = int(x**.5) + 1
+		for i in range(3, m, 2):
+			if x % i == 0:
+				prime_factor.append(i)
+			while x % i == 0:
+				x //= i
+		if x != 1:
+			prime_factor.append(x)
+		return prime_factor
+
+
+snippet factorizations_degree
+	def factorization_in_prime_number(x):
+		prime_factor = []
+		degree = 0
+		while x % 2 == 0:
+			x //= 2
+			degree += 1
+		if degree:
+			prime_factor.append((2, degree))
+		m = int(x**.5) + 1
+		for i in range(3, m, 2):
+			degree = 0
+			while x % i == 0:
+				x //= i
+				degree += 1
+			if degree:
+				prime_factor.append((i, degree))
+		if x != 1:
+			prime_factor.append((x, 1))
+		return prime_factor
+
+
+snippet modinv
+	# pow(a, mod-2, mod)と等価
+	def inv(a, mod):
+		b = mod
+		p, q = 1, 0
+		while b > 0:
+			c = a // b
+			a, b = b, a-c*b
+			p, q = q, p-c*q
+		return p + mod if p < 0 else p
+
+snippet unionfind
+options head
+	class UnionFind():
+		def __init__(self, n):
+			self.parents = [-1] * n
+
+		def find(self, x):
+			if self.parents[x] < 0:
+				return x
+			else:
+				self.parents[x] = self.find(self.parents[x])
+				return self.parents[x]
+
+		def union(self, x, y):
+			x = self.find(x)
+			y = self.find(y)
+
+			if x == y:
+				return False
+			if self.parents[x] > self.parents[y]:
+				x, y = y, x
+
+			self.parents[x] += self.parents[y]
+			self.parents[y] = x
+			return True
+
+		def size(self, x):
+			return -self.parents[self.find(x)]
+
+		def same(self, x, y):
+			return self.find(x) == self.find(y)
+
+
+snippet rl
+	import sys
+	
+	readline = sys.stdin.readline
+
+snippet mi
+options word
+	map(int, input().split())
+snippet ml
+options word
+	map(int, readline().split())
+snippet msl
+options word
+	map(int, sys.stdin.readline().split())
+snippet mr
+options word
+    map(int, sys.stdin.read().split())
+

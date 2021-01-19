@@ -1,6 +1,8 @@
+
+""" 表示関係
 set t_Co=256
 set background=dark
-" colorscheme hybrid
+let g:tex_conceal='' " TeXで数式のリアルタイム変換を無効化
 syntax on
 " set list                " 不可視文字の可視化
 set number              " 行番号の表示
@@ -19,7 +21,7 @@ set foldlevel=100    " ファイルを開くときに折り畳みをしない
 
 """ 編集関係
 set infercase           " 補完時に大文字小文字を区別しない
-set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
+"set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
 set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch           " 対応する括弧などをハイライト表示する
@@ -49,8 +51,29 @@ set nowritebackup
 set nobackup
 set noswapfile
 
+let g:tex_flavor = 'latex'
+
 """ 検索関係
 set ignorecase          " 大文字小文字を区別しない
-set smartcase           " 検索文字に大文字がある場合は大文字小文字を区別
+set smartcase           "smartcase 検索文字に大文字がある場合は大文字小文字を区別
 set incsearch           " インクリメンタルサーチ
 set hlsearch            " 検索マッチテキストをハイライト
+" 行番号の色を設定
+hi LineNr ctermbg=0 ctermfg=7
+hi CursorLineNr ctermbg=4 ctermfg=0
+set cursorline
+
+" splitコマンドで下に新しくウィンドウを作る
+set splitbelow
+" マウスの有効化
+set mouse=a
+hi clear CursorLine
+set t_Co=256
+set background=dark
+" colorscheme iceberg
+" colorscheme hybrid
+"let g:hybrid_reduced_contrast = 1
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+hi NonText    ctermbg=None ctermfg=59 guibg=NONE guifg=None
+hi SpecialKey ctermbg=None ctermfg=59 guibg=NONE guifg=None
