@@ -13,10 +13,10 @@ fi
 
 # Customize to your needs...
 
-export PATH="/usr/local/bin:$PATH"
-# export PATH="/opt/homebrew/bin:$PATH"
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # zshのキルリングとクリップボードを共有する
 
