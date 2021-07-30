@@ -1,6 +1,4 @@
-let g:python2_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = $PYENV_ROOT.'/versions/3.8.2/bin/python'
-
+let g:python3_host_prog='/Users/near129/.pyenv/shims/python'
 if &compatible
   set nocompatible
 endif
@@ -31,5 +29,6 @@ endif
 runtime! ./dein.rc.vim
 runtime! ./options.rc.vim
 runtime! ./mappings.rc.vim
-runtime! ./atcoder.rc.vim
+" runtime! ./atcoder.rc.vim
 
+ 

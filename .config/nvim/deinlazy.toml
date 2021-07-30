@@ -1,53 +1,14 @@
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_event = 'InsertCharPre'
-on_ft = 'snippet'
-depends = ['neosnippet-snippets', 'context_filetype']
-hook_source = '''
-  imap <C-k>     <Plug>(neosnippet_jump_or_expand)
-  smap <C-k>     <Plug>(neosnippet_jump_or_expand)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-  let g:neosnippet#enable_snipmate_compatibility = 1
-  let g:neosnippet#enable_completed_snippet = 1
-  " let g:neosnippet#enable_complete_done = 1
-  let g:neosnippet#expand_word_boundary = 1
-  let g:neosnippet#snippets_directory = '~/.config/nvim/snippets'
-  " SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-" インデントをうまく反映させる
-au BufNewFile, BufRead *.snip set noexpandtab
-'''
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
+if = '!exists("g:vscode")'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'Shougo/neoyank.vim'
-on_event = 'TextYankPost'
-on_source = ['denite.nvim']
-
-[[plugins]]
-repo = 'zchee/deoplete-zsh'
+if = '!exists("g:vscode")'
 on_ft = ['zsh', 'sh']
+repo = 'zchee/deoplete-zsh'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
-on_event = 'InsertEnter'
 hook_source = '''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#python_path = '/Users/ryotaro/.pyenv/shims/python'
@@ -72,9 +33,8 @@ call deoplete#custom#option({
     \ })
 "call deoplete#custom#source('dictionary', 'min_pattern_length', 4)
 call deoplete#custom#option('sources', {
-\ 'python': ['neosnippet', 'jedi',  'dictionary', 'file'],
+\ 'python': ['jedi',  'dictionary', 'file'],
 \ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
-\ 'tex': ['omni', 'file', 'buffer', 'dictionary'],
 \ '_': ['file', 'dictionary'],
 \})
 " 一つ目の候補を選択状態にする
@@ -83,33 +43,21 @@ call deoplete#custom#option('sources', {
 set completeopt-=preview
 call deoplete#enable()
 '''
-
-[[plugins]]
-repo = 'deoplete-plugins/deoplete-jedi'
-on_ft = 'python'
-
-[[plugins]]
-repo = 'deoplete-plugins/deoplete-dictionary'
+if = '!exists("g:vscode")'
 on_event = 'InsertEnter'
+repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
-repo = 'Vimjas/vim-python-pep8-indent'
+if = '!exists("g:vscode")'
 on_ft = 'python'
+repo = 'deoplete-plugins/deoplete-jedi'
 
 [[plugins]]
-repo = 'raghur/fruzzy'
-on_source = ['denite.nvim']
-hook_source = '''
-let g:fruzzy#sortonempty = 0
-let g:fruzzy#use_native = 1
-'''
-hook_post_update = 'call fruzzy#install()'
+if = '!exists("g:vscode")'
+on_event = 'InsertEnter'
+repo = 'deoplete-plugins/deoplete-dictionary'
 
 [[plugins]]
-repo = 'lervag/vimtex'
-on_ft = 'tex'
-hook_post_source = '''
-call deoplete#custom#var('omni', 'input_patterns', {
-    \ 'tex' : g:vimtex#re#deoplete
-    \})
-'''
+if = '!exists("g:vscode")'
+on_ft = 'python'
+repo = 'Vimjas/vim-python-pep8-indent'

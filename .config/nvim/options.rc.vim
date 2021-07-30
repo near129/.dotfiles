@@ -1,4 +1,3 @@
-
 """ 表示関係
 set t_Co=256
 set background=dark
@@ -21,11 +20,11 @@ set foldlevel=100    " ファイルを開くときに折り畳みをしない
 
 """ 編集関係
 set infercase           " 補完時に大文字小文字を区別しない
-"set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
+" set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
 set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
-set showmatch           " 対応する括弧などをハイライト表示する
-set matchtime=3         " 対応括弧のハイライト表示を3秒にする
+" set showmatch           " 対応する括弧などをハイライト表示する
+" set matchtime=1         " 対応括弧のハイライト表示を3秒にする
 set autoindent          " 改行時にインデントを引き継いで改行する
 set shiftwidth=4        " インデントにつかわれる空白の数
 au BufNewFile,BufRead *.yml set shiftwidth=2

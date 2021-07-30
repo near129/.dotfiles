@@ -2,31 +2,24 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+if = '!has("nvim")'
 repo = 'roxma/vim-hug-neovim-rpc'
-on_if = '!has("nvim")'
 
 [[plugins]]
+if = '!has("nvim")'
 repo = 'roxma/nvim-yarp'
-on_if = '!has("nvim")'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'cocopon/iceberg.vim'
 hook_add = '''
   set background=dark
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
   autocmd VimEnter * nested colorscheme iceberg
 '''
-
+repo = 'cocopon/iceberg.vim'
+if = '!exists("g:vscode")'
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add= '''
+hook_add = '''
 let g:lightline = {
     \ 'colorscheme': 'iceberg',
     \ 'component_function': {
@@ -37,40 +30,40 @@ function! ALEStatus()
   return ALEGetStatusLine()
 endfunction
 '''
+if = '!exists("g:vscode")'
+repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'dense-analysis/ale'
-hook_source = '''
-let b:ale_linters = {'python': ['flake8', 'pylint'], 'vim': ['vint'], 'cpp': ['gcc']}
-let g:syntastic_cpp_compiler='gcc'
-'''
-
-[[plugins]]
-repo = 'vim-scripts/vim-auto-save'
-hook_add= '''
+hook_add = '''
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 let g:auto_save_silent = 1  " do not display the auto-save notification
 '''
-
-[[plugins]]
-repo = 'nixprime/cpsm'
-build = 'sh -c "PY3=ON .install.sh"'
+on_if = '!exists("g:vscode")'
+repo = 'vim-scripts/vim-auto-save'
 
 [[plugins]]
 repo = 'Yggdroot/indentline'
-
+if = '!exists("g:vscode")'
 [[plugins]]
-repo = 'kassio/neoterm'
 hook_add = '''
-let g:neoterm_size = 20
-let g:neoterm_default_mod = 'botright'
-let g:neoterm_autoscroll = 1
-'''
-
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-hook_add = '''
-map <Leader> <Plug>(easymotion-s)
+let g:mapleader = "\<Space>"
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
+map <Leader> <Plug>(easymotion-s)
 '''
+if = 'exists("g:vscode")'
+name = 'vim-easymotion-vscode'
+repo = 'asvetliakov/vim-easymotion'
+
+[[plugins]]
+hook_add = '''
+let g:mapleader = "\<Space>"
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+map <Leader> <Plug>(easymotion-s)
+'''
+if = '!exists("g:vscode")'
+name = 'vim-easymotion'
+repo = 'easymotion/vim-easymotion'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
