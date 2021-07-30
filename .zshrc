@@ -1,34 +1,75 @@
-
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
-# Customize to your needs...
-
 # setup complication
 fpath+=~/.zfunc
 autoload -U compinit
 compinit
 
-# export path
-export PATH="/opt/homebrew/bin:$PATH"
-# initialize pyenv
+export EDITOR="vim"
+# homebrew 
+# https://brew.sh/
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# starship
+# https://github.com/starship/starship
+eval "$(starship init zsh)"
+# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
-# initialize zsh-autosuggestion
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# cargo
 export PATH="$HOME/.cargo/bin:$PATH"
-# zshのキルリングとクリップボードを共有する
+# zsh-autosuggestions
+# https://github.com/zsh-users/zsh-autosuggestions
+source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# zsh-autosuggestions
+# https://github.com/zsh-users/zsh-history-substring-search
+source "$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 
+
+# alias
+alias mkdir="${aliases[mkdir]:-mkdir} -p"
+alias cp="${aliases[cp]:-cp} -i"
+alias ln="${aliases[ln]:-ln} -i"
+alias mv="${aliases[mv]:-mv} -i"
+alias rm="${aliases[rm]:-rm} -i"
+
+if (type "exa" > /dev/null 2>&1); then
+    alias ls="exa --icons"
+fi
+alias l="ls -1"
+alias ll="ls -lh"
+alias la="ll -a"
+
+if (type "nvim" > /dev/null 2>&1); then
+    alias vi='nvim'
+    alias vim='nvim'
+fi
+
+alias df='df -kh'
+alias du='du -kh'
+alias dua=' du -scmh ./* ./.[^.]* | sort -rh'
+
+alias ipython='jupyter-console'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias o='open'
+else
+  alias o='xdg-open'
+
+  if (( $+commands[xclip] )); then
+    alias pbcopy='xclip -selection clipboard -in'
+    alias pbpaste='xclip -selection clipboard -out'
+  elif (( $+commands[xsel] )); then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+  fi
+fi
+
+alias pbc='pbcopy'
+alias pbp='pbpaste'
+# zshのキルリングとクリップボードを共有する
 function copy-line-as-kill() {
     zle kill-line
     print -rn $CUTBUFFER | pbcopy
@@ -41,16 +82,6 @@ function paste-as-yank() {
 }
 zle -N paste-as-yank
 bindkey "^y" paste-as-yank
-# alias
-alias ls="exa --icons"
-alias ll="exa -lh --icons"
-alias l="exa --icons"
-alias la="exa -a --icons"
-alias youtube-dlx="youtube-dl -o '~/Movies/%(uploader)s/%(playlist)s/%(title)s.%(ext)s' -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
-alias vi='nvim'
-alias vim='nvim'
-alias dua=' du -scmh ./* ./.[^.]* | sort -rh'
-alias ipython='jupyter-console'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

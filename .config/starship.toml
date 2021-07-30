@@ -1,0 +1,17 @@
+# https://starship.rs/ja-JP/config
+format = '[$all](purple)'
+[cmd_duration]
+min_time=2000 # defalut
+show_notifications=true
+[directory]
+style="bright-blue"
+[docker_context]
+disabled=true
+[gcloud]
+disabled=true
+[git_branch]
+style="white"
+[git_status]
+style="bright-red"
+[package]
+disabled=true
