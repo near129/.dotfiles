@@ -1,17 +1,35 @@
-# new mac settings
+# Dotfiles
 
-## 初めに
+*This is currently under renewal.(現在更新作業中)*
+
+## TODO
+
+- [ ] neovimの整理
+  - [ ] 補完関連をどうするか検討中
+  - [ ] deinを使うのでPythonが必要
+- [ ] install.shの整備
+  - [ ] brewを利用したもの
+  - [ ] brewを利用せず、aptとマニュアルを使用したもの
+- [ ] zshrcのパスがbrewにしか対応していない
+- [ ] zshrcの下に新しくインストールしたアプリの設定が入ってしまう
+- [ ] 下のREADMEを書き直す
+- [x] iterm2の設定ファイルを自動同期
+- [x] prezotoからstarshipに移行
+
+## new mac settings
+
+### 初めに
 
 特に何もなければソフトウェアアップデートからosのアップデート
 
-## mac設定
+### mac設定
 
 Finder の環境設定→詳細で「すべてのファイル名拡張子を表示」をオンにする。
 
 共有からコンピュータ名の変更とリモートログイン許可
 トラックパッドとキーボードのスピードMAX
 
-## brew
+### brew
 
 ```shell
 % cd /opt
@@ -25,7 +43,7 @@ export PATH=/opt/homebrew/bin:$PATH
 % brew update
 ```
 
-## gcc
+### gcc
 
 ```shell
 brew install gcc
@@ -34,7 +52,7 @@ ln /opt/homebrew/bin/gcc-10 /opt/homebrew/bin/gcc
 
 もしclangになったらPATHの順番を変更
 
-## zsh
+### zsh
 
 ```shell
 brew install zsh
@@ -42,12 +60,12 @@ vi /etc/shells # 一番下にzshパス
 chsh -s /opt/homebrew/bin/zsh
 ```
 
-### prezto
+#### prezto
 
 https://github.com/sorin-ionescu/prezto
 `prompt -s pure`
 
-## サイトから入れたもの
+### サイトから入れたもの
 
 - vscode (preview)
 - docker desktop (preview)
@@ -67,12 +85,12 @@ https://github.com/sorin-ionescu/prezto
 - alfred
 - zoom
 
-## app store
+### app store
 
 - line
 - runcat
 
-## todo
+### todo
 
 - [ ] dotfil
 - [ ] neovim
