@@ -2,6 +2,7 @@
 
 # homebrew 
 # https://brew.sh/
+# apt update && apt install build-essential procps curl file git
 eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 case $OSTYPE in
@@ -19,7 +20,8 @@ esac
 
 # symlink dotfiles
 ln -sf ~/.dotfiles/.vimrc ~/.vimrc
-ln -sf ~/.dotfiles/.zshrc ~/.zshrc
+echo 'source ~/.dotfiles/.zshrc' >> ~/.zshrc
+# l -sf ~/.dotfiles/.zshrc ~/.zshrc
 ln -sf ~/.dotfiles/.zcomplication ~/.zcomplication
 ln -sf ~/.dotfiles/.config/nvim ~/.config/nvim
 ln -sf ~/.dotfiles/.config/starship.toml ~/.config/starship.toml

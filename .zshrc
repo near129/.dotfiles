@@ -3,7 +3,7 @@ fpath+=~/.zfunc
 autoload -U compinit
 compinit
 
-source ./zcomplication
+source ./.zcomplication
 
 #
 # App setting
@@ -24,10 +24,6 @@ esac
 
 # starship
 # https://github.com/starship/starship
-if (( $+commands[starship] == 0 )) ; then
-  echo "Install starship ..."
-  sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
-fi
 eval "$(starship init zsh)"
 
 # pyenv
@@ -35,6 +31,10 @@ if (( $+commands[pyenv] )); then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
+fi
+# nodebrew
+if (( $+commands[nodebrew] )); then
+  export PATH=$HOME/.nodebrew/current/bin:$PATH
 fi
 
 # cargo
@@ -47,15 +47,9 @@ if [ ! -z "$HOMEBREW_PREFIX" ]; then
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   source "$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
 else
-  if [ ! -e {~/.zsh} ]; then
-    echo 'zsh extension tool install to ~/.zsh'
-    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/zsh-history-substring-search
-  fi
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
   source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 fi
-
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -101,6 +95,8 @@ else
   elif (( $+commands[xsel] )); then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
+  else
+    echo "No clipboard util command. Should install clip or xsel"
   fi
 fi
 
