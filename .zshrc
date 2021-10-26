@@ -3,7 +3,7 @@ fpath+=~/.zfunc
 autoload -U compinit
 compinit
 
-source ./.zcomplication
+source .zcomplication
 
 #
 # App setting
@@ -116,32 +116,3 @@ function paste-as-yank() {
 }
 zle -N paste-as-yank
 bindkey "^y" paste-as-yank
-
-
-
-if [[ "$OSTYPE" == darwin* && "$USER" == near129 ]]; then
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
-          . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
-      else
-          export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
-  # for google cloud
-  source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-  # for pencv
-  export PYTHONPATH="/opt/homebrew/Cellar/opencv/4.5.2_1/lib/python3.9/site-packages"
-
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-
-  export PATH=$HOME/.nodebrew/current/bin:$PATH
-  export PATH="/opt/homebrew/opt/llvm@11/bin:$PATH"
-fi

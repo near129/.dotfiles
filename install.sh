@@ -22,6 +22,5 @@ esac
 ln -sf ~/.dotfiles/.vimrc ~/.vimrc
 echo 'source ~/.dotfiles/.zshrc' >> ~/.zshrc
 # l -sf ~/.dotfiles/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/.zcomplication ~/.zcomplication
 ln -sf ~/.dotfiles/.config/nvim ~/.config/nvim
 ln -sf ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
