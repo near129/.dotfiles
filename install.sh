@@ -1,10 +1,25 @@
 #!/bin/zsh
 
-# symlink dotfiles
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.zpreztorc ~/.zpreztorc
-ln -sf ~/dotfiles/.config/nvim ~/.config/nvim
+# homebrew 
+# https://brew.sh/
+eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-source ~/dotfiles/.zshrc
-source ~/dotfiles/.zpreztorc
+case $OSTYPE in
+  darwin*) 
+    eval "$(/opt/homebrew/bin/brew shellenv)" 
+    brew bundle
+    ;;
+  linux*) 
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 
+    brew bundle --file Brewfile_linux
+    ;;
+esac
+# intel mac
+# eval "$(/usr/local/opt/bin/brew shellenv)"
+
+# symlink dotfiles
+ln -sf ~/.dotfiles/.vimrc ~/.vimrc
+ln -sf ~/.dotfiles/.zshrc ~/.zshrc
+ln -sf ~/.dotfiles/.zcomplication ~/.zcomplication
+ln -sf ~/.dotfiles/.config/nvim ~/.config/nvim
+ln -sf ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
