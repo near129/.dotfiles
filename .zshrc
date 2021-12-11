@@ -3,7 +3,7 @@ fpath+=~/.zfunc
 autoload -U compinit
 compinit
 
-source .zcomplication
+source ~/.zcomplication
 
 #
 # App setting
@@ -17,10 +17,11 @@ export EDITOR="vim"
 
 # homebrew 
 # https://brew.sh/
-case $OSTYPE in
-  darwin*) eval "$(/opt/homebrew/bin/brew shellenv)" ;;
-  linux*) eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" ;;
-esac
+if [[ "$OSTYPE" == darwin* ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -d /home/linuxbrew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # starship
 # https://github.com/starship/starship
