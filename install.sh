@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 # homebrew 
 # https://brew.sh/
 # apt update && apt install build-essential procps curl file git
@@ -18,9 +16,11 @@ esac
 # intel mac
 # eval "$(/usr/local/opt/bin/brew shellenv)"
 
+cd `dirname $0`
+DIR=`pwd`
+
 # symlink dotfiles
-ln -sf ~/.dotfiles/.vimrc ~/.vimrc
-echo 'source ~/.dotfiles/.zshrc' >> ~/.zshrc
-# l -sf ~/.dotfiles/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/.config/nvim ~/.config/nvim
-ln -sf ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
+echo "source ${DIR}/.zshrc" >> ~/.zshrc
+ln -sf ${DIR}/.zcomplication ~/.zcomplication
+ln -sf ${DIR}/.config ~/.config
+ln -sf ${DIR}/.vimrc ~/.vimrc
