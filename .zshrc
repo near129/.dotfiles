@@ -43,6 +43,22 @@ if (( $+commands[cargo] )); then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# fzf
+if (( $+commands[fzf] )); then
+  # インストール時にkeybindingsなどをインストールする
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'  # .gitignoreを反映させないように--no-ignoreするのもあり
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'  # .gitignoreを反映させないように--no-ignoreするのもあり
+  export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+      fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
+
 # zsh-autosuggestions zsh-history-substring-search
 if [ ! -z "$HOMEBREW_PREFIX" ]; then
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -68,7 +84,12 @@ alias mv="${aliases[mv]:-mv} -i"
 alias rm="${aliases[rm]:-rm} -i"
 
 if (( $+commands[exa] )); then
+    # nerd fontを入れること
     alias ls="exa --icons"
+fi
+if (( $+commands[bat] )); then
+    # nerd fontを入れること
+    alias cat="bat"
 fi
 alias l="ls -1"
 alias ll="ls -lh"
@@ -81,9 +102,7 @@ fi
 
 alias df='df -kh'
 alias du='du -kh'
-alias dua=' du -scmh ./* ./.[^.]* | sort -rh'
 
-alias ipython='jupyter-console'
 
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'
