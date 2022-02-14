@@ -5,6 +5,8 @@ compinit
 
 source ~/.zcomplication
 
+autoload -U zcalc
+
 #
 # App setting
 # 
@@ -14,6 +16,9 @@ setopt hist_ignore_all_dups # ヒストリに追加されるコマンド行が�
 setopt hist_reduce_blanks  # 余分な空白は詰めて記録
 
 export EDITOR="vim"
+export VISUAL="vim"
+
+bindkey -e
 
 # homebrew 
 # https://brew.sh/
@@ -32,6 +37,7 @@ if (( $+commands[pyenv] )); then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
 fi
 # nodebrew
 if (( $+commands[nodebrew] )); then
@@ -46,9 +52,11 @@ fi
 # fzf
 if (( $+commands[fzf] )); then
   # インストール時にkeybindingsなどをインストールする
-  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'  # .gitignoreを反映させないように--no-ignoreするのもあり
+  export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'  # --no-ignore --follow
+  # fdが探索アルゴリズムがbfsじゃないので浅い階層にあっても探索の最後の方まで表示されないのを防ぐ
+  export FZF_DEFAULT_COMMAND="($FZF_DEFAULT_COMMAND -d 5 && $FZF_DEFAULT_COMMAND --min-depth 6)"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'  # .gitignoreを反映させないように--no-ignoreするのもあり
+  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
   export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
   _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
@@ -63,15 +71,17 @@ fi
 if [ ! -z "$HOMEBREW_PREFIX" ]; then
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   source "$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
-else
+elif [ -d ~/.zsh ]; then
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
   source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 fi
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+if (( $+functions[history-substring-search-up] )); then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+  bindkey -M emacs '^P' history-substring-search-up
+  bindkey -M emacs '^N' history-substring-search-down
+fi
 
 #
 # alias
@@ -88,7 +98,6 @@ if (( $+commands[exa] )); then
     alias ls="exa --icons"
 fi
 if (( $+commands[bat] )); then
-    # nerd fontを入れること
     alias cat="bat"
 fi
 alias l="ls -1"
@@ -116,23 +125,26 @@ else
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
   else
+    set no_clip_board_util
     echo "No clipboard util command. Should install clip or xsel"
   fi
 fi
 
-alias pbc='pbcopy'
-alias pbp='pbpaste'
+if [[ ! -v no_clip_board_util ]]; then
+  alias pbc='pbcopy'
+  alias pbp='pbpaste'
 
-# zshのキルリングとクリップボードを共有する
-function copy-line-as-kill() {
-    zle kill-line
-    print -rn $CUTBUFFER | pbcopy
-}
-zle -N copy-line-as-kill
-bindkey '^k' copy-line-as-kill
+  # zshのキルリングとクリップボードを共有する
+  function copy-line-as-kill() {
+      zle kill-line
+      print -rn $CUTBUFFER | pbcopy
+  }
+  zle -N copy-line-as-kill
+  bindkey '^k' copy-line-as-kill
 
-function paste-as-yank() {
-    pbpaste
-}
-zle -N paste-as-yank
-bindkey "^y" paste-as-yank
+  function paste-as-yank() {
+      pbpaste
+  }
+  zle -N paste-as-yank
+  bindkey "^y" paste-as-yank
+fi
