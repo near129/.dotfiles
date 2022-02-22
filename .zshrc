@@ -12,8 +12,14 @@ autoload -U zcalc
 # 
 
 
+## History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+[ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
+[ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
+
 setopt hist_ignore_all_dups # ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
 setopt hist_reduce_blanks  # 余分な空白は詰めて記録
+setopt share_history
 
 export EDITOR="vim"
 export VISUAL="vim"
@@ -125,7 +131,7 @@ else
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
   else
-    set no_clip_board_util
+    no_clip_board_util=true
     echo "No clipboard util command. Should install clip or xsel"
   fi
 fi
