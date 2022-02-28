@@ -78,8 +78,8 @@ if [ ! -z "$HOMEBREW_PREFIX" ]; then
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   source "$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
 elif [ -d ~/.zsh ]; then
-  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+  test -d ~/.zsh/zsh-autosuggestions && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+  test -d ~/.zsh/zsh-history-substring-search && source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 fi
 
 if (( $+functions[history-substring-search-up] )); then
