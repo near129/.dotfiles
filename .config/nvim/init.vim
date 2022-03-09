@@ -29,6 +29,3 @@ endif
 runtime! ./dein.rc.vim
 runtime! ./options.rc.vim
 runtime! ./mappings.rc.vim
-" runtime! ./atcoder.rc.vim
-
- 
