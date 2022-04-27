@@ -3,7 +3,7 @@ fpath+=~/.zfunc
 autoload -U compinit
 compinit
 
-source ~/.zcomplication
+source `dirname $0`/.zcomplication
 
 autoload -U zcalc
 
@@ -56,9 +56,9 @@ if (( $+commands[fzf] )); then
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
-for plugin_path in `find $HOME/.zsh -name '*.plugin.zsh'`; do
-  source $plugin_path
-done
+if (( $+commands[brew] )); then
+  source `brew --prefix`/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
@@ -94,11 +94,10 @@ case ${OSTYPE} in
       alias pbcopy='xsel --clipboard --input'
       alias pbpaste='xsel --clipboard --output'
     else
-      no_clip_board_util=true
       echo "No clipboard util command. Recommned installing clip or xsel"
     fi
     ;;
 esac
 
- (( $+commands[pbcopy] )) && alias pbc='pbcopy'
- (( $+commands[pbpaste] )) && alias pbp='pbpaste'
+ alias pbc='pbcopy'
+ alias pbp='pbpaste'
