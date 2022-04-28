@@ -87,7 +87,10 @@ case ${OSTYPE} in
     ;;
   linux*)
     alias open='xdg-open'
-    if (( $+commands[xclip] )); then
+    if [[ "$(uname -r)" == *microsoft* ]]; then
+      alias pbcopy='/mnt/c/WINDOWS/system32/clip.exe'
+      alias pbpaste='/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0//powershell.exe -Command Get-Clipboard'
+    elif (( $+commands[xclip] )); then
       alias pbcopy='xclip -selection clipboard -in'
       alias pbpaste='xclip -selection clipboard -out'
     elif (( $+commands[xsel] )); then
@@ -99,5 +102,5 @@ case ${OSTYPE} in
     ;;
 esac
 
- alias pbc='pbcopy'
- alias pbp='pbpaste'
+alias pbc='pbcopy'
+alias pbp='pbpaste'
