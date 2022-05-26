@@ -1,16 +1,22 @@
 # setup complication
-fpath+=~/.zfunc
+source dev/tmp/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+fpath+=$XDG_DATA_HOME/zsh/completion
 autoload -U compinit
-compinit
+compinit -d $XDG_STATE_HOME/zcompdump
 
 source `dirname $0`/.zcomplication
 
-autoload -U zcalc
+path=(
+  "$HOME/.local/bin"(N-/)
+  "$HOME/.cargo/bin"(N-/)
+  "$path[@]"
+)
 
 ## History file configuration
-[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
-[ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
-[ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
+export HISTFILE="$XDG_STATE_HOME/.zsh_history"
+export HISTSIZE=50000
+export SAVEHIST=10000
 
 setopt hist_ignore_all_dups # ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
 setopt hist_reduce_blanks  # 余分な空白は詰めて記録
@@ -28,7 +34,7 @@ export BROWSER='open'
 
 bindkey -e
 
-#export LS_COLORS=$(vivid generate nord)
+(( $+commands[vivid] )) &&export LS_COLORS=$(vivid generate iceberg-dark)
 
 # https://github.com/starship/starship
 (( $+commands[starship] )) && eval "$(starship init zsh)"
@@ -37,12 +43,11 @@ bindkey -e
 if (( $+commands[fzf] )); then
   # need fd, exa, bat
   # インストール時にkeybindingsなどをインストールする
-  # ~/.zsh/fzf.pluting_.zsh
-  export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --color=always'  # --no-ignore --follow
   # fdが探索アルゴリズムがbfsじゃないので浅い階層にあっても探索の最後の方まで表示されないのを防ぐ
-  export FZF_DEFAULT_COMMAND="($FZF_DEFAULT_COMMAND -d 5 && $FZF_DEFAULT_COMMAND --min-depth 6)"
+    # --no-ignore --follow
+  export FZF_DEFAULT_COMMAND="(fd --hidden --exclude .git -d 5 && fd --hidden --exclude .git --min-depth 6)"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+  export FZF_ALT_C_COMMAND="(fd --hidden --exclude .git -d 5 --type d && fd --hidden --exclude .git --min-depth 6 --type d)"
   export FZF_CTRL_T_OPTS='--select-1 --exit-0 --preview "(bat  --color=always --style=header,grid --line-range :100 {} || exa -T -L 2) 2>/dev/null"'
   export FZF_DEFAULT_OPTS='--color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C
 --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B'
