@@ -14,7 +14,7 @@ call plug#begin()
 Plug 'tpope/vim-commentary'
 if exists('g:vscode')
     " VSCode extension
-    Plug 'asvetliakov/vim-easymotion', { 'as': 'vsc-easymotion' })
+    Plug 'asvetliakov/vim-easymotion', { 'as': 'vsc-easymotion' }
 else
     " ordinary neovim
     Plug 'cocopon/iceberg.vim'
@@ -53,7 +53,7 @@ cmp.setup {
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<Tab>'] = cmp.mapping.complete(),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
   },
   sources = {
     { name = 'path' },
