@@ -17,7 +17,7 @@ case $OSTYPE in
     ;;
 esac
 
-$(brew --prefix)/opt/fzf/install --xdg
+$(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
 
 # setup dotfiles
 cd `dirname $0`

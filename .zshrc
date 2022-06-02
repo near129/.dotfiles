@@ -1,11 +1,14 @@
 # setup complication
-source dev/tmp/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source `dirname $0`/.zcomplication
+source $HOME/dev/tmp/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zle -A {.,}history-incremental-search-forward
+zle -A {.,}history-incremental-search-backward
+bindkey '^N' down-line-or-select
 
 fpath+=$XDG_DATA_HOME/zsh/completion
 autoload -U compinit
 compinit -d $XDG_STATE_HOME/zcompdump
 
-source `dirname $0`/.zcomplication
 
 path=(
   "$HOME/.local/bin"(N-/)
@@ -29,12 +32,11 @@ setopt auto_pushd # for `cd -[0-9]`
 export EDITOR="vim"
 export VISUAL="vim"
 export PAGER="less"
-(( $+commands[bat] )) && export PAGER="bat"
 export BROWSER='open'
 
 bindkey -e
 
-(( $+commands[vivid] )) &&export LS_COLORS=$(vivid generate iceberg-dark)
+(( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
 # https://github.com/starship/starship
 (( $+commands[starship] )) && eval "$(starship init zsh)"
@@ -56,9 +58,9 @@ if (( $+commands[fzf] )); then
   }
   # Use fd to generate the list for directory completion
   _fzf_compgen_dir() {
-      fd --type d --hidden --follow --exclude ".git" . "$1"
+    fd --type d --hidden --follow --exclude ".git" . "$1"
   }
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  [ -f "${XDG_CONFIG_HOME}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME}"/fzf/fzf.zsh
 fi
 
 if (( $+commands[brew] )); then
