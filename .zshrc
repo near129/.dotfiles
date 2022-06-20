@@ -1,18 +1,17 @@
 # setup complication
-source `dirname $0`/.zcomplication
+source $HOME/.dotfiles/.zcomplication
 source $HOME/dev/tmp/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 zle -A {.,}history-incremental-search-forward
 zle -A {.,}history-incremental-search-backward
 bindkey '^N' down-line-or-select
+bindkey -M menuselect '^N' down-history
 
 fpath+=$XDG_DATA_HOME/zsh/completion
 autoload -U compinit
 compinit -d $XDG_STATE_HOME/zcompdump
 
-
 path=(
   "$HOME/.local/bin"(N-/)
-  "$HOME/.cargo/bin"(N-/)
   "$path[@]"
 )
 
@@ -38,15 +37,13 @@ bindkey -e
 
 (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
-# https://github.com/starship/starship
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
-# fzf
 if (( $+commands[fzf] )); then
   # need fd, exa, bat
   # インストール時にkeybindingsなどをインストールする
   # fdが探索アルゴリズムがbfsじゃないので浅い階層にあっても探索の最後の方まで表示されないのを防ぐ
-    # --no-ignore --follow
+  # --no-ignore --follow
   export FZF_DEFAULT_COMMAND="(fd --hidden --exclude .git -d 5 && fd --hidden --exclude .git --min-depth 6)"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="(fd --hidden --exclude .git -d 5 --type d && fd --hidden --exclude .git --min-depth 6 --type d)"
@@ -56,17 +53,21 @@ if (( $+commands[fzf] )); then
   _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
   }
-  # Use fd to generate the list for directory completion
   _fzf_compgen_dir() {
     fd --type d --hidden --follow --exclude ".git" . "$1"
   }
   [ -f "${XDG_CONFIG_HOME}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME}"/fzf/fzf.zsh
 fi
 
-if (( $+commands[brew] )); then
-  source `brew --prefix`/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if (( $+HOMEBREW_PREFIX )); then
+  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $HOMEBREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fi
 
+
+(( $+commands[exa] )) && alias ls="exa --icons" # need nerd font
+(( $+commands[bat] )) && alias cat="bat"
+(( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim'
 
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
 alias cp="${aliases[cp]:-cp} -i"
@@ -74,20 +75,17 @@ alias ln="${aliases[ln]:-ln} -i"
 alias mv="${aliases[mv]:-mv} -i"
 alias rm="${aliases[rm]:-rm} -i"
 
-(( $+commands[exa] )) && alias ls="exa --icons" # need nerd font
-(( $+commands[bat] )) && alias cat="bat"
-
 alias ll="ls -lh"
 alias la="ls -a"
 alias lt="ls -T"
 alias lla="ls -la"
 alias lal="ls -la"
 
-(( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim'
-
 alias df='df -kh'
 alias du='du -kh'
 
+alias pbc='pbcopy'
+alias pbp='pbpaste'
 
 case ${OSTYPE} in
   darwin*)
@@ -109,5 +107,4 @@ case ${OSTYPE} in
     ;;
 esac
 
-alias pbc='pbcopy'
-alias pbp='pbpaste'
+[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
