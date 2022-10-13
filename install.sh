@@ -23,8 +23,7 @@ $(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
 cd `dirname $0`
 DIR=`pwd`
 
-echo "source ${DIR}/.zshrc" >> ~/.zshrc
-ln -sf ${DIR}/{.zshenv,.zprofile} ~/
+ln -sf ${DIR}/{.zshrc,.zshenv,.zprofile} ~/
 ln -sf ${DIR}/.config/* ~/.config
 
 # setup zsh
