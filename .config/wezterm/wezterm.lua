@@ -6,9 +6,9 @@ wezterm.on("update-right-status", function(window, _)
 	local key_table = window:active_key_table()
 	window:set_right_status(
 		wezterm.format({
-			{ Foreground = { Color = "#434C5E" } },
-			{ Background = { Color = "#8FBCBB" } },
-			{ Text = key_table or "" },
+			{ Foreground = { Color = "#C5C8C6" } },
+			{ Background = { Color = "#5F819D" } },
+			{ Text = " "..key_table.." " or "" },
 		})
 	)
 end)
@@ -52,6 +52,7 @@ return {
 		{ key = "C", mods = "SUPER", action = act.ActivateCopyMode },
 		{ key = "s", mods = "SUPER", action = act.QuickSelect },
 		{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) },
+        { key = ",", mods = "SUPER", action = act.SpawnCommandInNewWindow { args = {os.getenv("SHELL"), "-ilc", "nvim " .. wezterm.config_file}}},
 	},
 	key_tables = {
 		manage_panes = {
@@ -75,12 +76,17 @@ return {
 			{ key = "K", action = act.AdjustPaneSize({ "Up", 5 }) },
 			{ key = "L", action = act.AdjustPaneSize({ "Right", 5 }) },
             -- Close Pane 
-            { key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) },
+            { key = "w", action = act.CloseCurrentPane({ confirm = true }) },
             -- TODO: want to wezterm cli move-pane-to-new-tab but I don't know how
 			-- Cancel the mode by pressing escape
 			{ key = "Escape", action = "PopKeyTable" },
 			{ key = "Enter", action = "PopKeyTable" },
 		},
+        copy_mode = {
+                { key = "Escape", mods = "NONE", action = wezterm.action({ CopyMode = "Close" }) },
+
+			-- { key = "Escape", action = "PopKeyTable" },
+        }
 	},
 	-- mouse binding
 	mouse_bindings = {
