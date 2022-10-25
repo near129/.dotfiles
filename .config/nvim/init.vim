@@ -31,6 +31,9 @@ else
 endif
 call plug#end()
 
+let g:mapleader = "\<Space>"
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+map <Leader> <Plug>(easymotion-s)
 if exists('g:vscode')
     " VSCode extension
 else
@@ -40,9 +43,6 @@ else
     let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
     let g:auto_save_silent = 1  " do not display the auto-save notification
     let g:lightline = {'colorscheme': 'iceberg'}
-    let g:mapleader = "\<Space>"
-    let g:EasyMotion_do_mapping = 0 " Disable default mappings
-    map <Leader> <Plug>(easymotion-s)
     if has('nvim')
       set completeopt=menu,menuone,noselect
 lua << EOF
