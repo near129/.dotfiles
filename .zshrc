@@ -5,7 +5,7 @@ if [[ -e $HOME/dev/tmp/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]]; then
   zle -A {.,}history-incremental-search-backward
   bindkey '^N' down-line-or-select
   bindkey -M menuselect '^N' down-history
-if
+fi
 
 fpath+=$XDG_DATA_HOME/zsh/completion
 autoload -U compinit
