@@ -1,23 +1,25 @@
 #!/bin/bash
 set -eux
 
-# homebrew https://brew.sh/
-if [[ ! -e /opt/homebrew && ! -e /home/linuxbrew ]]; then
-  NONINTERACTIVE=1 eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
+if [[ $1 == "--no-install-packages" ]]; then
+  # homebrew https://brew.sh/
+  if [[ ! -e /opt/homebrew && ! -e /home/linuxbrew ]]; then
+    NONINTERACTIVE=1 eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
 
-case $OSTYPE in
-darwin*)
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  case $OSTYPE in
+  darwin*)
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    ;;
+  linux*)
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    ;;
+  esac
+
   brew bundle
-  ;;
-linux*)
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  brew bundle --file Brewfile_linux
-  ;;
-esac
 
-$(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
+  $(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
+fi
 
 # setup dotfiles
 cd $(dirname $0)
