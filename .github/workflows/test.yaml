@@ -14,7 +14,7 @@ jobs:
         if: matrix.os ==  'ubuntu-latest'
         run: sudo apt-get install zsh
       - name: Install
-        run: sudo ./install.sh --non-interactive --homebrew-install-python-tools --homebrew-install-font
+        run: ./install.sh --non-interactive --homebrew-install-python-tools --homebrew-install-font --skip-register-zsh
       - name: Test
         run: ./test.sh
   test-docker:

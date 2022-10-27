@@ -49,6 +49,7 @@ Install script options
     --skip-git-config
     --homebrew-install-font
     --homebrew-install-python-tools
+    --skip-register-zsh
 ```
 
 ## Other tools

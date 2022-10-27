@@ -13,6 +13,7 @@ usage() {
     --skip-git-config
     --homebrew-install-font
     --homebrew-install-python-tools
+    --skip-register-zsh
 EOS
   exit "${1:-1}"
 }
