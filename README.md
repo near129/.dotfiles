@@ -6,7 +6,7 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 
 - macOS
 - Ubuntu
-- Ubuntu(WSL)
+- Ubuntu(WSL, Docker)
 
 ## Tool set
 
@@ -38,11 +38,24 @@ git clone https://github.com/near129/.dotfiles.git
 ./.dotfiles/install.sh
 ```
 
+Install script options
+
+```shell
+❯ ./install.sh --help
+  Installer
+  Usage: ./install.sh [options]
+    --no-install-packages
+    --non-interactive
+    --skip-git-config
+    --homebrew-install-font
+    --homebrew-install-python-tools
+```
+
 ## Other tools
 
 ### Pyenv
 
-1. `brew install pyenv`
+1. `./install.sh --homebrew-install-python-tools`
 2. setup shell [document](https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv)
 
 example
