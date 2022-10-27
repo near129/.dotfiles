@@ -1,8 +1,14 @@
 case $OSTYPE in
-  darwin*) 
-    eval "$(/opt/homebrew/bin/brew shellenv)" 
-    ;;
-  linux*) 
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 
-    ;;
+darwin*)
+  if [[ $CPUTYPE == "arm64" ]]; then
+    HOMEBREW_PREFIX="/opt/homebrew"
+  else
+    HOMEBREW_PREFIX="/usr/local"
+  fi
+  ;;
+linux*)
+  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  ;;
 esac
+
+eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"

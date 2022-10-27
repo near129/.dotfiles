@@ -47,7 +47,7 @@ done
 
 if [[ ! -n $no_install_packages ]]; then
   # homebrew https://brew.sh/
-  if [[ ! -e /opt/homebrew && ! -e /home/linuxbrew/.linuxbrew ]]; then
+  if [[ ! -e /opt/homebrew && ! -e /home/linuxbrew/.linuxbrew && ! -e /usr/local/Homebrew ]]; then
     NONINTERACTIVE=$non_interactive \
         eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   else
@@ -56,12 +56,18 @@ if [[ ! -n $no_install_packages ]]; then
 
   case $OSTYPE in
   darwin*)
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    if [[ $CPUTYPE == "arm64" ]]; then
+      HOMEBREW_PREFIX="/opt/homebrew"
+    else
+      HOMEBREW_PREFIX="/usr/local"
+    fi
     ;;
   linux*)
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
     ;;
   esac
+
+  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 
   HOMEBREW_INSTALL_FONT=$homebrew_install_font \
     HOMEBREW_INSTALL_PYTHON=$homebrew_install_python_tools \
