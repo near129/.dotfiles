@@ -56,7 +56,7 @@ if [[ ! -n $no_install_packages ]]; then
 
   case $OSTYPE in
   darwin*)
-    if [[ $CPUTYPE == "arm64" ]]; then
+    if [[ $(uname -m) == "arm64" ]]; then
       HOMEBREW_PREFIX="/opt/homebrew"
     else
       HOMEBREW_PREFIX="/usr/local"
