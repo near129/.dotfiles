@@ -81,7 +81,6 @@ if OS.mac?
   cask "chromedriver"
   cask "deepl"
   cask "gimp"
-  cask "google-backup-and-sync"
   cask "google-cloud-sdk"
   cask "google-japanese-ime"
   cask "inkscape"
