@@ -1,5 +1,7 @@
 # Dotfiles
 
+[![Tests](https://github.com/near129/.dotfiles/actions/workflows/test.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/test.yaml)
+
 homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 
 ## Supported OS
