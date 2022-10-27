@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  homebrew:
+    build: .
+    # volumes:
+    #   - .:/root/.dotfiles
+    #   - homebrew:/home/linuxbrew
+    command: /bin/sh -c "./install.sh --non-interactive && ./test.sh"
+
+# volumes:
+#   homebrew:
+#     external: true

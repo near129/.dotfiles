@@ -138,7 +138,7 @@ case ${OSTYPE} in
         alias pbcopy='xsel --clipboard --input'
         alias pbpaste='xsel --clipboard --output'
       else
-        echo "No clipboard util command. Recommned installing clip or xsel"
+        # echo "No clipboard util command. Recommned installing clip or xsel"
       fi
     fi
     ;;
@@ -176,4 +176,4 @@ alias lal="ls -la"
 alias df='df -kh'
 alias du='du -kh'
 
-[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
+[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true
