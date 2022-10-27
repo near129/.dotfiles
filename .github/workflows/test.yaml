@@ -4,9 +4,9 @@ on: push
 
 jobs:
   test:
-  strategy:
-    matrix:
-      os: [ubuntu-latest, macos-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     runs-op: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
