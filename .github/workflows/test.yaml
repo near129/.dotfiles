@@ -5,14 +5,19 @@ on: push
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        # os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Prepare Ubuntu
         if: matrix.os ==  'ubuntu-latest'
         run: sudo apt-get install zsh
+      - name: Prepare macOS # Not working at Install step
+        if: matrix.os == 'macos-latest'
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Install
         run: ./install.sh --non-interactive --homebrew-install-python-tools --homebrew-install-font --skip-register-zsh
       - name: Test
