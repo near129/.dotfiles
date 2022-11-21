@@ -1,24 +1,59 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-wezterm.on("update-right-status", function(window, _)
-    -- todo copy mode
+local is_mac = wezterm.target_triple:find("darwin")
+local is_windows = wezterm.target_triple:find("windows")
+local is_linux = wezterm.target_triple:find("linux")
+
+wezterm.on("update-right-status", function(window, pane)
+	-- todo copy mode
 	local key_table = window:active_key_table()
-	window:set_right_status(
-		wezterm.format({
-			{ Foreground = { Color = "#C5C8C6" } },
-			{ Background = { Color = "#5F819D" } },
-			{ Text = " "..key_table.." " or "" },
-		})
-	)
+	local domain = pane:get_domain_name()
+	if domain == "local" then
+		domain = nil
+	end
+
+	window:set_right_status(wezterm.format({
+		{ Text = domain or "" },
+		"ResetAttributes",
+		{ Text = " " },
+		{ Foreground = { Color = "#C5C8C6" } },
+		{ Background = { Color = "#5F819D" } },
+		{ Text = key_table or "" },
+	}))
 end)
+
+local ssh_domains = {}
+for host, config in pairs(wezterm.enumerate_ssh_hosts()) do
+	table.insert(ssh_domains, { name = host, remote_address = host })
+end
+
+local copy_mode_key_table = nil
+if wezterm.gui then
+	copy_mode_key_table = wezterm.gui.default_key_tables().copy_mode
+	-- edit copy mode key bind
+	-- table.insert(copy_mode_key_table, {})
+end
+
+local fonts = {}
+if is_mac then
+	fonts = {
+		"Monaco",
+		"HackGen35 Console NF",
+	}
+elseif is_linux then
+	fonts = {
+		"HackGen35 Console NF",
+	}
+elseif is_windows then
+	fonts = {
+		"HackGen35 Console NF",
+	}
+end
 
 return {
 	-- font
-	font = wezterm.font_with_fallback({
-		"Monaco",
-		-- 'HackGen35 Console NF',
-	}),
+	font = wezterm.font_with_fallback(fonts),
 	freetype_load_flags = "NO_BITMAP",
 	font_size = 12,
 	-- appearance
@@ -30,29 +65,26 @@ return {
 	-- key binding
 	-- leader = { key = "a", mods = "SUPER", timeout_milliseconds = 1000 },
 	keys = {
-		-- split pane
-		-- { key = "|", mods = "LEADER", action = act.SplitHorizontal },
-		-- { key = "-", mods = "LEADER", action = act.SplitVertical },
-		-- { key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
-		-- { key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-		-- { key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
-		-- { key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
-		-- { key = "p", mods = "LEADER", action = act.PaneSelect },
+		{ key = "l", mods = "SUPER", action = act.ShowLauncher },
 		{
 			key = "p",
 			mods = "SUPER",
-			action = act.ActivateKeyTable({ name = "manage_panes", one_shot = true}),
+			action = act.ActivateKeyTable({ name = "manage_panes", one_shot = true }),
 		},
 		{
 			key = "P",
 			mods = "SUPER",
-			action = act.ActivateKeyTable({ name = "manage_panes", one_shot = false}),
+			action = act.ActivateKeyTable({ name = "manage_panes", one_shot = false }),
 		},
 		-- other
 		{ key = "C", mods = "SUPER", action = act.ActivateCopyMode },
 		{ key = "s", mods = "SUPER", action = act.QuickSelect },
 		{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) },
-        { key = ",", mods = "SUPER", action = act.SpawnCommandInNewWindow { args = {os.getenv("SHELL"), "-ilc", "nvim " .. wezterm.config_file}}},
+		{
+			key = ",",
+			mods = "SUPER",
+			action = act.SpawnCommandInNewWindow({ args = { os.getenv("SHELL"), "-ilc", "nvim " .. wezterm.config_file } }),
+		},
 	},
 	key_tables = {
 		manage_panes = {
@@ -75,18 +107,14 @@ return {
 			{ key = "J", action = act.AdjustPaneSize({ "Down", 5 }) },
 			{ key = "K", action = act.AdjustPaneSize({ "Up", 5 }) },
 			{ key = "L", action = act.AdjustPaneSize({ "Right", 5 }) },
-            -- Close Pane 
-            { key = "w", action = act.CloseCurrentPane({ confirm = true }) },
-            -- TODO: want to wezterm cli move-pane-to-new-tab but I don't know how
+			-- Close Pane
+			{ key = "w", action = act.CloseCurrentPane({ confirm = true }) },
+			-- TODO: want to wezterm cli move-pane-to-new-tab but I don't know how
 			-- Cancel the mode by pressing escape
 			{ key = "Escape", action = "PopKeyTable" },
 			{ key = "Enter", action = "PopKeyTable" },
 		},
-        copy_mode = {
-                { key = "Escape", mods = "NONE", action = wezterm.action({ CopyMode = "Close" }) },
-
-			-- { key = "Escape", action = "PopKeyTable" },
-        }
+		copy_mode = copy_mode_key_table,
 	},
 	-- mouse binding
 	mouse_bindings = {
@@ -104,4 +132,5 @@ return {
 	--other
 	use_ime = true,
 	hyperlink_rules = { { regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b", format = "$0" } },
+	ssh_domains = ssh_domains,
 }
