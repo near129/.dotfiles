@@ -8,6 +8,7 @@ usage() {
   cat << EOS
   Installer
   Usage: $0 [options]
+    --minimum
     --no-install-packages
     --non-interactive
     --skip-git-config
@@ -29,6 +30,14 @@ skip_register_zsh=""
 while [[ $# -gt 0 ]]
 do
   case $1 in
+    --minimum)
+      no_install_packages=1
+      non_interactive=1
+      skip_git_config=1
+      homebrew_install_font=""
+      homebrew_install_python_tools=""
+      skip_register_zsh=1
+    ;;
     --no-install-packages) no_install_packages=1 ;;
     --non-interactive) non_interactive=1 ;;
     --skip-git-config) skip_git_config=1 ;;
@@ -72,12 +81,11 @@ if [[ ! -n $no_install_packages ]]; then
   HOMEBREW_INSTALL_FONT=$homebrew_install_font \
     HOMEBREW_INSTALL_PYTHON=$homebrew_install_python_tools \
     brew bundle --file ${DOTDIR}/Brewfile --no-lock
-
-  if [[ -e $(brew --prefix)/opt/fzf/install ]]; then
-    $(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
-  fi
 else
   echo "Skip installing packages"
+fi
+if [[ -e $(brew --prefix)/opt/fzf/install ]]; then
+  $(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
 fi
 
 # setup dotfiles
@@ -86,9 +94,9 @@ mkdir -p ~/.config
 ln -sf ${DOTDIR}/.config/* ~/.config
 
 # setup zsh
+mkdir -p $HOME/.local/state/.zsh_history
 # no root user need sudo (maybe)
 if [[ ! -n $skip_register_zsh ]] && ! grep -q $(command -v zsh) /etc/shells; then
-  mkdir -p $HOME/.local/state/.zsh_history
   command -v zsh | tee -a /etc/shells
   chsh -s $(command -v zsh)
 else
