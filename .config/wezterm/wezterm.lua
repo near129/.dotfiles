@@ -25,7 +25,7 @@ end)
 
 local ssh_domains = {}
 for host, config in pairs(wezterm.enumerate_ssh_hosts()) do
-	table.insert(ssh_domains, { name = host, remote_address = host })
+	table.insert(ssh_domains, { name = host, remote_address = host, ssh_option = config })
 end
 
 local copy_mode_key_table = nil
