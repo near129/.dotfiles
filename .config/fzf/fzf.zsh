@@ -1,3 +1,11 @@
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
+
+# Key bindings
+# ------------
+source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+
 # need fd, exa, bat
 export FZF_DEFAULT_COMMAND="(fd --hidden --exclude .git -d 5 && fd --hidden --exclude .git --min-depth 6)"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -12,5 +20,3 @@ fd --hidden --follow --exclude ".git" . "$1"
 _fzf_compgen_dir() {
 fd --type d --hidden --follow --exclude ".git" . "$1"
 }
-
-[ -f "${XDG_CONFIG_HOME}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME}"/fzf/fzf.zsh

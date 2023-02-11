@@ -11,10 +11,8 @@ usage() {
     --minimum
     --no-install-packages
     --non-interactive
-    --skip-git-config
-    --homebrew-install-font
-    --homebrew-install-python-tools
     --skip-register-zsh
+    --in-docker
 EOS
   exit "${1:-1}"
 }
@@ -22,10 +20,8 @@ EOS
 #TODO: usage
 no_install_packages=""
 non_interactive=${NONINTERACTIVE-}
-skip_git_config=""
-homebrew_install_font=""
-homebrew_install_python_tools=""
 skip_register_zsh=""
+in_docker=""
 
 while [[ $# -gt 0 ]]
 do
@@ -33,17 +29,12 @@ do
     --minimum)
       no_install_packages=1
       non_interactive=1
-      skip_git_config=1
-      homebrew_install_font=""
-      homebrew_install_python_tools=""
       skip_register_zsh=1
     ;;
     --no-install-packages) no_install_packages=1 ;;
     --non-interactive) non_interactive=1 ;;
-    --skip-git-config) skip_git_config=1 ;;
-    --homebrew-install-font) homebrew_install_font=1 ;;
-    --homebrew-install-python-tools) homebrew_install_python_tools=1;;
     --skip-register-zsh) skip_register_zsh=1 ;;
+    --in-docker) in_docker=1 ;;
     -h | --help) usage ;;
     *)
       echo "Unrecognized option: '$1'" >&2
@@ -65,6 +56,7 @@ if [[ ! -n $no_install_packages ]]; then
 
   case $OSTYPE in
   darwin*)
+    os_dir="macos"
     if [[ $(uname -m) == "arm64" ]]; then
       HOMEBREW_PREFIX="/opt/homebrew"
     else
@@ -72,24 +64,20 @@ if [[ ! -n $no_install_packages ]]; then
     fi
     ;;
   linux*)
+    os_dir="linux"
     HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
     ;;
   esac
 
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 
-  HOMEBREW_INSTALL_FONT=$homebrew_install_font \
-    HOMEBREW_INSTALL_PYTHON=$homebrew_install_python_tools \
-    brew bundle --file ${DOTDIR}/Brewfile --no-lock
+  brew bundle --file ${DOTDIR}/${os_dir}/Brewfile --no-lock
 else
   echo "Skip installing packages"
 fi
-if [[ -e $(brew --prefix)/opt/fzf/install ]]; then
-  $(brew --prefix)/opt/fzf/install --xdg --no-bash --no-fish --all --no-update-rc
-fi
 
 # setup dotfiles
-ln -sf ${DOTDIR}/{.zshrc,.zshenv,.zprofile} ~/
+ln -sf ${DOTDIR}/.config/.zshenv ~/
 mkdir -p ~/.config
 ln -sf ${DOTDIR}/.config/* ~/.config
 
@@ -103,13 +91,13 @@ else
   echo "Skip register zsh"
 fi
 
-if [[ ! -n $skip_git_config && ! -n $non_interactive ]]; then
-  echo "Git configuration"
-  read -p "Enter your git username: " git_username
-  read -p "Enter your e-mail: " git_email
-  git config --global user.name $git_username
-  git config --global user.email $git_email
-else
-  echo "Skip git config"
+if [[ -n in_docker ]]; then
+cat << "EOF" >> $HOME/.zshrc.local
+path=(
+  "${${path[@]:#$HOMEBREW_PREFIX/bin}[@]:#$HOMEBREW_PREFIX/sbin}"
+  "$HOMEBREW_PREFIX/bin"
+  "$HOMEBREW_PREFIX/sbin"
+)
+EOF
 fi
 echo "Finished!!"

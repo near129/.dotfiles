@@ -1,0 +1,24 @@
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+alt - f : yabai -m window --toggle zoom-fullscreen
+alt - e : yabai -m window --toggle split
+alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+alt - r : yabai -m space --rotate 90
+alt - y : yabai -m space --mirror y-axis
+alt - x : yabai -m space --mirror x-axis
+alt - 0 : yabai -m space --balance
+
+alt - 1 : yabai -m display --focus 1
+alt - 2 : yabai -m display --focus 2
+alt - 3 : yabai -m display --focus 3
+
+alt - s : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')

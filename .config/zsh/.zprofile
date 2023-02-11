@@ -11,4 +11,5 @@ linux*)
   ;;
 esac
 
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+[[ -d $HOMEBREW_PREFIX ]] && eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+
