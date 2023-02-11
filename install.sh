@@ -46,12 +46,11 @@ do
 done
 
 if [[ ! -n $no_install_packages ]]; then
-  # homebrew https://brew.sh/
-  if [[ ! -e /opt/homebrew && ! -e /home/linuxbrew/.linuxbrew && ! -e /usr/local/Homebrew ]]; then
+  if command -v brew &>/dev/null; then
+    echo "Already brew exist"
+  else
     NONINTERACTIVE=$non_interactive \
         eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  else
-    echo "Already brew exist"
   fi
 
   case $OSTYPE in
@@ -77,7 +76,7 @@ else
 fi
 
 # setup dotfiles
-ln -sf ${DOTDIR}/.config/.zshenv ~/
+ln -sf ${DOTDIR}/.config/zsh/.zshenv ~/
 mkdir -p ~/.config
 ln -sf ${DOTDIR}/.config/* ~/.config
 
