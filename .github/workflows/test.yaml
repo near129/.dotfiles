@@ -22,7 +22,7 @@ jobs:
       - name: Uninstall GitHub Actions Homebrew (Remove Homebrew packages)
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
       - name: Remove /usr/local/bin
-        run: rm -rf /usr/local/bin
+        run: rm -rf /usr/local/bin/*
       - name: Install Homebrew
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Install
