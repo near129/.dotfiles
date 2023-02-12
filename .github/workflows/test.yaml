@@ -25,6 +25,8 @@ jobs:
         run: rm -rf /usr/local/bin/*
       - name: Install Homebrew
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: Update Homebrew
+        run: brew --version && brew update
       - name: Install
         run: ./install.sh --non-interactive --skip-register-zsh
   test-docker:
