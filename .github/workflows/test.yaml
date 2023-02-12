@@ -11,8 +11,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Uninstal GitHub Actions Homebrew
+      - name: Set up Homebrew PATH
+        run: |
+          if [[ "${{ runner.os }}" = "macOS" ]]
+          then
+            echo "/usr/local/bin:/usr/bin:/bin" >> "${GITHUB_PATH}"
+          else
+            echo "/home/linuxbrew/.linuxbrew/bin:/usr/bin:/bin" >> "${GITHUB_PATH}"
+          fi
+      - name: Uninstall GitHub Actions Homebrew (Remove Homebrew packages)
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+      - name: Install Homebrew
+        run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Install
         run: ./install.sh --non-interactive --skip-register-zsh
       - name: Test
