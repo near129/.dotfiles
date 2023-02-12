@@ -3,6 +3,13 @@ path=(
   "$path[@]"
 )
 
+export EDITOR="vim"
+export VISUAL="vim"
+export PAGER="less"
+bindkey -e
+
+(( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
+
 if (( $+HOMEBREW_PREFIX )); then
    source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
    zstyle ':autocomplete:*' min-input 1
@@ -32,13 +39,6 @@ autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-
-export EDITOR="vim"
-export VISUAL="vim"
-export PAGER="less"
-bindkey -e
-
-(( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
 export HISTFILE="$XDG_STATE_HOME/.zsh_history"
 export HISTSIZE=50000

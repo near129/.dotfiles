@@ -12,4 +12,3 @@ linux*)
 esac
 
 [[ -d $HOMEBREW_PREFIX ]] && eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-
