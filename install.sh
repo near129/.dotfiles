@@ -81,7 +81,8 @@ mkdir -p ~/.config
 ln -sf ${DOTDIR}/.config/* ~/.config
 
 # setup zsh
-mkdir -p $HOME/.local/state/.zsh_history
+mkdir -p $HOME/.local/state
+touch $HOME/.local/state/.zsh_history
 # no root user need sudo (maybe)
 if [[ ! -n $skip_register_zsh ]] && ! grep -q $(command -v zsh) /etc/shells; then
   command -v zsh | tee -a /etc/shells

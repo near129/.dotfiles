@@ -10,9 +10,9 @@ bindkey -e
 
 (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
-if (( $+HOMEBREW_PREFIX )); then
+if [[ -v HOMEBREW_PREFIX ]]; then
    source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-   zstyle ':autocomplete:*' min-input 1
+   zstyle ':autocomplete:*' min-input 2
    zle -A {.,}history-incremental-search-forward
    zle -A {.,}history-incremental-search-backward
    bindkey '^N' down-line-or-select
@@ -87,7 +87,7 @@ esac
 if (( $+commands[fzf] )); then
    source $XDG_CONFIG_HOME/fzf/fzf.zsh
 fi
-if (( $+HOMEBREW_PREFIX )); then
+if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
