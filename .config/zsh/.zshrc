@@ -10,6 +10,7 @@ bindkey -e
 
 (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
+fpath+=$XDG_DATA_HOME/zsh/completion
 if [[ -v HOMEBREW_PREFIX ]]; then
    source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
    zstyle ':autocomplete:*' min-input 2
