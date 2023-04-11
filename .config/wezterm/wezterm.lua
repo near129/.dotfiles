@@ -1,6 +1,10 @@
 local wezterm = require "wezterm"
 local act = wezterm.action
 
+local is_mac = wezterm.target_triple:find("darwin")
+local is_windows = wezterm.target_triple:find("windows")
+local is_linux = wezterm.target_triple:find("linux")
+
 wezterm.on("update-right-status", function(window, pane)
 	local key_table = window:active_key_table()
 	local domain = pane:get_domain_name()
@@ -31,16 +35,19 @@ local ssh_domains = {}
 for host, option in pairs(wezterm.enumerate_ssh_hosts()) do
 	table.insert(ssh_domains, { name = host, remote_address = host, ssh_option = option })
 end
-wezterm.log_info(ssh_domains)
 config.ssh_domains = ssh_domains
-wezterm.log_info(config.ssh_domains)
 
 -- font
-config.font = wezterm.font_with_fallback {
-	{ family = "Monaco", freetype_load_flags = "NO_BITMAP" },
-	"HackGen35 Console NF",
-	"JetBrains Mono"
-}
+if is_mac then
+	config.font = wezterm.font_with_fallback({
+		{ family = "Monaco", freetype_load_flags = "NO_BITMAP" },
+		"HackGen35 Console NF",
+	})
+else
+	config.font = wezterm.font_with_fallback {
+		"HackGen35 Console NF",
+	}
+end
 config.font_size = 12
 
 --appearance
