@@ -84,7 +84,7 @@ esac
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
-(( $+commands[direnv] )) && . $(brew --prefix asdf)/libexec/asdf.sh
+(( $+commands[asdf] )) && . $(brew --prefix asdf)/libexec/asdf.sh
 if (( $+commands[fzf] )); then
    source $XDG_CONFIG_HOME/fzf/fzf.zsh
 fi
