@@ -30,13 +30,6 @@ end)
 
 local config = wezterm.config_builder()
 
--- ssh
-local ssh_domains = {}
-for host, option in pairs(wezterm.enumerate_ssh_hosts()) do
-	table.insert(ssh_domains, { name = host, remote_address = host, ssh_option = option })
-end
-config.ssh_domains = ssh_domains
-
 -- font
 if is_mac then
 	config.font = wezterm.font_with_fallback({
@@ -52,9 +45,8 @@ config.font_size = 12
 
 --appearance
 config.color_scheme = "iceberg-dark"
-config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
-config.window_decorations = "RESIZE"
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_padding = { left = 5, right = 5, top = 0, bottom = 0 }
 
 --key binding
