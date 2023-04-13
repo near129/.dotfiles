@@ -3,21 +3,21 @@ path=(
   "$path[@]"
 )
 
-export EDITOR="vim"
-export VISUAL="vim"
-export PAGER="less"
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
 bindkey -e
 
 (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
 fpath+=$XDG_DATA_HOME/zsh/completion
 if [[ -v HOMEBREW_PREFIX ]]; then
-   source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-   zstyle ':autocomplete:*' min-input 2
-   zle -A {.,}history-incremental-search-forward
-   zle -A {.,}history-incremental-search-backward
-   bindkey '^N' down-line-or-select
-   bindkey -M menuselect '^N' down-history
+  source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+  zstyle ':autocomplete:*' min-input 2
+  zle -A {.,}history-incremental-search-forward
+  zle -A {.,}history-incremental-search-backward
+  bindkey '^N' down-line-or-select
+  bindkey -M menuselect '^N' down-history
 else
   autoload -U compinit
   compinit -d $XDG_CACHE_HOME/zsh/zcompdump
@@ -94,15 +94,15 @@ esac
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[asdf] )) && . $(brew --prefix asdf)/libexec/asdf.sh
 if (( $+commands[fzf] )); then
-   source $XDG_CONFIG_HOME/fzf/fzf.zsh
+  source $XDG_CONFIG_HOME/fzf/fzf.zsh
 fi
 if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-(( $+commands[exa] )) && alias ls="exa --icons" # need nerd font
-(( $+commands[bat] )) && alias cat="bat"
+(( $+commands[exa] )) && alias ls='exa --icons' # need nerd font
+(( $+commands[bat] )) && alias cat='bat'
 (( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim'
 (( $+commands[pbcopy] )) && alias pbc='pbcopy'
 (( $+commands[pbpaste] )) && alias pbp='pbpaste'
@@ -113,12 +113,13 @@ alias ln="${aliases[ln]:-ln} -i"
 alias mv="${aliases[mv]:-mv} -i"
 alias rm="${aliases[rm]:-rm} -i"
 
-alias ll="ls -lh"
-alias la="ls -a"
-alias lt="ls -T"
-alias lla="ls -la"
-alias lal="ls -la"
+alias ll='ls -lh'
+alias la='ls -a'
+alias lt='ls -T'
+alias lla='ls -la'
+alias lal='ls -la'
 alias df='df -kh'
 alias du='du -kh'
 
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true
+
