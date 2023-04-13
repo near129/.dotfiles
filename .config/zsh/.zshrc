@@ -69,15 +69,23 @@ case ${OSTYPE} in
       alias pbp='/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0//powershell.exe -Command Get-Clipboard'
     else
       alias open='xdg-open'
-      if (( $+commands[xclip] )); then
-        alias pbc='xclip -selection clipboard -in'
-        alias pbp='xclip -selection clipboard -out'
-      elif (( $+commands[xsel] )); then
-        alias pbc='xsel --clipboard --input'
-        alias pbp='xsel --clipboard --output'
-      else
-        # echo "No clipboard util command. Recommned installing clip or xsel"
-      fi
+      case ${XDG_SESSION_TYPE} in
+        'x11')
+          if (( $+commands[xclip] )); then
+            alias pbc='xclip -selection clipboard -in'
+            alias pbp='xclip -selection clipboard -out'
+          elif (( $+commands[xsel] )); then
+            alias pbc='xsel --clipboard --input'
+            alias pbp='xsel --clipboard --output'
+          else
+            # echo "No clipboard util command. Recommned installing clip or xsel"
+          fi
+          ;;
+        'wayland')
+          alias pbc='wl-copy'
+          alias pbp='wl-paste'
+          ;;
+      esac
     fi
     ;;
 esac
