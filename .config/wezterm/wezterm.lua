@@ -76,6 +76,7 @@ config.key_tables = {
 	manage_panes = {
 		-- Split Pane
 		{ key = "|", action = act.SplitHorizontal },
+		{ key = "\\", action = act.SplitHorizontal },
 		{ key = "-", action = act.SplitVertical },
 		-- Move Pane
 		{ key = "h", action = act({ ActivatePaneDirection = "Left" }) },
