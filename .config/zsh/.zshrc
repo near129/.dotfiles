@@ -65,6 +65,8 @@ case ${OSTYPE} in
     ;;
   linux*)
     if [[ "$(uname -r)" == *microsoft* ]]; then
+      export BROWSER="pwsh.exe /c start"
+      alias open="powershell.exe /c start"
       alias pbc='/mnt/c/WINDOWS/system32/clip.exe'
       alias pbp='/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0//powershell.exe -Command Get-Clipboard'
     else

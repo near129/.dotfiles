@@ -46,13 +46,6 @@ do
 done
 
 if [[ ! -n $no_install_packages ]]; then
-  if command -v brew &>/dev/null; then
-    echo "Already brew exist"
-  else
-    NONINTERACTIVE=$non_interactive \
-        eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  fi
-
   case $OSTYPE in
   darwin*)
     os_dir="macos"
@@ -67,6 +60,14 @@ if [[ ! -n $no_install_packages ]]; then
     HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
     ;;
   esac
+
+  if [[ -d $HOMEBREW_PREFIX ]]; then
+    echo "Already brew exist"
+  else
+    NONINTERACTIVE=$non_interactive \
+        eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
+
 
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 
@@ -84,12 +85,12 @@ ln -sf ${DOTDIR}/.config/* ~/.config
 mkdir -p $HOME/.local/state
 touch $HOME/.local/state/.zsh_history
 # no root user need sudo (maybe)
-if [[ ! -n $skip_register_zsh ]] && ! grep -q $(command -v zsh) /etc/shells; then
-  command -v zsh | tee -a /etc/shells
-  chsh -s $(command -v zsh)
-else
-  echo "Skip register zsh"
-fi
+# if [[ ! -n $skip_register_zsh ]] && ! grep -q $(command -v zsh) /etc/shells; then
+#   command -v zsh | sudo tee -a /etc/shells
+#   chsh -s $(command -v zsh)
+# else
+#   echo "Skip register zsh"
+# fi
 
 if [[ -n in_docker ]]; then
 cat << "EOF" >> $HOME/.zshrc.local

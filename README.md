@@ -36,8 +36,12 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 ## Installation
 
 ```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # https://brew.sh/
 git clone https://github.com/near129/.dotfiles.git
 ./.dotfiles/install.sh
+# register zsh
+command -v zsh | sudo tee -a /etc/shells
+chsh -s $(command -v zsh)
 ```
 
 Install script options
@@ -56,21 +60,9 @@ Install script options
 
 ## Other tools
 
-### Pyenv
+### asdf
 
-1. `./install.sh --homebrew-install-python-tools`
-2. setup shell [document](https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv)
-
-example
-
-```shell
-export PYENV_ROOT="$HOME/.pyenv"
-path=(
-  "$PYENV_ROOT/bin"(N-/)
-  "$path[@]"
-)
-eval "$(pyenv init -)"
-```
+TODO
 
 ### Rust(rustup)
 
@@ -84,15 +76,3 @@ path=(
   "$path[@]"
 )
 ```
-
-### google cloud sdk (gcloud)
-
-`brew install google-cloud-sdk`
-
-```shell
-source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-```
-
-### Nodebrew
-
-WIP
