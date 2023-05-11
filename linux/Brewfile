@@ -54,7 +54,7 @@ brew "wget"
 brew "youtube-dl"
 brew "yt-dlp"
 brew "zsh"
-brew "zsh-autocomplete", args: ["HEAD"]
+brew "zsh-autocomplete"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "samtay/tui/tetris"
