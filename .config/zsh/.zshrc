@@ -95,13 +95,13 @@ esac
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[asdf] )) && . $(brew --prefix asdf)/libexec/asdf.sh
-# if (( $+commands[fzf] )); then
-#   source $XDG_CONFIG_HOME/fzf/fzf.zsh
-# fi
-# if [[ -v HOMEBREW_PREFIX ]]; then
-#   source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# fi
+if (( $+commands[fzf] )); then
+  source $XDG_CONFIG_HOME/fzf/fzf.zsh
+fi
+if [[ -v HOMEBREW_PREFIX ]]; then
+  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 (( $+commands[exa] )) && alias ls='exa --icons' # need nerd font
 (( $+commands[bat] )) && alias cat='bat'
