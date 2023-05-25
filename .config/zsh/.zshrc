@@ -30,11 +30,11 @@ else
   zstyle ':completion:*' verbose yes
   zstyle ':completion:*' completer _complete _approximate
   zstyle ':completion:*:approximate:*' max-errors 2 numeric
+  zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+  zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+  zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+  zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 fi
-zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
@@ -95,13 +95,13 @@ esac
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[asdf] )) && . $(brew --prefix asdf)/libexec/asdf.sh
-if (( $+commands[fzf] )); then
-  source $XDG_CONFIG_HOME/fzf/fzf.zsh
-fi
-if [[ -v HOMEBREW_PREFIX ]]; then
-  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# if (( $+commands[fzf] )); then
+#   source $XDG_CONFIG_HOME/fzf/fzf.zsh
+# fi
+# if [[ -v HOMEBREW_PREFIX ]]; then
+#   source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
 
 (( $+commands[exa] )) && alias ls='exa --icons' # need nerd font
 (( $+commands[bat] )) && alias cat='bat'
