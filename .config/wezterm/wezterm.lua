@@ -22,7 +22,7 @@ wezterm.on("update-right-status", function(window, pane)
 		-- { Text = " " },
 		-- { Foreground = { Color = "#C5C8C6" } },
 		-- { Background = { Color = "#5F819D" } },
-		-- { Text = key_table or "" },
+		{ Text = key_table or "" },
 		-- "ResetAttributes",
 		-- { Text = "    " },
 	}))
@@ -50,25 +50,31 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_padding = { left = 5, right = 5, top = 0, bottom = 0 }
 
 --key binding
+local super = is_mac and "CMD" or "ALT"
 config.keys = {
-	{ key = "l", mods = "SUPER", action = act.ShowLauncher },
+	{ key = "l", mods = super, action = act.ShowLauncher },
 	{
-		key = "p",
-		mods = "SUPER",
+		key = "m",
+		mods = super,
 		action = act.ActivateKeyTable({ name = "manage_panes", one_shot = true }),
 	},
 	{
-		key = "P",
-		mods = "SUPER",
+		key = "M",
+		mods = super,
 		action = act.ActivateKeyTable({ name = "manage_panes", one_shot = false }),
 	},
+	{ key = "p", mods = super, action = act.ActivateCommandPalette },
+	{ key = "P", mods = super, action = act.ActivateCommandPalette },
 	-- other
-	{ key = "C", mods = "SUPER", action = act.ActivateCopyMode },
-	{ key = "s", mods = "SUPER", action = act.QuickSelect },
-	{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) },
+	{ key = "C", mods = super, action = act.ActivateCopyMode },
+	{ key = "s", mods = super, action = act.QuickSelect },
+	{ key = "w", mods = super, action = act.CloseCurrentPane({ confirm = true }) },
+	{ key = "t", mods = super, action = act.SpawnTab "CurrentPaneDomain" },
+	{ key = "c", mods = super, action = act.CopyTo "Clipboard" },
+	{ key = "v", mods = super, action = act.PasteFrom "Clipboard" },
 	{
 		key = ",",
-		mods = "SUPER",
+		mods = super,
 		action = act.SpawnCommandInNewWindow({ args = { os.getenv("SHELL"), "-ilc", "nvim " .. wezterm.config_file } }),
 	},
 }
