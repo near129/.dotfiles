@@ -30,6 +30,10 @@ end)
 
 local config = wezterm.config_builder()
 
+if is_windows then
+	config.default_domain = "WSL:Ubuntu"
+end
+
 -- font
 if is_mac then
 	config.font = wezterm.font_with_fallback({
@@ -72,11 +76,6 @@ config.keys = {
 	{ key = "t", mods = super, action = act.SpawnTab "CurrentPaneDomain" },
 	{ key = "c", mods = super, action = act.CopyTo "Clipboard" },
 	{ key = "v", mods = super, action = act.PasteFrom "Clipboard" },
-	{
-		key = ",",
-		mods = super,
-		action = act.SpawnCommandInNewWindow({ args = { os.getenv("SHELL"), "-ilc", "nvim " .. wezterm.config_file } }),
-	},
 }
 config.key_tables = {
 	manage_panes = {

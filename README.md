@@ -38,6 +38,7 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 ## Installation
 
 ```shell
+# sudo apt-get install build-essential procps curl file git  # for Ubuntu
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # Option. My installer maybe fail to install homebrew.
 git clone https://github.com/near129/.dotfiles.git
 ./.dotfiles/install.sh
