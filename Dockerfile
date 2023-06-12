@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ubuntu:22.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -eux; \
@@ -10,7 +10,6 @@ RUN set -eux; \
     ca-certificates \
     file \
     git \
-    zsh \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/.dotfiles

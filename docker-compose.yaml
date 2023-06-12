@@ -4,8 +4,7 @@ services:
     build: .
     # volumes:
     #   - homebrew:/home/linuxbrew
-    command: /bin/sh -c "./install.sh --non-interactive --in-docker && ./test.sh"
+    command: ./install.sh --brewfile=linux/MiniBrewfile --non-interactive --in-docker
 
 # volumes:
 #   homebrew:
-#     external: true

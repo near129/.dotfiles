@@ -1,43 +1,40 @@
 #!/bin/bash
 set -eu
 
+TMP_PWD=$(pwd)
 cd $(dirname $0)
 DOTDIR=$(pwd)
+cd $TMP_PWD
 
 usage() {
   cat << EOS
   Installer
   Usage: $0 [options]
-    --minimum
-    --no-install-packages
-    --non-interactive
-    --skip-register-zsh
-    --in-docker
+    --brewfile=path/to/Brewfile  (default: <os>/Brewfile)
+    --skip-install-homebrew      Skip install homebrew and packages
+    --in-docker                  Deprioritize homebrew path. Prioritize local path (e.g. /usr/local/bin, tools installed by apt)
+    --non-interactive            Non-interactive mode
 EOS
   exit "${1:-1}"
 }
 
-#TODO: usage
-no_install_packages=""
-non_interactive=${NONINTERACTIVE-}
-skip_register_zsh=""
+brewfile=""
+skip_install_homebrew=""
 in_docker=""
+non_interactive=${NONINTERACTIVE-}
 
 while [[ $# -gt 0 ]]
 do
-  case $1 in
-    --minimum)
-      no_install_packages=1
-      non_interactive=1
-      skip_register_zsh=1
-    ;;
-    --no-install-packages) no_install_packages=1 ;;
-    --non-interactive) non_interactive=1 ;;
-    --skip-register-zsh) skip_register_zsh=1 ;;
+  PARAM=`echo $1 | awk -F= '{print $1}'`
+  VALUE=`echo $1 | awk -F= '{print $2}'`
+  case $PARAM in
+    --skip-install-homebrew) no_install_packages=1 ;;
+    --brewfile) brewfile=$VALUE ;;
     --in-docker) in_docker=1 ;;
+    --non-interactive) non_interactive=1 ;;
     -h | --help) usage ;;
     *)
-      echo "Unrecognized option: '$1'" >&2
+      echo "Unrecognized option: '$1' (PARAM='$PARAM', VALUE='$VALUE')" >&2
       usage 1
       exit 1
       ;;
@@ -45,7 +42,7 @@ do
   shift
 done
 
-if [[ ! -n $no_install_packages ]]; then
+if [[ ! -n $skip_install_homebrew ]]; then
   case $OSTYPE in
   darwin*)
     os_dir="macos"
@@ -67,11 +64,15 @@ if [[ ! -n $no_install_packages ]]; then
     NONINTERACTIVE=$non_interactive \
         eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
-
+  cd $TMP_PWD
 
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 
-  brew bundle --file ${DOTDIR}/${os_dir}/Brewfile --no-lock
+  if [[ -n $brewfile ]]; then
+    brew bundle --file $brewfile --no-lock
+  else
+    brew bundle --file ${DOTDIR}/${os_dir}/Brewfile --no-lock
+  fi
 else
   echo "Skip installing packages"
 fi
@@ -84,13 +85,6 @@ ln -sf ${DOTDIR}/.config/* ~/.config
 # setup zsh
 mkdir -p $HOME/.local/state
 touch $HOME/.local/state/.zsh_history
-# no root user need sudo (maybe)
-# if [[ ! -n $skip_register_zsh ]] && ! grep -q $(command -v zsh) /etc/shells; then
-#   command -v zsh | sudo tee -a /etc/shells
-#   chsh -s $(command -v zsh)
-# else
-#   echo "Skip register zsh"
-# fi
 
 if [[ -n in_docker ]]; then
 cat << "EOF" >> $HOME/.zshrc.local

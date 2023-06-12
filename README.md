@@ -14,6 +14,8 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 
 - zsh
   - zsh-autosuggestions
+  - zsh-syntax-highlighting
+  - zsh-autocomplete
   - starship
 - moden unix command
   - bat
@@ -36,7 +38,7 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 ## Installation
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # https://brew.sh/
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # Option. My installer maybe fail to install homebrew.
 git clone https://github.com/near129/.dotfiles.git
 ./.dotfiles/install.sh
 # register zsh
@@ -46,23 +48,39 @@ chsh -s $(command -v zsh)
 
 Install script options
 
-```shell
+```text
 ❯ ./install.sh --help
   Installer
   Usage: ./install.sh [options]
-    --no-install-packages
-    --non-interactive
-    --skip-git-config
-    --homebrew-install-font
-    --homebrew-install-python-tools
-    --skip-register-zsh
+    --brewfile=path/to/Brewfile  (default: <os>/Brewfile)
+    --skip-install-homebrew      Skip install homebrew and packages
+    --in-docker                  Deprioritize homebrew path. Prioritize local path (e.g. /usr/local/bin, tools installed by apt)
+    --non-interactive            Non-interactive mode
 ```
 
 ## Other tools
 
 ### asdf
 
-TODO
+[Getting Started](https://asdf-vm.com/guide/getting-started.html)
+
+```shell
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.3
+cat <<EOF >>${ZDOTDIR:-~}/.zshrc
+. "$HOME/.asdf/asdf.sh"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+EOF
+
+# OR
+brew install asdf
+echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+```
+
+- [asdf-python](https://github.com/asdf-community/asdf-python)
+  - [Suggested build environment](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
 
 ### Rust(rustup)
 

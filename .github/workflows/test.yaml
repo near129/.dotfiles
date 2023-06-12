@@ -28,7 +28,7 @@ jobs:
       - name: Update Homebrew
         run: brew --version && brew update
       - name: Install
-        run: ./install.sh --non-interactive --skip-register-zsh
+        run: ./install.sh --non-interactive
   test-docker:
     runs-on: ubuntu-latest
     steps:
