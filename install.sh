@@ -77,6 +77,10 @@ else
   echo "Skip installing packages"
 fi
 
+mkdir -p ${HOME}/.local/share/zsh/site-functions/
+curl "https://raw.githubusercontent.com/knu/zsh-git-escape-magic/master/git-escape-magic" \
+  -o ${HOME}/.local/share/zsh/site-functions/git-escape-magic
+
 # setup dotfiles
 ln -sf ${DOTDIR}/.config/zsh/.zshenv ~/
 mkdir -p ~/.config

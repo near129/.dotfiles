@@ -10,14 +10,14 @@ bindkey -e
 
 (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
-fpath+=$XDG_DATA_HOME/zsh/completion
+fpath=(
+  "$fpath[@]"
+  "$XDG_DATA_HOME/zsh/completion"(N-/)
+  "$XDG_DATA_HOME/zsh/site-functions"(N-/)
+)
 if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-  zstyle ':autocomplete:*' min-input 2
-  zle -A {.,}history-incremental-search-forward
-  zle -A {.,}history-incremental-search-backward
-  bindkey '^N' down-line-or-select
-  bindkey -M menuselect '^N' down-history
+  bindkey "^P" up-line-or-history
 else
   autoload -U compinit
   compinit -d $XDG_CACHE_HOME/zsh/zcompdump
@@ -38,8 +38,12 @@ fi
 
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
+
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+
+# need to install https://github.com/knu/zsh-git-escape-magic/tree/master
+autoload -Uz git-escape-magic && git-escape-magic
 
 export HISTFILE="$XDG_STATE_HOME/.zsh_history"
 export HISTSIZE=50000
