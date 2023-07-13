@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 brew "bat"
+brew "bat-extras"
 brew "direnv"
 brew "diskus"
 brew "dust"
