@@ -24,7 +24,7 @@ jobs:
       - name: Remove /usr/local/bin
         run: rm -rf /usr/local/bin/*
       - name: Uninstall Chrome
-        run: rm -rf /Applications/Google Chrome.app
+        run: rm -rf /Applications/Google\ Chrome.app
         if: runner.os == 'macOS'
       - name: Install Homebrew
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
