@@ -14,6 +14,7 @@ fpath=(
   "$fpath[@]"
   "$XDG_DATA_HOME/zsh/completion"(N-/)
   "$XDG_DATA_HOME/zsh/site-functions"(N-/)
+  "$HOMEBREW_PREFIX/share/zsh/site-functions"(N-/)
 )
 if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
