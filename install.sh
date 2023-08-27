@@ -28,7 +28,7 @@ do
   PARAM=`echo $1 | awk -F= '{print $1}'`
   VALUE=`echo $1 | awk -F= '{print $2}'`
   case $PARAM in
-    --skip-install-homebrew) no_install_packages=1 ;;
+    --skip-install-homebrew) skip_install_homebrew=1 ;;
     --brewfile) brewfile=$VALUE ;;
     --in-docker) in_docker=1 ;;
     --non-interactive) non_interactive=1 ;;
