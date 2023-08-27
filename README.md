@@ -2,8 +2,6 @@
 
 [![Tests](https://github.com/near129/.dotfiles/actions/workflows/test.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/test.yaml)
 
-homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
-
 ## Supported OS
 
 - macOS
@@ -17,7 +15,7 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
   - zsh-syntax-highlighting
   - zsh-autocomplete
   - starship
-- moden unix command
+- modern unix command
   - bat
   - dust
   - exa
@@ -38,10 +36,15 @@ homebrew(linuxbrew), vim, zsh, starship, fzf, modern unix commands
 ## Installation
 
 ```shell
-# sudo apt-get install build-essential procps curl file git  # for Ubuntu
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # Option. My installer maybe fail to install homebrew.
+# for Ubuntu
+# sudo apt-get install build-essential procps curl file git
+
+# Option. Install script will install homebrew, but it may fail.
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 git clone https://github.com/near129/.dotfiles.git
 ./.dotfiles/install.sh
+
 # register zsh
 command -v zsh | sudo tee -a /etc/shells
 chsh -s $(command -v zsh)
@@ -65,33 +68,27 @@ Install script options
 
 [Getting Started](https://asdf-vm.com/guide/getting-started.html)
 
-```shell
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.3
-cat <<EOF >>${ZDOTDIR:-~}/.zshrc
-. "$HOME/.asdf/asdf.sh"
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
-autoload -Uz compinit && compinit
-EOF
-
-# OR
-brew install asdf
-echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
-```
-
 - [asdf-python](https://github.com/asdf-community/asdf-python)
   - [Suggested build environment](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
 
+[other plugins](https://github.com/asdf-vm/asdf-plugins)
+
 ### Rust(rustup)
 
-[official rust page for install](https://www.rust-lang.org/ja/tools/install)
+[official page](https://www.rust-lang.org/ja/tools/install)
 
-example
+- Example
+  - Install
 
-```shell
-path=(
-  "$HOME/.cargo/bin"(N-/)
-  "$path[@]"
-)
-```
+    ```shell
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+    ```
+
+  - Configure(ex. `~/.zshrc.local`)
+
+    ```shell
+    path=(
+      "$HOME/.cargo/bin"(N-/)
+      "$path[@]"
+    )
+    ```
