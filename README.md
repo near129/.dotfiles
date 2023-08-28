@@ -84,11 +84,24 @@ Install script options
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
     ```
 
-  - Configure(ex. `~/.zshrc.local`)
+  - Configure
 
-    ```shell
-    path=(
-      "$HOME/.cargo/bin"(N-/)
-      "$path[@]"
-    )
-    ```
+    - `~/.zshrc.local`
+
+      ```shell
+      path=(
+        "$HOME/.cargo/bin"(N-/)
+        "$path[@]"
+      )
+      ```
+
+    - Shell completion
+
+      ```shell
+      rustup completions zsh > $XDG_DATA_HOME/zsh/completion/_rustup
+      rustup completions zsh cargo > $XDG_DATA_HOME/zsh/completion/_cargo
+      ```
+
+## TODO
+
+- [ ] Improve `git-escape-magic` installation
