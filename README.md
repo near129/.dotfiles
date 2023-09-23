@@ -2,37 +2,6 @@
 
 [![Tests](https://github.com/near129/.dotfiles/actions/workflows/test.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/test.yaml)
 
-## Supported OS
-
-- macOS
-- Ubuntu
-- Ubuntu(WSL, Docker)
-
-## Tool set
-
-- zsh
-  - zsh-autosuggestions
-  - zsh-syntax-highlighting
-  - zsh-autocomplete
-  - starship
-- modern unix command
-  - bat
-  - dust
-  - exa
-  - fd
-  - httpie
-  - procs
-  - ripgrep
-- fzf
-  - key bindings
-- neovim
-  - vscode-neovim
-  - vim-plug
-  - lightline
-  - vim-easymotion
-  - nvim-cmp (no lsp)
-- iceberg(color theme)
-
 ## Installation
 
 ```shell
@@ -105,3 +74,4 @@ Install script options
 ## TODO
 
 - [ ] Improve `git-escape-magic` installation
+
