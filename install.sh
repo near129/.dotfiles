@@ -62,7 +62,7 @@ if [[ ! -n $skip_install_homebrew ]]; then
     echo "Already brew exist"
   else
     NONINTERACTIVE=$non_interactive \
-        eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
   cd $TMP_PWD
 
