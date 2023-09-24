@@ -71,7 +71,7 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {},
         config = function(_, opts) require 'lsp_signature'.setup(opts) end
     },
@@ -129,11 +129,16 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         event = { "BufReadPost", "BufNewFile" },
     },
-    { "lewis6991/gitsigns.nvim", opts = {} },
+    {
+        "lewis6991/gitsigns.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {},
+    },
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.3',
         dependencies = { 'nvim-lua/plenary.nvim' },
+        evnet = "VeryLazy",
         keys = {
             { "<leader>ff", "<cmd>Telescope find_files<cr>" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>" },
@@ -159,9 +164,18 @@ return {
     {
         'smoka7/hop.nvim',
         version = "*",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {},
         keys = {
             { "<leader><leader>", function() require('hop').hint_char1() end },
         }
     },
+    {
+        'ojroques/nvim-osc52',
+        evnet = { 'BufReadPost', 'BufNewFile' },
+        opts = {},
+        keys = {
+            { "<leader>c", function() require('osc52').copy_visual() end, mode = 'v' },
+        }
+    }
 }
