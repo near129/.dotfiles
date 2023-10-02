@@ -35,10 +35,28 @@ Install script options
 
 ### asdf
 
-[Getting Started](https://asdf-vm.com/guide/getting-started.html)
+[official page](https://asdf-vm.com/)
 
 - [asdf-python](https://github.com/asdf-community/asdf-python)
+
+  ```shell
+  asdf plugin-add python
+  ```
+
   - [Suggested build environment](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
+    - macOS
+
+      ```shell
+      brew install openssl readline sqlite3 xz zlib # tcl-tk
+      ```
+
+    - Ubuntu, Debian
+
+    ```shell
+    sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    ```
 
 [other plugins](https://github.com/asdf-vm/asdf-plugins)
 
@@ -70,8 +88,3 @@ Install script options
       rustup completions zsh > $XDG_DATA_HOME/zsh/completion/_rustup
       rustup completions zsh cargo > $XDG_DATA_HOME/zsh/completion/_cargo
       ```
-
-## TODO
-
-- [ ] Improve `git-escape-magic` installation
-
