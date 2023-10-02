@@ -18,7 +18,9 @@ fpath=(
 )
 if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+  bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
   bindkey "^P" up-line-or-history
+  bindkey '^N' down-line-or-history
 else
   autoload -U compinit
   compinit -d $XDG_CACHE_HOME/zsh/zcompdump
