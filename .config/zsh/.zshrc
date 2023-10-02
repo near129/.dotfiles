@@ -110,7 +110,7 @@ fi
 
 (( $+commands[eza] )) && alias ls='eza --icons' # need nerd font
 (( $+commands[bat] )) && alias cat='bat'
-(( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim'
+(( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim' && export EDITOR='nvim'
 (( $+commands[pbcopy] )) && alias pbc='pbcopy'
 (( $+commands[pbpaste] )) && alias pbp='pbpaste'
 
