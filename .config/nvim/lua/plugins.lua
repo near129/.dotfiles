@@ -182,6 +182,12 @@ return {
         end,
       },
     },
+    config = function()
+      require('hop').setup()
+      vim.api.nvim_set_hl(0, 'HopNextKey', { fg = '#668e3d', bold = true })
+      vim.api.nvim_set_hl(0, 'HopNextKey1', { fg = '#c57339', bold = true })
+      vim.api.nvim_set_hl(0, 'HopNextKey2', { fg = '#c57339', bold = true })
+    end,
   },
   {
     'ojroques/nvim-osc52',
