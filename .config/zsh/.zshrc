@@ -1,3 +1,4 @@
+typeset -U path fpath PATH
 path=(
   "$HOME/.local/bin"(N-/)
   "$path[@]"
