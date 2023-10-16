@@ -26,7 +26,7 @@ jobs:
         run: rm -rf /Applications/Google\ Chrome.app
         if: runner.os == 'macOS'
       - name: Install
-        run: ./install.sh --non-interactive
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)" -- --non-interactive
       - name: Test
         run: ./test.sh
   test-docker:
