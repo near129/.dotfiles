@@ -46,6 +46,7 @@ return {
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'folke/neodev.nvim',
+      'ckipp01/stylua-nvim',
       'mason.nvim',
       'williamboman/mason-lspconfig.nvim',
     },
@@ -58,10 +59,23 @@ return {
           })
         end,
       })
+      require('lspconfig').lua_ls.setup({
+        commands = {
+          Format = {
+            function()
+              require('stylua-nvim').format_file()
+            end,
+          },
+        },
+        settings = {
+          Lua = {
+            format = { enable = false },
+          },
+        },
+      })
     end,
   },
   {
-
     'williamboman/mason.nvim',
     cmd = 'Mason',
     keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },
@@ -203,5 +217,6 @@ return {
       },
     },
   },
-  { 'nmac427/guess-indent.nvim', opts = {} },
+  { 'nmac427/guess-indent.nvim', event = 'VeryLazy', opts = {} },
+  { 'sindrets/diffview.nvim', cmd = 'DiffviewOpen', opts = {} },
 }
