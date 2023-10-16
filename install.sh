@@ -87,14 +87,15 @@ echo "Setup zsh"
 if [[ -x $HOMEBREW_PREFIX/bin/zsh ]]; then
   if ! grep -q $HOMEBREW_PREFIX/bin/zsh /etc/shells; then
     if [[ -x /usr/bin/sudo ]]; then
+      echo "Register homebrew zsh with sudo"
       echo "$HOMEBREW_PREFIX/bin/zsh" | sudo tee -a /etc/shells
+      sudo chsh -s "$HOMEBREW_PREFIX/bin/zsh"
     else
       echo "$HOMEBREW_PREFIX/bin/zsh" | tee -a /etc/shells
+      chsh -s "$HOMEBREW_PREFIX/bin/zsh"
     fi
-    echo "Added homebrew zsh to /etc/shells"
+    echo "Added homebrew zsh to /etc/shells and changed default shell"
   fi
-  chsh -s "$HOMEBREW_PREFIX/bin/zsh"
-  echo "Changed default shell"
 else
   echo "zsh not found"
 fi
