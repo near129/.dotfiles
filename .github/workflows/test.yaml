@@ -28,8 +28,8 @@ jobs:
         if: runner.os == 'macOS'
       - name: Install
         run: ./install.sh --non-interactive
-      - name Test
-        test: ./test.sh
+      - name: Test
+        run: ./test.sh
   test-docker:
     runs-on: ubuntu-latest
     steps:
