@@ -59,7 +59,7 @@ Linux*)
 esac
 
 if [[ ! -n $skip_install_homebrew ]]; then
-  if [[ -d $HOMEBREW_PREFIX ]]; then
+  if [[ -x $HOMEBREW_PREFIX/bin/brew ]]; then
     echo "Already brew exist"
   else
     NONINTERACTIVE=$non_interactive \
