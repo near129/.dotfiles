@@ -3,10 +3,9 @@ services:
   homebrew:
     build: .
     platform: linux/amd64
-    # volumes:
-    #   - homebrew:/home/linuxbrew
-    command: ./install.sh --brewfile=linux/MiniBrewfile --non-interactive --in-docker
+    volumes:
+      - homebrew:/home/linuxbrew
+    command: bash -c "./install.sh --non-interactive --in-docker && ./test.sh"
 
-# volumes:
-#   homebrew:
-
+volumes:
+  homebrew:
