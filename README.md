@@ -5,27 +5,15 @@
 ## Installation
 
 ```shell
-# for Ubuntu
-# sudo apt-get install build-essential procps curl file git
-
-# Option. Install script will install homebrew, but it may fail.
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-git clone https://github.com/near129/.dotfiles.git
-./.dotfiles/install.sh
-
-# register zsh
-command -v zsh | sudo tee -a /etc/shells
-chsh -s $(command -v zsh)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)"
 ```
 
 Install script options
 
 ```text
-❯ ./install.sh --help
+❯ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)" -- --help
   Installer
-  Usage: ./install.sh [options]
-    --brewfile=path/to/Brewfile  (default: <os>/Brewfile)
+  Usage: -- [options]
     --skip-install-homebrew      Skip install homebrew and packages
     --in-docker                  Deprioritize homebrew path. Prioritize local path (e.g. /usr/local/bin, tools installed by apt)
     --non-interactive            Non-interactive mode
