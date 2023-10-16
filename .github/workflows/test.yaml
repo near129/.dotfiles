@@ -28,7 +28,7 @@ jobs:
       - name: Install
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)" -- --non-interactive
       - name: Test
-        run: ./test.sh
+        run: .dotfiles/test.sh
   test-docker:
     runs-on: ubuntu-latest
     steps:
