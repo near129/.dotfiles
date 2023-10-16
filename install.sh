@@ -38,7 +38,7 @@ cd $HOME
 DOTFILES_DIR=$HOME/.dotfiles
 if [[ ! -d $DOTFILES_DIR ]]; then
   echo "Clone dotfiles..."
-  git clone git@github.com:near129/.dotfiles.git
+  git clone https://github.com/near129/.dotfiles.git
 fi
 
 OS="$(uname)"
