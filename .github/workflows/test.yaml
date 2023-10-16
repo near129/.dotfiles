@@ -10,7 +10,6 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
       - name: Set up Homebrew PATH
         run: |
           if [[ "${{ runner.os }}" = "macOS" ]]
