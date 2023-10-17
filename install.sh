@@ -102,7 +102,7 @@ fi
 mkdir -p $HOME/.local/state
 touch $HOME/.local/state/.zsh_history
 
-if [[ -n in_docker ]]; then
+if [[ -n $in_docker ]]; then
   echo "Deprioritize homebrew path"
 cat << "EOF" >> $HOME/.zshrc.local
 path=(
