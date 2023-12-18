@@ -53,13 +53,13 @@ local super = is_mac and 'CMD' or 'ALT'
 config.keys = {
   { key = 'l', mods = super, action = act.ShowLauncher },
   {
-    key = 'm',
-    mods = super,
+    key = '\\',
+    mods = 'CTRL',
     action = act.ActivateKeyTable({ name = 'manage_panes', one_shot = true }),
   },
   {
-    key = 'M',
-    mods = super,
+    key = '|',
+    mods = 'CTRL|SHIFT',
     action = act.ActivateKeyTable({ name = 'manage_panes', one_shot = false }),
   },
   { key = 'p', mods = super, action = act.ActivateCommandPalette },
