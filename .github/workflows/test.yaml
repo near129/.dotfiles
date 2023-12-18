@@ -34,4 +34,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker build -t dotfiles .
-      - run: docker run -it --rm dotfiles ./test.sh
+      - run: docker run --rm dotfiles ./test.sh
