@@ -111,7 +111,7 @@ if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-(( $+commands[eza] )) && alias ls='eza --icons' # need nerd font
+(( $+commands[eza] )) && alias ls='eza --icons=always'
 (( $+commands[bat] )) && alias cat='bat'
 (( $+commands[nvim] )) && alias vi='nvim' && alias vim='nvim' && export EDITOR='nvim'
 (( $+commands[pbcopy] )) && alias pbc='pbcopy'
