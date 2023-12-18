@@ -1,0 +1,56 @@
+{
+  "title": "Quake-style Hotkey Window for Alacritty",
+  "rules": [
+    {
+      "description": "Launch/show Alacritty if it is not in foreground",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open '/Applications/Alacritty.app'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": ["^org\\.alacritty$"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Minimize Alacritty if it is in foreground",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "h",
+              "modifiers": ["command"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
