@@ -11,20 +11,13 @@ wezterm.on('update-right-status', function(window, pane)
   if domain == 'local' then
     domain = nil
   else
-    domain = 'In 🌐' .. domain
+    domain = 'In 🌐' .. domain .. '  '
   end
 
   window:set_right_status(wezterm.format({
     { Attribute = { Underline = 'Single' } },
     { Text = domain or '' },
-    -- TODO: Cool design
-    -- "ResetAttributes",
-    -- { Text = " " },
-    -- { Foreground = { Color = "#C5C8C6" } },
-    -- { Background = { Color = "#5F819D" } },
-    { Text = key_table or '' },
-    -- "ResetAttributes",
-    -- { Text = "    " },
+    { Text = (key_table or '') .. '  ' },
   }))
 end)
 
@@ -37,9 +30,11 @@ end
 -- font
 if is_mac then
   config.font = wezterm.font_with_fallback({
-    { family = 'Monaco', freetype_load_flags = 'NO_BITMAP' },
+    'Monaco',
     'HackGen35 Console NF',
   })
+  config.freetype_load_target = 'Light'
+  config.freetype_render_target = 'HorizontalLcd'
 else
   config.font = wezterm.font_with_fallback({
     'HackGen35 Console NF',
