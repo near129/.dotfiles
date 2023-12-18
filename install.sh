@@ -113,3 +113,4 @@ path=(
 EOF
 fi
 echo "Finished!!"
+echo "You should run 'exec $HOMEBREW_PREFIX/bin/zsh -l' to apply zsh settings"
