@@ -106,6 +106,7 @@ esac
 if (( $+commands[fzf] )); then
   source $XDG_CONFIG_HOME/fzf/fzf.zsh
 fi
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 if [[ -v HOMEBREW_PREFIX ]]; then
   source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
