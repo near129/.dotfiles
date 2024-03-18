@@ -10,7 +10,7 @@ killall Finder
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false 
 # rectangle
-defaults write com.knollsoft.Rectangle snapEdgeMarginTop -int 30
-defaults write com.knollsoft.Rectangle snapEdgeMarginBottom -int 30
-defaults write com.knollsoft.Rectangle snapEdgeMarginLeft -int 30
-defaults write com.knollsoft.Rectangle snapEdgeMarginRight -int 30
+defaults write com.knollsoft.Rectangle snapEdgeMarginTop -int 60
+defaults write com.knollsoft.Rectangle snapEdgeMarginBottom -int 60
+defaults write com.knollsoft.Rectangle snapEdgeMarginLeft -int 60
+defaults write com.knollsoft.Rectangle snapEdgeMarginRight -int 60
