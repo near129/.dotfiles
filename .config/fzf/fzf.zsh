@@ -1,11 +1,5 @@
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-# ------------
-source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
-
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 # need fd, exa, bat
 export FZF_DEFAULT_COMMAND="(fd --hidden --exclude .git -d 5 && fd --hidden --exclude .git --min-depth 6)"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
