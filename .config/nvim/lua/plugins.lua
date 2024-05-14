@@ -190,7 +190,7 @@ return {
     opts = {},
     keys = {
       {
-        '<leader><leader>',
+        '<space>',
         function()
           require('hop').hint_char1()
         end,
