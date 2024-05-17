@@ -9,7 +9,6 @@ return {
   },
   { 'echasnovski/mini.starter', opts = {} },
   { 'echasnovski/mini.tabline', opts = {} },
-  { 'echasnovski/mini.comment', event = 'VeryLazy', opts = {} },
   { 'echasnovski/mini.jump', event = 'VeryLazy', opts = {} },
   { 'echasnovski/mini.trailspace', event = 'VeryLazy', opts = {} },
   { 'echasnovski/mini.pairs', event = 'VeryLazy', opts = {} },
