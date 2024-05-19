@@ -33,14 +33,13 @@ if is_mac then
     'Monaco',
     'HackGen35 Console NF',
   })
-  config.freetype_load_target = 'Light'
-  config.freetype_render_target = 'HorizontalLcd'
+  config.freetype_load_flags = "NO_BITMAP" -- for monaco. ref: https://github.com/wez/wezterm/issues/2523
 else
   config.font = wezterm.font_with_fallback({
     'HackGen35 Console NF',
   })
 end
-config.font_size = 12
+config.font_size = 14
 
 --appearance
 config.color_scheme = 'iceberg-dark'
