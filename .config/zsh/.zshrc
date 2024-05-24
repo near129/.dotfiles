@@ -124,6 +124,7 @@ alias ln="${aliases[ln]:-ln} -i"
 alias mv="${aliases[mv]:-mv} -i"
 alias rm="${aliases[rm]:-rm} -i"
 
+alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias lt='ls -T'
