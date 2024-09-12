@@ -1,5 +1,9 @@
+[init]
+	defaultBranch = main
+
 [alias]
     s = status
+
 [core]
     pager = delta
 
@@ -21,3 +25,8 @@
 
 [diff]
     colorMoved = default
+
+[include]
+    path = config-user
+[credential]
+	helper = "!f() { /root/.vscode-server/bin/4849ca9bdf9666755eb463db297b69e5385090e3/node /tmp/vscode-remote-containers-d771eb72-04f2-4516-81ad-6c3995f66a8c.js git-credential-helper $*; }; f"

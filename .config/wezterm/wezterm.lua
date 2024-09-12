@@ -117,6 +117,7 @@ config.mouse_bindings = {
 }
 
 -- other
+config.window_close_confirmation = 'NeverPrompt'
 config.use_ime = true
 config.hyperlink_rules = { { regex = '\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b', format = '$0' } }
 config.quick_select_patterns = {

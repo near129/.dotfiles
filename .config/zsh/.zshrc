@@ -1,9 +1,3 @@
-typeset -U path fpath PATH
-path=(
-  "$HOME/.local/bin"(N-/)
-  "$path[@]"
-)
-
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
@@ -101,8 +95,6 @@ case ${OSTYPE} in
 esac
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"
-(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
-(( $+commands[asdf] )) && . $(brew --prefix asdf)/libexec/asdf.sh
 if (( $+commands[fzf] )); then
   source $XDG_CONFIG_HOME/fzf/fzf.zsh
 fi
@@ -134,4 +126,3 @@ alias df='df -kh'
 alias du='du -kh'
 
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true
-

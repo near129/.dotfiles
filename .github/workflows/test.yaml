@@ -26,12 +26,12 @@ jobs:
         run: rm -rf /Applications/Google\ Chrome.app
         if: runner.os == 'macOS'
       - name: Install
-        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)" -- --non-interactive
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/scripts/install.sh)" -- --non-interactive
       - name: Test
-        run: $HOME/.dotfiles/test.sh
+        run: $HOME/.dotfiles/scripts/test.sh
   test-docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: docker build -t dotfiles .
-      - run: docker run --rm dotfiles ./test.sh
+      - run: docker run --rm dotfiles ./scripts/test.sh

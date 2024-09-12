@@ -13,6 +13,6 @@ WORKDIR /root/.dotfiles
 COPY . .
 
 RUN --mount=type=cache,target=/root/.cache/Homebrew \
-    ./install.sh --non-interactive --in-docker
+    ./scripts/install.sh --non-interactive --in-docker
 
 ENTRYPOINT ["/home/linuxbrew/.linuxbrew/bin/zsh", "-l"]

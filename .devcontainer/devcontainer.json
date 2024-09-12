@@ -9,7 +9,7 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/wxw-matt/devcontainer-features/command_runner:latest": {
-      "command1": "curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh -o dotfiles_install.sh",
+      "command1": "curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/scripts/install.sh -o dotfiles_install.sh",
       "command2": "chmod +x dotfiles_install.sh",
       "command3": "./dotfiles_install.sh --non-interactive --in-docker"
     }

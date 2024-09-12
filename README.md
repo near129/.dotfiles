@@ -5,13 +5,13 @@
 ## Installation
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/scripts/install.sh)"
 ```
 
 Install script options
 
 ```text
-❯ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/install.sh)" -- --help
+❯ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/near129/.dotfiles/main/scripts/install.sh)" -- --help
   Installer
   Usage: -- [options]
     --skip-install-homebrew      Skip install homebrew and packages
