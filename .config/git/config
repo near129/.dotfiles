@@ -1,3 +1,7 @@
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+0IqYbnBD7Cjh+DvaSucRW02cbc5i4peT86vfYMDH1
+	name = near129
+	email = 56579877+near129@users.noreply.github.com.
 [alias]
     s = status
 [core]
@@ -21,3 +25,9 @@
 
 [diff]
     colorMoved = default
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
