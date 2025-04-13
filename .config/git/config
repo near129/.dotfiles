@@ -1,5 +1,10 @@
+[user]
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+0IqYbnBD7Cjh+DvaSucRW02cbc5i4peT86vfYMDH1
+    name = near129
+    email = 56579877+near129@users.noreply.github.com
+
 [init]
-	defaultBranch = main
+defaultBranch = main
 
 [alias]
     s = status
@@ -26,7 +31,11 @@
 [diff]
     colorMoved = default
 
-[include]
-    path = config-user
-[credential]
-	helper = "!f() { /root/.vscode-server/bin/e54c774e0add60467559eb0d1e229c6452cf8447/node /tmp/vscode-remote-containers-abee05ff-238b-45e5-82e5-c143fb95008b.js git-credential-helper $*; }; f"
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+    gpgsign = true
