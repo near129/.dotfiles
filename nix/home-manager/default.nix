@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 let
 username = "near129";
+email = "56579877+near129@users.noreply.github.com";
+dotConfigDir = ../../.config;
 in
 {
   home = {
@@ -18,14 +20,14 @@ in
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    initExtraBeforeCompInit = builtins.readFile ../../.config/zsh/.zshrc;
-    profileExtra = builtins.readFile ../../.config/zsh/.zprofile;
-    envExtra = builtins.readFile ../../.config/zsh/.zshenv;
+    initExtraBeforeCompInit = builtins.readFile dotConfigDir + .config/zsh/.zshrc;
+    profileExtra = builtins.readFile dotConfigDir + .config/zsh/.zprofile;
+    envExtra = builtins.readFile dotConfigDir + .config/zsh/.zshenv;
   };
   programs.git = {
     enable = true;
     userName = username;
-    userEmail = "56579877+near129@users.noreply.github.com";
+    userEmail = email;
   };
-  home.file.".config/git/ignore".source = ../../.config/git/ignore;
+  home.file.".config/git/ignore".source = dotConfigDir + .config/git/ignore;
 }
