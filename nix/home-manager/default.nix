@@ -12,6 +12,7 @@ in
     packages = with pkgs; [
       git
       nil
+      nixd
       nixfmt-rfc-style
       zsh
     ];
@@ -20,14 +21,17 @@ in
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    initExtraBeforeCompInit = builtins.readFile dotConfigDir + .config/zsh/.zshrc;
-    profileExtra = builtins.readFile dotConfigDir + .config/zsh/.zprofile;
-    envExtra = builtins.readFile dotConfigDir + .config/zsh/.zshenv;
+    initExtraBeforeCompInit = builtins.readFile (dotConfigDir + /zsh/.zshrc);
+    profileExtra = builtins.readFile (dotConfigDir + /zsh/.zprofile);
+    envExtra = builtins.readFile (dotConfigDir + /zsh/.zshenv);
   };
   programs.git = {
     enable = true;
     userName = username;
     userEmail = email;
+    signing = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+0IqYbnBD7Cjh+DvaSucRW02cbc5i4peT86vfYMDH1";
+    }
   };
-  home.file.".config/git/ignore".source = dotConfigDir + .config/git/ignore;
+  xdg.configFile."git/ignore".source = dotConfigDir + /git/ignore;
 }
