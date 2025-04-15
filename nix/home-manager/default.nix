@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-username = "near129";
-email = "56579877+near129@users.noreply.github.com";
-dotConfigDir = ../../.config;
+  username = "near129";
+  email = "56579877+near129@users.noreply.github.com";
+  dotConfigDir = ../../.config;
 in
 {
   home = {
@@ -10,11 +10,43 @@ in
     homeDirectory = "/Users/${username}";
     stateVersion = "24.11"; # Please read the comment before changing.
     packages = with pkgs; [
-      git
+      bat
+      bottom
+      direnv
+      diskus
+      dua
+      eza
+      fastfetch
+      fd
+      # ffmpeg-full
+      fzf
+      gh
+      delta
+      jq
+      k9s
+      mycli
+      neovim
+      pandoc
+      procs
+      pv
+      ripgrep
+      ripgrep-all
+      rsync
+      # rust
+      # cargo
+      smartmontools
+      starship
+      stylua
+      uv
+      vivid
+      wget
+      xh
+      zoxide
       nil
       nixd
       nixfmt-rfc-style
-      zsh
+      tmux
+      zellij
     ];
   };
   programs.home-manager.enable = true;
