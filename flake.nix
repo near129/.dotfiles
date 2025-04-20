@@ -25,14 +25,13 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#MacBook-Air
       darwinConfigurations."MacBook-Air" = nix-darwin.lib.darwinSystem {
-        modules = [ ./nix/nix-darwin/default.nix ];
+        inherit system;
+        modules = [ ./nix/nix-darwin ];
       };
       homeConfigurations."near129@MacBook-Air" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./nix/home-manager/default.nix ];
+        modules = [ ./nix/home-manager ];
       };
     };
 }

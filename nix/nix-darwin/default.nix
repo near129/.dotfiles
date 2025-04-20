@@ -1,27 +1,131 @@
-{pkgs, ...}:
+{ pkgs, lib, ... }:
 {
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    watchIdAuth = true;
+  };
 
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      # environment.systemPackages =
-      #   [ pkgs.nil
-      #   ];
+  environment.systemPackages = with pkgs; [
+    zsh
+  ];
+  programs.zsh.enable = true;
+  #   environment.shells = [
+  #     pkgs.zsh
+  #   ];
+  #   users.users.near129.shell = pkgs.zsh;
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+  nix = {
+    package = pkgs.nix;
+    gc = {
+      automatic = lib.mkDefault true;
+      options = lib.mkDefault "--delete-older-than 7d";
+    };
+    settings = {
+      # Disable auto-optimise-store because of this issue:
+      #   https://github.com/NixOS/nix/issues/7273
+      # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
+      auto-optimise-store = false;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+  };
 
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    hackgen-font
+    hackgen-nf-font
+    source-han-code-jp
+  ];
 
-      # Set Git commit hash for darwin-version.
-      # system.configurationRevision = self.rev or self.dirtyRev or null;
+  system = {
+    stateVersion = 5;
+    defaults = {
+      menuExtraClock.Show24Hour = true;
+      dock = {
+        autohide = true;
+        show-recents = false;
+      };
+      finder = {
+        _FXShowPosixPathInTitle = true;
+        AppleShowAllExtensions = true;
+        FXEnableExtensionChangeWarning = false;
+        QuitMenuItem = true;
+        ShowPathbar = true;
+        ShowStatusBar = true;
+      };
+      trackpad = {
+        TrackpadRightClick = true;
+      };
+      screencapture = {
+        location = "~/Pictures/Screenshots";
+      };
+      NSGlobalDomain = {
+        "com.apple.sound.beep.feedback" = 0;
+        AppleInterfaceStyle = "Dark";
 
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 5;
-    
-      system.defaults.dock.autohide = true;
+        InitialKeyRepeat = 15;
+        KeyRepeat = 2;
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
+      };
+      CustomUserPreferences = {
+        "com.apple.desktopservices" = {
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+        "com.apple.spaces" = {
+          "spans-displays" = 0;
+        };
+        "com.microsoft.VSCode".ApplePressAndHoldEnabled = false;
+        "com.microsoft.VSCodeInsiders".ApplePressAndHoldEnabled = false;
+      };
+    };
+  };
+  networking = {
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Ethernet Adaptor"
+      "Thunderbolt Ethernet"
+    ];
+    dns = [
+      "8.8.8.8"
+      "8.8.4.4"
+      "2001:4860:4860::8888"
+      "2001:4860:4860::8844"
+    ];
+  };
+  homebrew = {
+    # https://brew.sh/
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "none";
+    };
+    casks = [
+      "1password"
+      "alacritty"
+      "discord"
+      "docker"
+      "gimp"
+      "google-chrome"
+      "google-cloud-sdk"
+      "google-drive"
+      "inkscape"
+      "karabiner-elements"
+      "keycastr"
+      "lunar"
+      "middleclick"
+      "obs"
+      "raycast"
+      "scroll-reverser"
+      "slack"
+      "tailscale"
+      "visual-studio-code"
+      "wezterm"
+    ];
+  };
 }
