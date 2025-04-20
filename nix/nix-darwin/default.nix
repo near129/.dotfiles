@@ -115,17 +115,22 @@
       "google-cloud-sdk"
       "google-drive"
       "inkscape"
+      "jordanbaird-ice"
       "karabiner-elements"
       "keycastr"
       "lunar"
       "middleclick"
       "obs"
+      "obsidian"
       "raycast"
       "scroll-reverser"
       "slack"
+      "stats"
       "tailscale"
       "visual-studio-code"
       "wezterm"
+      "zed"
+      "zen-browser"
     ];
   };
 }
