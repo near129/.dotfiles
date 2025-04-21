@@ -16,6 +16,8 @@ in
     stateVersion = "24.11"; # Please read the comment before changing.
     packages = with pkgs; [
       bottom
+      # cargo
+      delta
       direnv
       diskus
       dua
@@ -24,11 +26,14 @@ in
       fd
       # ffmpeg-full
       gh
-      delta
       jq
       k9s
+      lazygit
       mycli
       neovim
+      nil
+      nixd
+      nixfmt-rfc-style
       pandoc
       procs
       pv
@@ -36,20 +41,16 @@ in
       ripgrep-all
       rsync
       # rust
-      # cargo
       smartmontools
       starship
       stylua
+      tmux
       uv
       vivid
       wget
       xh
-      zoxide
-      nil
-      nixd
-      nixfmt-rfc-style
-      tmux
       zellij
+      zoxide
     ];
   };
   programs.home-manager.enable = true;

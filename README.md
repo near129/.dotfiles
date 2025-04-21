@@ -19,5 +19,5 @@ sh <(curl -L https://nixos.org/nix/install)
 ## Installation
 
 ```shell
-nix --extra-experimental-features 'nix-command flakes' run nixpkgs#home-manager -- switch
+nix --extra-experimental-features 'nix-command flakes' run nixpkgs#home-manager -- --extra-experimental-features "nix-command flakes" switch
 ```
