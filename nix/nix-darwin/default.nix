@@ -9,10 +9,10 @@
     zsh
   ];
   programs.zsh.enable = true;
-  #   environment.shells = [
-  #     pkgs.zsh
-  #   ];
-  #   users.users.near129.shell = pkgs.zsh;
+    environment.shells = [
+      pkgs.zsh
+    ];
+    users.users.near129.shell = pkgs.zsh;
 
   nix = {
     package = pkgs.nix;
@@ -103,7 +103,7 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "none";
+      cleanup = "zap";
     };
     casks = [
       "1password"
