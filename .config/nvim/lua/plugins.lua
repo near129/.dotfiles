@@ -44,7 +44,7 @@ return {
     build = ':TSUpdate',
     config = function()
       local configs = require('nvim-treesitter.configs')
-
+      ---@diagnostic disable-next-line: missing-fields
       configs.setup({
         auto_install = true,
       })
@@ -126,56 +126,30 @@ return {
     config = true,
   },
   {
-    'hrsh7th/nvim-cmp',
-    event = { 'InsertEnter', 'CmdlineEnter' },
-    dependencies = {
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-nvim-lsp',
-      { 'zbirenbaum/copilot.lua', cmd = 'Copilot', config = true },
-      { 'zbirenbaum/copilot-cmp', config = true },
-      'onsails/lspkind-nvim',
+    'saghen/blink.cmp',
+    version = '1.*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = 'super-tab' },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
     },
-    config = function()
-      local cmp = require('cmp')
-      local lspkind = require('lspkind')
-      cmp.setup({
-        mapping = {
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-        },
-        sources = {
-          { name = 'copilot', group_index = 2 },
-          { name = 'nvim_lsp', group_index = 2 },
-          { name = 'path' },
-          { name = 'buffer' },
-        },
-        formatting = {
-          format = lspkind.cmp_format({
-            mode = 'symbol_text',
-            maxwidth = 50,
-            symbol_map = { Copilot = '' },
-          }),
-        },
-      })
-      cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = 'buffer' } },
-      })
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' },
-        }, {
-          { name = 'cmdline' },
-        }),
-      })
-      vim.lsp.config('*', {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-      })
-    end,
+    opts_extend = { 'sources.default' },
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    ---@type CopilotConfig
+    ---@diagnostic disable-next-line: missing-fields
+    opts = {
+      ---@diagnostic disable-next-line: missing-fields
+      suggestion = {
+        auto_trigger = true,
+      },
+    },
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -213,7 +187,6 @@ return {
       },
       pickers = {
         find_files = {
-          -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
           find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
         },
       },
