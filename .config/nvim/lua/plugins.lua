@@ -7,11 +7,11 @@ return {
       vim.cmd.colorscheme('iceberg')
     end,
   },
-  { 'echasnovski/mini.starter', opts = {} },
-  { 'echasnovski/mini.tabline', opts = {} },
-  { 'echasnovski/mini.jump', event = 'VeryLazy', opts = {} },
-  { 'echasnovski/mini.trailspace', event = 'VeryLazy', opts = {} },
-  { 'echasnovski/mini.pairs', event = 'VeryLazy', opts = {} },
+  { 'echasnovski/mini.starter', config = true },
+  { 'echasnovski/mini.tabline', config = true },
+  { 'echasnovski/mini.jump', event = 'VeryLazy', config = true },
+  { 'echasnovski/mini.trailspace', event = 'VeryLazy', config = true },
+  { 'echasnovski/mini.pairs', event = 'VeryLazy', config = true },
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
@@ -40,65 +40,90 @@ return {
     event = 'BufReadPost',
   },
   {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'folke/neodev.nvim',
-      'ckipp01/stylua-nvim',
-      'mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-    },
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      require('mason-lspconfig').setup_handlers({
-        function(server_name) -- default handler (optional)
-          require('lspconfig')[server_name].setup({
-            capabilities = capabilities,
-          })
-        end,
-      })
-      require('mason-lspconfig').setup({
-        ensure_installed = {
-          'lua_ls',
-        }
-      })
-      require('lspconfig').lua_ls.setup({
-        commands = {
-          Format = {
-            function()
-              require('stylua-nvim').format_file()
-            end,
-          },
-        },
-        settings = {
-          Lua = {
-            format = { enable = false },
-          },
-        },
+      local configs = require('nvim-treesitter.configs')
+
+      configs.setup({
+        auto_install = true,
       })
     end,
+  },
+  {
+    'stevearc/conform.nvim',
+    ---@type conform.setupOpts
+    opts = {
+      formatters_by_ft = {
+        lua = { 'stylua' },
+      },
+      format_on_save = {
+        timeout_ms = 1000,
+        lsp_format = 'fallback',
+      },
+    },
+    keys = {
+      {
+        '<leader>cf',
+        function()
+          require('conform').format({ async = true, lsp_format = 'fallback' })
+        end,
+        desc = 'Format',
+      },
+    },
+  },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
   },
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
     keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },
     build = ':MasonUpdate',
-    opts = {},
+    config = true,
+  },
+  {
+    'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig',
+    },
+    config = function()
+      vim.lsp.enable(require('mason-lspconfig').get_installed_servers())
+      vim.api.nvim_create_user_command('LspInlayHintToggle', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, { desc = 'Toggle inlay_hint' })
+    end,
+  },
+  {
+    'williamboman/mason-lspconfig',
+    dependencies = { 'mason.nvim' },
+    event = { 'BufReadPre', 'BufNewFile' },
+    ---@class MasonLspconfigSettings
+    opts = {
+      ensure_installed = {
+        'lua_ls',
+      },
+      automatic_installation = false,
+    },
   },
   {
     'j-hui/fidget.nvim',
     tag = 'legacy',
     event = 'LspAttach',
-    opts = {},
+    config = true,
   },
   {
     'ray-x/lsp_signature.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
-    config = function(_, opts)
-      require('lsp_signature').setup(opts)
-    end,
+    config = true,
   },
   {
     'hrsh7th/nvim-cmp',
@@ -108,8 +133,8 @@ return {
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
-      { 'zbirenbaum/copilot.lua', cmd = 'Copilot', opts = {} },
-      { 'zbirenbaum/copilot-cmp', opts = {} },
+      { 'zbirenbaum/copilot.lua', cmd = 'Copilot', config = true },
+      { 'zbirenbaum/copilot-cmp', config = true },
       'onsails/lspkind-nvim',
     },
     config = function()
@@ -147,16 +172,23 @@ return {
           { name = 'cmdline' },
         }),
       })
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      })
     end,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
+    main = 'ibl',
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
   },
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
+    config = true,
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -191,11 +223,11 @@ return {
     'smoka7/hop.nvim',
     version = '*',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
     keys = {
       {
         '<space>',
         function()
+          ---@diagnostic disable-next-line: missing-parameter
           require('hop').hint_char1()
         end,
       },
@@ -210,7 +242,7 @@ return {
   {
     'ojroques/nvim-osc52',
     evnet = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
+    config = true,
     keys = {
       {
         '<leader>c',
@@ -221,6 +253,23 @@ return {
       },
     },
   },
-  { 'nmac427/guess-indent.nvim', event = 'VeryLazy', opts = {} },
-  { 'sindrets/diffview.nvim', cmd = 'DiffviewOpen', opts = {} },
+  { 'nmac427/guess-indent.nvim', event = 'VeryLazy', config = true },
+  { 'sindrets/diffview.nvim', cmd = 'DiffviewOpen', config = true },
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    keys = {
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+  },
 }
