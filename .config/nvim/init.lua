@@ -11,7 +11,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ','
-require('lazy').setup('plugins')
+require('lazy').setup({
+  -- カテゴリ別のプラグイン設定を読み込む
+  { import = "plugins.ui" },
+  { import = "plugins.editor" },
+  { import = "plugins.lsp" },
+  { import = "plugins.completion" },
+  { import = "plugins.syntax" },
+  { import = "plugins.git" },
+  { import = "plugins.navigation" },
+})
 
 local auto_mkdir_group = vim.api.nvim_create_augroup('auto_mkdir', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
