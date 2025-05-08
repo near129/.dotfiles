@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-parameter
+---@diagnostic disable: missing-fields
 return {
   {
     'cocopon/iceberg.vim',
@@ -5,6 +7,7 @@ return {
     priority = 1000,
     config = function()
       vim.cmd.colorscheme('iceberg')
+      vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#4b5055' })
     end,
   },
   { 'echasnovski/mini.starter', config = true },
@@ -38,13 +41,13 @@ return {
     'jonahgoldwastaken/copilot-status.nvim',
     dependencies = { 'zbirenbaum/copilot.lua' },
     event = 'BufReadPost',
+    config = true,
   },
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
       local configs = require('nvim-treesitter.configs')
-      ---@diagnostic disable-next-line: missing-fields
       configs.setup({
         auto_install = true,
       })
@@ -100,6 +103,18 @@ return {
       vim.api.nvim_create_user_command('LspInlayHintToggle', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end, { desc = 'Toggle inlay_hint' })
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('LspAttach', { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
+          if client.supports_method('textDocument/inlayHint') or client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          end
+        end,
+      })
     end,
   },
   {
@@ -112,6 +127,24 @@ return {
         'lua_ls',
       },
       automatic_installation = false,
+    },
+  },
+  {
+    'rachartier/tiny-code-action.nvim',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope.nvim' },
+    },
+    event = 'LspAttach',
+    config = true,
+    keys = {
+      {
+        '<leader>ca',
+        function()
+          require('tiny-code-action').code_action()
+        end,
+        desc = 'Code Action',
+      },
     },
   },
   {
@@ -142,10 +175,9 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+    ---@module 'copilot'
     ---@type CopilotConfig
-    ---@diagnostic disable-next-line: missing-fields
     opts = {
-      ---@diagnostic disable-next-line: missing-fields
       suggestion = {
         auto_trigger = true,
       },
@@ -174,6 +206,12 @@ return {
       { '<leader>fg', '<cmd>Telescope live_grep<cr>' },
       { '<leader>fb', '<cmd>Telescope buffers<cr>' },
       { '<leader>fh', '<cmd>Telescope help_tags<cr>' },
+      { '<leader>fch', '<cmd>Telescope command_history<cr>' },
+      { '<leader>fsh', '<cmd>Telescope search_history<cr>' },
+      { '<leader>fk', '<cmd>Telescope keymaps<cr>' },
+      { '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>' },
+      { '<leader>fd', '<cmd>Telescope diagnostics<cr>' },
+      { '<leader>ft', '<cmd>Telescope treesitter<cr>' },
     },
     opts = {
       defaults = {
@@ -184,10 +222,24 @@ return {
             end,
           },
         },
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          -- The above is the default
+          '--trim',
+          '--hidden',
+          '--glob',
+          '!**/.git/*',
+        },
       },
       pickers = {
         find_files = {
-          find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
+          find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
         },
       },
     },
@@ -200,7 +252,6 @@ return {
       {
         '<space>',
         function()
-          ---@diagnostic disable-next-line: missing-parameter
           require('hop').hint_char1()
         end,
       },
@@ -243,6 +294,50 @@ return {
     },
     keys = {
       { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+  },
+  {
+    'norcalli/nvim-colorizer.lua',
+    evnet = { 'BufReadPost', 'BufNewFile' },
+    config = true,
+  },
+  {
+    'mikavilpas/yazi.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'folke/snacks.nvim',
+    },
+    keys = {
+      {
+        '<leader>-',
+        mode = { 'n', 'v' },
+        '<cmd>Yazi<cr>',
+        desc = 'Open yazi at the current file',
+      },
+      {
+        '<leader>cw',
+        '<cmd>Yazi cwd<cr>',
+        desc = "Open the file manager in nvim's working directory",
+      },
+      {
+        '<c-up>',
+        '<cmd>Yazi toggle<cr>',
+        desc = 'Resume the last yazi session',
+      },
+    },
+  },
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show({ global = false })
+        end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
     },
   },
 }

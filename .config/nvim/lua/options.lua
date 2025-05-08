@@ -38,3 +38,7 @@ vim.opt.listchars = { tab = '»-', trail = '-', eol = '↲', extends = '»', pre
 
 -- Disable IME in insert mode
 vim.opt.iminsert = 0
+
+-- fold
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'

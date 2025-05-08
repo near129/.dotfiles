@@ -13,7 +13,7 @@ vim.keymap.set('i', '<C-d>', '<Del>')
 vim.keymap.set('n', '<ESC><ESC>', ':noh<CR>')
 vim.keymap.set('n', '<C-p>', ':<C-u>bp<CR>')
 vim.keymap.set('n', '<C-n>', ':<C-u>bn<CR>')
-vim.keymap.set('n', '<C-w>', ':bd<CR>')
+-- vim.keymap.set('n', '<C-w>', ':bd<CR>')
 vim.keymap.set('n', '>', '>>')
 vim.keymap.set('n', '<', '<<')
 
@@ -49,7 +49,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   end,
 })
