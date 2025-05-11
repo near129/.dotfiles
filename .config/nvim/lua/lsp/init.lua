@@ -1,1 +1,12 @@
-vim.lsp.enable({'nixd'})
+vim.lsp.enable({
+  'gopls',
+  'jsonls',
+  'lua_ls',
+  'nixd',
+  'pyright',
+  'ruff',
+  'rust_analyzer',
+  'taplo',
+  'ts_ls',
+  'yamlls',
+})

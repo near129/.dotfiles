@@ -32,6 +32,10 @@
       homeConfigurations."near129@MacBook-Air" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./nix/home-manager ];
+        extraSpecialArgs = {
+          username = "near129";
+          email = "56579877+near129@users.noreply.github.com";
+        };
       };
     };
 }

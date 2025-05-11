@@ -5,8 +5,6 @@ vim.opt.wrap = true -- Enable line wrapping for long lines
 vim.opt.textwidth = 0 -- Disable automatic line wrapping
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.visualbell = false -- Disable visual bell
-vim.opt.foldmethod = 'indent' -- Set folding method to 'indent'
-vim.opt.foldlevel = 99 -- Do not fold when opening files
 
 -- Editing settings
 vim.opt.infercase = true -- Ignore case during completion
@@ -40,5 +38,6 @@ vim.opt.listchars = { tab = '»-', trail = '-', eol = '↲', extends = '»', pre
 vim.opt.iminsert = 0
 
 -- fold
+vim.opt.foldlevel = 99
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'

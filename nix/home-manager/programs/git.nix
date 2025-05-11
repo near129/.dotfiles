@@ -6,7 +6,7 @@
 let
   macosGitignoreMacosPath = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore";
-    sha256 = "";
+    sha256 = "0xjnwcd84qdf0bmmxjszszh11kmi8hw3n4wqsaywf9l7kkigda6k";
   };
   macosGitignoreMacos = builtins.readFile macosGitignoreMacosPath;
 in

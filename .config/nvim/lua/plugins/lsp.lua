@@ -21,10 +21,8 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig',
     },
     config = function()
-      vim.lsp.enable(require('mason-lspconfig').get_installed_servers())
       vim.api.nvim_create_user_command('LspInlayHintToggle', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end, { desc = 'Toggle inlay_hint' })
@@ -52,6 +50,7 @@ return {
         'lua_ls',
       },
       automatic_installation = false,
+      automatic_enable = true,
     },
   },
   {
@@ -82,5 +81,9 @@ return {
     'ray-x/lsp_signature.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     config = true,
+  },
+  {
+    'b0o/schemastore.nvim',
+    event = 'LspAttach',
   },
 }

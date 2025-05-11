@@ -11,12 +11,12 @@ fpath=(
   "$XDG_DATA_HOME/zsh/site-functions"(N-/)
   "$HOMEBREW_PREFIX/share/zsh/site-functions"(N-/)
 )
-if [[ -v HOMEBREW_PREFIX ]]; then
-  source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-  bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-  bindkey "^P" up-line-or-history
-  bindkey '^N' down-line-or-history
-else
+# if [[ -v HOMEBREW_PREFIX ]]; then
+#   source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+#   bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+#   bindkey "^P" up-line-or-history
+#   bindkey '^N' down-line-or-history
+# else
   autoload -U compinit
   compinit -d $XDG_CACHE_HOME/zsh/zcompdump
   zstyle ':completion:*' menu select
@@ -32,7 +32,7 @@ else
   zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
   zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
   zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-fi
+# fi
 
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
@@ -41,7 +41,7 @@ autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
 # need to install https://github.com/knu/zsh-git-escape-magic/tree/master
-autoload -Uz git-escape-magic && git-escape-magic
+# autoload -Uz git-escape-magic && git-escape-magic
 
 export HISTFILE="$XDG_STATE_HOME/.zsh_history"
 export HISTSIZE=50000

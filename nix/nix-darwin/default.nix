@@ -9,10 +9,10 @@
     zsh
   ];
   programs.zsh.enable = true;
-    environment.shells = [
-      pkgs.zsh
-    ];
-    users.users.near129.shell = pkgs.zsh;
+  environment.shells = [
+    pkgs.zsh
+  ];
+  users.users.near129.shell = pkgs.zsh;
 
   nix = {
     package = pkgs.nix;
@@ -71,6 +71,9 @@
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
       };
+      WindowManager = {
+        EnableTiledWindowMargins = false;
+      };
       CustomUserPreferences = {
         "com.apple.desktopservices" = {
           DSDontWriteNetworkStores = true;
@@ -103,7 +106,7 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "zap";
+      cleanup = "uninstall";
     };
     casks = [
       "1password"
@@ -130,7 +133,7 @@
       "visual-studio-code"
       "wezterm"
       "zed"
-      "zen-browser"
+      "zen"
     ];
   };
 }
