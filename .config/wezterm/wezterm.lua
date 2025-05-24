@@ -90,7 +90,22 @@ tabline.setup({
     tabline_y = {},
   },
 })
-print(tabline.get_theme())
+
+-- other
+config.window_close_confirmation = 'NeverPrompt'
+config.use_ime = true
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
+table.insert(config.hyperlink_rules, {
+  regex = [[[[:alnum:].]+:\d{1,5}]],
+  format = 'http://$0'
+})
+table.insert(config.hyperlink_rules, {
+  regex = [[:(\d{1,5})]],
+  format = 'http://localhost:$1'
+})
+config.quick_select_patterns = {
+  '-(?:-\\w{5,20})+', -- example: --dry-run --force-with-lease
+}
 
 --key binding
 local super = is_mac and 'CMD' or 'ALT'
@@ -159,14 +174,6 @@ config.mouse_bindings = {
     mods = 'NONE',
     action = act({ CompleteSelection = 'PrimarySelection' }),
   },
-}
-
--- other
-config.window_close_confirmation = 'NeverPrompt'
-config.use_ime = true
-config.hyperlink_rules = { { regex = '\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b', format = '$0' } }
-config.quick_select_patterns = {
-  '-(?:-\\w{2,20})+', -- example: --dry-run, --path
 }
 
 return config
