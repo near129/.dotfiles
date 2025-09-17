@@ -9,27 +9,34 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
+  nixpkgs.config.allowUnfree = true;
   home = {
     username = username;
     homeDirectory = "/Users/${username}";
-    stateVersion = "24.11"; # Please read the comment before changing.
+    stateVersion = "25.05"; # Please read the comment before changing.
     packages = with pkgs; [
+      _1password-cli
+      awscli2
       bottom
+      claude-code
+      codex
       delta
       direnv
       diskus
       dua
+      dive
       eza
       fastfetch
       fd
       ffmpeg
+      # gemini-cli
       gh
       jq
       k9s
       lazygit
       mycli
       # neovim
-      nodejs # needed for nvm copilot
+      nh
       pandoc
       pre-commit
       procs
@@ -62,7 +69,12 @@ in
       go
       gopls
       # javascript/typescript
-      volta
+      nodejs # needed for nvm copilot
+      pnpm
+      biome
+      vscode-langservers-extracted
+      # google cloud
+      google-cloud-sdk
     ];
   };
   programs.home-manager.enable = true;
@@ -119,6 +131,20 @@ in
         recursive = true;
       };
       "starship.toml".source = dotConfigDir + /starship.toml;
+      "aerospace" = {
+        # source = dotConfigDir + /aerospace;
+        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/aerospace;
+        recursive = true;
+      };
+      "claude" = {
+        # source = dotConfigDir + /claude;
+        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/claude;
+        recursive = true;
+      };
+      "codex" = {
+        source = dotConfigDir + /codex;
+        recursive = true;
+      };
     };
   };
 }

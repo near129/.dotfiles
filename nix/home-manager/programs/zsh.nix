@@ -2,7 +2,7 @@
 {
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     completionInit = "autoload -U compinit && compinit -C -d $HOME/.cache/zsh/zcompdump";
     autosuggestion.enable = true;
     history = {
@@ -29,6 +29,8 @@
       lal = "ls -lA";
       df = "df -kh";
       du = "du -kh";
+
+      gs = "git status";
     };
     envExtra = ''
       ### locale ###
@@ -72,6 +74,12 @@
       fi
     '';
     initContent = lib.mkMerge [
+      (lib.mkOrder 550 ''
+      fpath=(
+        "$fpath[@]"
+        "$XDG_DATA_HOME/zsh/site-functions"(N-/)
+      )
+      '')
       (lib.mkOrder 1000 ''
         (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)
 
@@ -129,6 +137,8 @@
             fi
             ;;
         esac
+        export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+        export CODEX_HOME="$XDG_CONFIG_HOME/codex"
       '')
       (lib.mkOrder 1500 "[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true")
     ];
