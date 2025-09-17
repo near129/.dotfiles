@@ -1,4 +1,6 @@
 format = '[$all](bold purple)'
+[aws]
+disabled = true
 [cmd_duration]
 show_notifications = true
 [directory]
