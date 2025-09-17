@@ -1,12 +1,11 @@
 {
   ...
 }:
-let
-  macosGitignoreMacosPath = builtins.fetchurl {
+let macosGitignorePath = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore";
-    sha256 = "0xjnwcd84qdf0bmmxjszszh11kmi8hw3n4wqsaywf9l7kkigda6k";
+    sha256 = "1bmxv9qm6mv7m8kqrggc6ddzi508257q9ryrm6ngyj0nli06caqs";
   };
-  macosGitignoreMacos = builtins.readFile macosGitignoreMacosPath;
+  macosGitignore = builtins.readFile macosGitignorePath;
 in
 {
   programs.git = {
@@ -20,7 +19,11 @@ in
       signer = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
     ignores = [
-      macosGitignoreMacos
+      ".op.env" # 1Password environment variables
+      ".serena"
+      ".venv"
+      "node_modules"
+      macosGitignore
     ];
     aliases = {
       pushf = "push --force-with-lease";
