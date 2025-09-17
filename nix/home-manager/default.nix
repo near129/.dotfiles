@@ -137,8 +137,7 @@ in
         recursive = true;
       };
       "claude" = {
-        # source = dotConfigDir + /claude;
-        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/claude;
+        source = dotConfigDir + /claude;
         recursive = true;
       };
       "codex" = {
