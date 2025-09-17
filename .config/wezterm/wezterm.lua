@@ -5,22 +5,6 @@ local is_mac = wezterm.target_triple:find('darwin')
 local is_windows = wezterm.target_triple:find('windows')
 local is_linux = wezterm.target_triple:find('linux')
 
--- wezterm.on('update-right-status', function(window, pane)
---   local key_table = window:active_key_table()
---   local domain = pane:get_domain_name()
---   if domain == 'local' then
---     domain = nil
---   else
---     domain = 'In 🌐' .. domain .. '  '
---   end
---
---   window:set_right_status(wezterm.format({
---     { Attribute = { Underline = 'Single' } },
---     { Text = domain or '' },
---     { Text = (key_table or '') .. '  ' },
---   }))
--- end)
-
 local config = wezterm.config_builder()
 
 if is_windows then
@@ -106,6 +90,10 @@ table.insert(config.hyperlink_rules, {
 config.quick_select_patterns = {
   '-(?:-\\w{5,20})+', -- example: --dry-run --force-with-lease
 }
+config.audible_bell = "SystemBeep"
+wezterm.on('bell', function(window, pane)
+  window:toast_notification('Wezterm Bell', string.format('title: %s cwd: %s', pane:get_title(), pane:get_current_working_dir()), nil, nil)
+end)
 
 --key binding
 local super = is_mac and 'CMD' or 'ALT'
@@ -130,6 +118,7 @@ config.keys = {
   { key = 't', mods = super, action = act.SpawnTab('CurrentPaneDomain') },
   { key = 'c', mods = super, action = act.CopyTo('Clipboard') },
   { key = 'v', mods = super, action = act.PasteFrom('Clipboard') },
+  { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendString('\n')} -- for claude code
 }
 config.key_tables = {
   manage_panes_mode = {
