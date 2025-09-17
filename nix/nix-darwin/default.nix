@@ -2,6 +2,7 @@
   pkgs,
   lib,
   isPrivate,
+  primaryUser,
   ...
 }:
 {
@@ -37,6 +38,8 @@
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
     hackgen-font
@@ -45,7 +48,8 @@
   ];
 
   system = {
-    stateVersion = 5;
+    stateVersion = 6;
+    primaryUser = primaryUser;
     defaults = {
       menuExtraClock.Show24Hour = true;
       dock = {
@@ -116,13 +120,19 @@
       upgrade = true;
       cleanup = "uninstall";
     };
+    taps = [
+      "nikitabobko/tap"
+    ];
     casks =
       [
         "1password"
+        "aerospace"
         "alacritty"
-        "docker"
+        "arc"
+        "docker-desktop"
+        "finicky"
+        "firefox"
         "ghostty"
-        "google-cloud-sdk"
         "jordanbaird-ice"
         "karabiner-elements"
         "lunar"
