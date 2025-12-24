@@ -11,6 +11,22 @@ if is_windows then
   config.default_domain = 'WSL:Ubuntu'
 end
 
+config.default_prog = {'/run/current-system/sw/bin/fish'}
+local launch_menu = {}
+table.insert(launch_menu, {
+  label = 'fish',
+  args = {'/run/current-system/sw/bin/fish'},
+})
+table.insert(launch_menu, {
+  label = 'bash',
+  args = {'bash'},
+})
+table.insert(launch_menu, {
+  label = 'zsh',
+  args = {'zsh'},
+})
+config.launch_menu = launch_menu
+
 -- font
 if is_mac then
   config.font = wezterm.font_with_fallback({
@@ -91,9 +107,6 @@ config.quick_select_patterns = {
   '-(?:-\\w{5,20})+', -- example: --dry-run --force-with-lease
 }
 config.audible_bell = "SystemBeep"
-wezterm.on('bell', function(window, pane)
-  window:toast_notification('Wezterm Bell', string.format('title: %s cwd: %s', pane:get_title(), pane:get_current_working_dir()), nil, nil)
-end)
 
 --key binding
 local super = is_mac and 'CMD' or 'ALT'
