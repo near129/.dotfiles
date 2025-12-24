@@ -9,11 +9,16 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
-        markdown = { 'markdownlint' },
-        javascript = { 'biome' },
-        javascriptreact = { 'biome' },
-        typescript = { 'biome' },
-        typescriptreact = { 'biome' },
+        markdown = { 'markdownlint-cli2' },
+        javascript = { 'biome-check' },
+        javascriptreact = { 'biome-check' },
+        typescript = { 'biome-check' },
+        typescriptreact = { 'biome-check' },
+        python = {
+          'ruff_fix',
+          'ruff_format',
+          'ruff_organize_imports',
+        },
       },
       format_on_save = {
         timeout_ms = 1000,
@@ -42,12 +47,7 @@ return {
         end,
       },
     },
-    config = function()
-      require('hop').setup()
-      vim.api.nvim_set_hl(0, 'HopNextKey', { fg = '#668e3d', bold = true })
-      vim.api.nvim_set_hl(0, 'HopNextKey1', { fg = '#c57339', bold = true })
-      vim.api.nvim_set_hl(0, 'HopNextKey2', { fg = '#c57339', bold = true })
-    end,
+    config = true,
   },
   {
     'ojroques/nvim-osc52',
@@ -63,5 +63,24 @@ return {
       },
     },
   },
-  { 'nmac427/guess-indent.nvim', event = 'VeryLazy', config = true },
+  {
+    'vim-skk/skkeleton',
+    lazy = false,
+    dependencies = { 'vim-denops/denops.vim' },
+    config = function()
+      vim.fn['skkeleton#config']({
+        -- https://skk-dev.github.io/dict/
+        -- https://skk-dev.github.io/dict/SKK-JISYO.L.gz
+        globalDictionaries = { '~/.local/share/skk/SKK-JISYO.L' },
+      })
+    end,
+    keys = {
+      {
+        '<C-j>',
+        '<Plug>(skkeleton-toggle)',
+        mode = { 'i', 'c' },
+        noremap = false,
+      },
+    },
+  },
 }

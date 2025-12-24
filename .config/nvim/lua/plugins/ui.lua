@@ -6,6 +6,9 @@ return {
     config = function()
       vim.cmd.colorscheme('iceberg')
       vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#4b5055' })
+      vim.api.nvim_set_hl(0, 'HopNextKey', { fg = '#b4be82', bold = true })
+      vim.api.nvim_set_hl(0, 'HopNextKey1', { fg = '#e2a478', bold = true })
+      vim.api.nvim_set_hl(0, 'HopNextKey2', { fg = '#e2a478', bold = true })
     end,
   },
   { 'echasnovski/mini.starter', config = true },

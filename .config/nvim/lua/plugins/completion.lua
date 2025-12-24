@@ -20,8 +20,16 @@ return {
     ---@module 'copilot'
     ---@type CopilotConfig
     opts = {
+      filetypes = {
+        markdown = true,
+        yaml = true,
+      },
       suggestion = {
         auto_trigger = true,
+        keymap = {
+          accept = '<C-l>',
+          accept_word = '<C-;>',
+        },
       },
     },
   },

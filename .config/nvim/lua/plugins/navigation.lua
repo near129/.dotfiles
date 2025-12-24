@@ -12,9 +12,13 @@ return {
       { '<leader>fch', '<cmd>Telescope command_history<cr>' },
       { '<leader>fsh', '<cmd>Telescope search_history<cr>' },
       { '<leader>fk', '<cmd>Telescope keymaps<cr>' },
-      { '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>' },
       { '<leader>fd', '<cmd>Telescope diagnostics<cr>' },
       { '<leader>ft', '<cmd>Telescope treesitter<cr>' },
+      { '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>' },
+      { 'gr', '<cmd>Telescope lsp_references<cr>' },
+      { 'gd', '<cmd>Telescope lsp_definitions<cr>' },
+      { 'gi', '<cmd>Telescope lsp_implementations<cr>' },
+      { 'gt', '<cmd>Telescope lsp_type_definitions<cr>' },
     },
     opts = {
       defaults = {
@@ -42,33 +46,62 @@ return {
       },
       pickers = {
         find_files = {
-          find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
+          find_command = {
+            'fd',
+            '--type',
+            'file',
+            '--hidden',
+            '--no-ignore',
+            '--exclude',
+            '.DS_Store',
+            '--exclude',
+            '.git',
+            '--exclude',
+            '.venv',
+            '--exclude',
+            '.ruff_cache/',
+            '--exclude',
+            '.mypy_cache/',
+            '--exclude',
+            '__pycache__',
+            '--exclude',
+            'node_modules',
+            '--exclude',
+            '.next',
+          },
         },
       },
     },
   },
   {
-    'mikavilpas/yazi.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'folke/snacks.nvim',
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {
+      view_options = {
+        show_hidden = true,
+      },
+      delete_to_trash = true,
     },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    lazy = false,
     keys = {
       {
-        '<leader>-',
-        mode = { 'n', 'v' },
-        '<cmd>Yazi<cr>',
-        desc = 'Open yazi at the current file',
+        '<leader>o',
+        '<cmd>Oil<cr>',
+        desc = 'Open Oil file manager',
       },
+    },
+  },
+  {
+    'nvim-mini/mini.files',
+    version = false,
+    config = true,
+    keys = {
       {
-        '<leader>cw',
-        '<cmd>Yazi cwd<cr>',
-        desc = "Open the file manager in nvim's working directory",
-      },
-      {
-        '<c-up>',
-        '<cmd>Yazi toggle<cr>',
-        desc = 'Resume the last yazi session',
+        '<leader>mf',
+        '<cmd>lua MiniFiles.open()<cr>',
+        desc = 'Open MiniFiles file manager',
       },
     },
   },

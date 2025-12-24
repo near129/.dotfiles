@@ -9,10 +9,10 @@ return {
       },
       options = {
         nix_darwin = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).darwinConfigurations.MacBook-Air.options',
+          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).darwinConfigurations.near129.options',
         },
         home_manager = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).homeConfigurations."near129@MacBook-Air".options',
+          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).homeConfigurations."near129".options',
         },
       },
     },

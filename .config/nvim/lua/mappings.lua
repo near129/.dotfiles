@@ -13,7 +13,6 @@ vim.keymap.set('i', '<C-d>', '<Del>')
 vim.keymap.set('n', '<ESC><ESC>', ':noh<CR>')
 vim.keymap.set('n', '<C-p>', ':<C-u>bp<CR>')
 vim.keymap.set('n', '<C-n>', ':<C-u>bn<CR>')
--- vim.keymap.set('n', '<C-w>', ':bd<CR>')
 vim.keymap.set('n', '>', '>>')
 vim.keymap.set('n', '<', '<<')
 
@@ -25,9 +24,15 @@ vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-e>', '<End>')
 vim.keymap.set('c', '<C-d>', '<Del>')
 
+vim.keymap.set("n", "<leader>q", ":bd<CR>", {silent = true })
+
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = 1 })
+end)
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = -1 })
+end)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

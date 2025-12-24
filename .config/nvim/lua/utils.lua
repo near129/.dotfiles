@@ -2,6 +2,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = vim.api.nvim_create_augroup('auto_mkdir', {}),
   pattern = '*',
   callback = function(event)
+    -- oil.nvim の仮想バッファは無視する
+    if event.file:match('^oil://') then
+      return
+    end
     local dir = vim.fs.dirname(event.file)
     local force = vim.v.cmdbang == 1
     if
