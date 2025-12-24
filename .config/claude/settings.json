@@ -2,7 +2,7 @@
   "env": {
     "CLAUDE_CODE_USE_VERTEX": "1",
     "CLOUD_ML_REGION": "global",
-    "VERTEX_REGION_CLAUDE_3_5_HAIKU": "us-east5"
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
   },
   "permissions": {
     "allow": [
@@ -44,8 +44,12 @@
       "mcp__serena__list_dir",
       "mcp__serena__search_for_pattern",
       "mcp__serena__think_about_collected_information",
-      "Bash(uv run ruff check)",
-      "Bash(uv run ruff format)",
+      "mcp__serena__find_referencing_symbols",
+      "Bash(uv add:*)",
+      "Bash(uv run ruff check:*)",
+      "Bash(uv run ruff format:*)",
+      "Bash(uv run mypy:*)",
+      "Bash(uv run pytest:*)",
       "Bash(npm run build)",
       "Bash(npm run lint)",
       "Bash(npm run format)",
@@ -60,7 +64,8 @@
       "Bash(pnpm build:*)",
       "Bash(pnpm run type-check:*)",
       "Bash(pnpm run check:*)",
-      "Bash(pnpm run lint:*)"
+      "Bash(pnpm run lint:*)",
+      "READ(~/.cache/claude/library-investigator/**)"
     ],
     "deny": [
       "Bash(sudo:*)"
