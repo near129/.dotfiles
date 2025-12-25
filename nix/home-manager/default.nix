@@ -5,15 +5,14 @@
   ...
 }:
 let
-  dotConfigDir = ../../.config;
-  inherit (config.lib.file) mkOutOfStoreSymlink;
+  mkSymlink =
+    path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${path}";
 in
 {
   nixpkgs.config.allowUnfree = true;
   home = {
     username = username;
-    homeDirectory = "/Users/${username}";
-    stateVersion = "25.05"; # Please read the comment before changing.
+    stateVersion = "25.05";
     packages = with pkgs; [
       _1password-cli
       awscli2
@@ -21,21 +20,29 @@ in
       claude-code
       codex
       delta
+      # deno
       direnv
       diskus
-      dua
       dive
+      dua
       eza
       fastfetch
       fd
       ffmpeg
-      # gemini-cli
+      # fish # installed via nix-darwin
+      fishPlugins.tide
       gh
+      (google-cloud-sdk.withExtraComponents (
+        with pkgs.google-cloud-sdk.components;
+        [
+          cloud-run-proxy
+        ]
+      ))
       jq
       k9s
       lazygit
       mycli
-      # neovim
+      neovim
       nh
       pandoc
       pre-commit
@@ -45,36 +52,42 @@ in
       ripgrep-all
       rsync
       smartmontools
-      # starship
+      starship
+      terraform
       tmux
       vivid
       wget
       xh
       zellij
-      # zoxide
 
-      # nix
+      # Programming languages and runtimes
+      go
+      nodejs
+      pnpm
+      rustup
+      uv
+
+      # Language servers and formatters, linters
+      basedpyright
+      bash-language-server
+      biome
+      docker-language-server
+      gopls
+      lua-language-server
+      markdownlint-cli2
       nixd
       nixfmt-rfc-style
-      # rust
-      rustup
-      # lua
-      lua-language-server
-      stylua
-      # python
-      uv
-      ruff
+      pyrefly
       pyright
-      # golang
-      go
-      gopls
-      # javascript/typescript
-      nodejs # needed for nvm copilot
-      pnpm
-      biome
-      vscode-langservers-extracted
-      # google cloud
-      google-cloud-sdk
+      ruff
+      shfmt
+      stylua
+      tailwindcss-language-server
+      taplo
+      ty
+      typescript-language-server
+      vscode-langservers-extracted # json
+      yaml-language-server
     ];
   };
   programs.home-manager.enable = true;
@@ -89,12 +102,6 @@ in
   };
   programs.starship.enable = true;
   programs.zoxide.enable = true;
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
   imports = [
     ./programs/git.nix
     ./programs/fzf.nix
@@ -104,46 +111,24 @@ in
   xdg = {
     enable = true;
     configFile = {
-      "nvim" = {
-        # source = dotConfigDir + /nvim;
-        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/nvim;
-        recursive = true;
-      };
-      "zellij" = {
-        source = dotConfigDir + /zellij;
-        recursive = true;
-      };
-      "wezterm" = {
-        # source = dotConfigDir + /wezterm;
-        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/wezterm;
-        recursive = true;
-      };
-      "tmux" = {
-        source = dotConfigDir + /tmux;
-        recursive = true;
-      };
-      "karabiner" = {
-        source = dotConfigDir + /karabiner;
-        recursive = true;
-      };
-      "alacritty" = {
-        source = dotConfigDir + /alacritty;
-        recursive = true;
-      };
-      "starship.toml".source = dotConfigDir + /starship.toml;
-      "aerospace" = {
-        # source = dotConfigDir + /aerospace;
-        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/aerospace;
-        recursive = true;
-      };
-      "claude" = {
-        source = dotConfigDir + /claude;
-        recursive = true;
-      };
-      "codex" = {
-        source = dotConfigDir + /codex;
-        recursive = true;
-      };
+      "nvim".source = mkSymlink "./.config/nvim";
+      "zellij".source = mkSymlink "./.config/zellij";
+      "wezterm".source = mkSymlink "./.config/wezterm";
+      "tmux".source = mkSymlink "./.config/tmux";
+      "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
+      "alacritty".source = mkSymlink "./.config/alacritty";
+      "starship.toml".source = mkSymlink "./.config/starship.toml";
+      "aerospace".source = mkSymlink "./.config/aerospace";
+      "codex/config.toml".source = mkSymlink "./.config/codex/config.toml";
+      "fish".source = mkSymlink "./.config/fish";
+      "ghostty".source = mkSymlink "./.config/ghostty";
+    };
+  };
+  home = {
+    file = {
+      ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
+      ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
+      ".claude/agents".source = mkSymlink "./.config/claude/agents";
     };
   };
 }

@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  isPrivate,
   primaryUser,
   ...
 }:
@@ -11,14 +10,9 @@
     watchIdAuth = true;
   };
 
-  # environment.systemPackages = with pkgs; [
-  #   zsh
-  # ];
-  # programs.zsh.enable = true;
-  # environment.shells = [
-  #   (builtins.trace "sudo chsh -s /run/current-system/sw${pkgs.zsh.shellPath} $USER" pkgs.zsh)
-  # ];
-  # users.users.near129.shell = pkgs.zsh;
+  environment.systemPackages = with pkgs; [
+    fish
+  ];
 
   nix = {
     package = pkgs.nix;
@@ -99,7 +93,7 @@
       };
     };
   };
-  networking = lib.mkIf isPrivate {
+  networking = {
     knownNetworkServices = [
       "Wi-Fi"
       "Ethernet Adaptor"
@@ -123,38 +117,24 @@
     taps = [
       "nikitabobko/tap"
     ];
-    casks =
-      [
-        "1password"
-        "aerospace"
-        "alacritty"
-        "arc"
-        "docker-desktop"
-        "finicky"
-        "firefox"
-        "ghostty"
-        "jordanbaird-ice"
-        "karabiner-elements"
-        "lunar"
-        "middleclick"
-        "obsidian"
-        "raycast"
-        "stats"
-        "visual-studio-code"
-        "wezterm"
-        "zed"
-        "zen"
-      ]
-      ++ lib.optionals isPrivate [
-        "discord"
-        "gimp"
-        "google-chrome"
-        "google-drive"
-        "inkscape"
-        "keycastr"
-        "obs"
-        "slack"
-        "tailscale"
-      ];
+    casks = [
+      "1password"
+      "aerospace"
+      "alacritty"
+      "arc"
+      "docker-desktop"
+      "firefox"
+      "ghostty"
+      "jordanbaird-ice"
+      "karabiner-elements"
+      "lm-studio"
+      "middleclick"
+      "obsidian"
+      "ollama-app"
+      "visual-studio-code"
+      "wezterm"
+      "zed"
+      "zen"
+    ];
   };
 }

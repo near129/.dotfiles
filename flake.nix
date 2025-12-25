@@ -1,7 +1,8 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Nix configuration for macOS with nix-darwin and home-manager";
 
   inputs = {
+    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -14,30 +15,11 @@
   };
 
   outputs =
+    inputs@{ ... }:
     {
-      nixpkgs,
-      home-manager,
-      nix-darwin,
-      ...
-    }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      darwinConfigurations."near129" = nix-darwin.lib.darwinSystem {
-        inherit system;
-        modules = [ ./nix/nix-darwin ];
-        specialArgs = {
-          isPrivate = true;
-        };
-      };
-      homeConfigurations."near129" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./nix/home-manager ];
-        extraSpecialArgs = {
-          username = "near129";
-        };
+      darwinConfigurations = {
+        napoli25 = import ./nix/hosts/napoli25.nix { inherit inputs; };
+        wm14 = import ./.private/nix/hosts/wm14.nix { inherit inputs; };
       };
     };
 }
