@@ -9,10 +9,10 @@ return {
       },
       options = {
         nix_darwin = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).darwinConfigurations.near129.options',
+          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).darwinConfigurations.napoli25.options',
         },
         home_manager = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).homeConfigurations."near129".options',
+          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).homeConfigurations.napoli25.options',
         },
       },
     },
