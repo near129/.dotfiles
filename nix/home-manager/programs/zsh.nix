@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
+    package = pkgs.emptyDirectory;
     dotDir = "${config.xdg.configHome}/zsh";
     completionInit = "autoload -U compinit && compinit -C -d $HOME/.cache/zsh/zcompdump";
     autosuggestion.enable = true;
@@ -29,6 +30,9 @@
       lal = "ls -lA";
       df = "df -kh";
       du = "du -kh";
+
+      vi = "nvim";
+      vim = "nvim";
 
       gs = "git status";
     };
