@@ -20,7 +20,6 @@ in
       claude-code
       codex
       delta
-      # deno
       direnv
       diskus
       dive

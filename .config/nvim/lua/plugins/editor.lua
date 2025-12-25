@@ -63,24 +63,4 @@ return {
       },
     },
   },
-  {
-    'vim-skk/skkeleton',
-    lazy = false,
-    dependencies = { 'vim-denops/denops.vim' },
-    config = function()
-      vim.fn['skkeleton#config']({
-        -- https://skk-dev.github.io/dict/
-        -- https://skk-dev.github.io/dict/SKK-JISYO.L.gz
-        globalDictionaries = { '~/.local/share/skk/SKK-JISYO.L' },
-      })
-    end,
-    keys = {
-      {
-        '<C-j>',
-        '<Plug>(skkeleton-toggle)',
-        mode = { 'i', 'c' },
-        noremap = false,
-      },
-    },
-  },
 }
