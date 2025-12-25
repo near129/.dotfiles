@@ -1,18 +1,23 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  isPrivate,
+  ...
+}:
 {
   security.pam.services.sudo_local = {
     touchIdAuth = true;
     watchIdAuth = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    zsh
-  ];
-  programs.zsh.enable = true;
-  environment.shells = [
-    pkgs.zsh
-  ];
-  users.users.near129.shell = pkgs.zsh;
+  # environment.systemPackages = with pkgs; [
+  #   zsh
+  # ];
+  # programs.zsh.enable = true;
+  # environment.shells = [
+  #   (builtins.trace "sudo chsh -s /run/current-system/sw${pkgs.zsh.shellPath} $USER" pkgs.zsh)
+  # ];
+  # users.users.near129.shell = pkgs.zsh;
 
   nix = {
     package = pkgs.nix;
@@ -57,9 +62,10 @@
       };
       trackpad = {
         TrackpadRightClick = true;
+        FirstClickThreshold = 1;
       };
       screencapture = {
-        location = "~/Pictures/Screenshots";
+        location = "~/Pictures/Screenshots"; # If the location set above does not exist, it will be saved to the desktop
       };
       NSGlobalDomain = {
         "com.apple.sound.beep.feedback" = 0;
@@ -67,6 +73,8 @@
 
         InitialKeyRepeat = 15;
         KeyRepeat = 2;
+
+        "com.apple.trackpad.scaling" = 3.0;
 
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
@@ -87,7 +95,7 @@
       };
     };
   };
-  networking = {
+  networking = lib.mkIf isPrivate {
     knownNetworkServices = [
       "Wi-Fi"
       "Ethernet Adaptor"
@@ -108,32 +116,35 @@
       upgrade = true;
       cleanup = "uninstall";
     };
-    casks = [
-      "1password"
-      "alacritty"
-      "discord"
-      "docker"
-      "ghostty"
-      "gimp"
-      "google-chrome"
-      "google-cloud-sdk"
-      "google-drive"
-      "inkscape"
-      "jordanbaird-ice"
-      "karabiner-elements"
-      "keycastr"
-      "lunar"
-      "middleclick"
-      "obs"
-      "obsidian"
-      "raycast"
-      "slack"
-      "stats"
-      "tailscale"
-      "visual-studio-code"
-      "wezterm"
-      "zed"
-      "zen"
-    ];
+    casks =
+      [
+        "1password"
+        "alacritty"
+        "docker"
+        "ghostty"
+        "google-cloud-sdk"
+        "jordanbaird-ice"
+        "karabiner-elements"
+        "lunar"
+        "middleclick"
+        "obsidian"
+        "raycast"
+        "stats"
+        "visual-studio-code"
+        "wezterm"
+        "zed"
+        "zen"
+      ]
+      ++ lib.optionals isPrivate [
+        "discord"
+        "gimp"
+        "google-chrome"
+        "google-drive"
+        "inkscape"
+        "keycastr"
+        "obs"
+        "slack"
+        "tailscale"
+      ];
   };
 }

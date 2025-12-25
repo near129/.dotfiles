@@ -1,6 +1,4 @@
 {
-  username,
-  email,
   ...
 }:
 let
@@ -13,8 +11,8 @@ in
 {
   programs.git = {
     enable = true;
-    userName = username;
-    userEmail = email;
+    userName = "near129";
+    userEmail = "56579877+near129@users.noreply.github.com";
     signing = {
       signByDefault = true;
       format = "ssh";

@@ -89,33 +89,36 @@ in
     ./programs/ruff.nix
     ./programs/zsh.nix
   ];
-  xdg.configFile = {
-    "nvim" = {
-      # source = dotConfigDir + /nvim;
-      source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/nvim;
-      recursive = true;
+  xdg = {
+    enable = true;
+    configFile = {
+      "nvim" = {
+        # source = dotConfigDir + /nvim;
+        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/nvim;
+        recursive = true;
+      };
+      "zellij" = {
+        source = dotConfigDir + /zellij;
+        recursive = true;
+      };
+      "wezterm" = {
+        # source = dotConfigDir + /wezterm;
+        source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/wezterm;
+        recursive = true;
+      };
+      "tmux" = {
+        source = dotConfigDir + /tmux;
+        recursive = true;
+      };
+      "karabiner" = {
+        source = dotConfigDir + /karabiner;
+        recursive = true;
+      };
+      "alacritty" = {
+        source = dotConfigDir + /alacritty;
+        recursive = true;
+      };
+      "starship.toml".source = dotConfigDir + /starship.toml;
     };
-    "zellij" = {
-      source = dotConfigDir + /zellij;
-      recursive = true;
-    };
-    "wezterm" = {
-      # source = dotConfigDir + /wezterm;
-      source = mkOutOfStoreSymlink config.home.homeDirectory + /.dotfiles/.config/wezterm;
-      recursive = true;
-    };
-    "tmux" = {
-      source = dotConfigDir + /tmux;
-      recursive = true;
-    };
-    "karabiner" = {
-      source = dotConfigDir + /karabiner;
-      recursive = true;
-    };
-    "alacritty" = {
-      source = dotConfigDir + /alacritty;
-      recursive = true;
-    };
-    "starship.toml".source = dotConfigDir + /starship.toml;
   };
 }

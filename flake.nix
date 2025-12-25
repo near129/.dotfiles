@@ -25,16 +25,18 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      darwinConfigurations."MacBook-Air" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."near129" = nix-darwin.lib.darwinSystem {
         inherit system;
         modules = [ ./nix/nix-darwin ];
+        specialArgs = {
+          isPrivate = true;
+        };
       };
-      homeConfigurations."near129@MacBook-Air" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."near129" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./nix/home-manager ];
         extraSpecialArgs = {
           username = "near129";
-          email = "56579877+near129@users.noreply.github.com";
         };
       };
     };

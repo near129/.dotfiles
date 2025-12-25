@@ -3,7 +3,7 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    completionInit = "autoload -U compinit && compinit -d $XDG_CACHE_HOME/zsh/zcompdump";
+    completionInit = "autoload -U compinit && compinit -C -d $HOME/.cache/zsh/zcompdump";
     autosuggestion.enable = true;
     history = {
       ignoreAllDups = true;
@@ -133,4 +133,5 @@
       (lib.mkOrder 1500 "[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true")
     ];
   };
+  xdg.cacheFile."zsh/.keep".text = "";
 }
