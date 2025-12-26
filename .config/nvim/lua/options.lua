@@ -44,7 +44,7 @@ vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Set indentation to 2 spaces for specific file types
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'javascript', 'typescript', 'html', 'css', 'json', 'yaml', 'lua', 'nix' },
+  pattern = { 'javascript', 'typescript', 'html', 'css', 'json', 'jsonc', 'yaml', 'lua', 'nix' },
   callback = function()
     vim.opt_local.shiftwidth = 2
     vim.opt_local.tabstop = 2
