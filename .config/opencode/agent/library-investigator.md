@@ -100,7 +100,7 @@ Use grep MCP to find how other users are using the library:
 ```bash
 # Use grep_searchGitHub tool to find:
 # - Common import/usage patterns
-# - Configuration examples  
+# - Configuration examples
 # - Integration patterns
 # - Best practices from popular repositories
 

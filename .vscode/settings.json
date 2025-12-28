@@ -2,21 +2,19 @@
   "nix.serverSettings": {
     "nixd": {
       "nixpkgs": {
-        "expr": "import <nixpkgs> { }",
+        "expr": "import <nixpkgs> { }"
       },
       "formatting": {
-        "command": [
-          "nixfmt"
-        ]
+        "command": ["nixfmt"]
       },
       "options": {
         "home-manager": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").homeConfigurations.\"near129@MacBook-Air\".options"
         },
         "nix-darwin": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.MacBook-Air.options",
-        },
-      },
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.MacBook-Air.options"
+        }
+      }
     }
-  },
+  }
 }

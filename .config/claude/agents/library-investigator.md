@@ -49,6 +49,7 @@ gh repo clone <owner>/<repo> ~/.cache/claude/library-investigator/<repo-name>
    - Configuration and setup files
 
 **Commands:**
+
 ```bash
 # Find documentation
 fd -t d '(docs|doc|documentation)' ~/.cache/claude/library-investigator/<repo>/
@@ -61,6 +62,7 @@ ls -la ~/.cache/claude/library-investigator/<repo>/docs/
 ### 3. Local Source (For Specific APIs Only)
 
 Only search local `.venv/` or `node_modules/` when:
+
 - Looking for specific API implementation details
 - The library is already installed and you need to verify behavior
 - Quick reference for a known feature
@@ -68,6 +70,7 @@ Only search local `.venv/` or `node_modules/` when:
 ### 4. Fallback to Web
 
 Use context7 or WebSearch only when:
+
 - Repository cannot be found or cloned
 - Need supplementary resources (tutorials, migration guides)
 

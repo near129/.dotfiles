@@ -44,6 +44,8 @@ in
       neovim
       nh
       opencode
+      oxlint
+      oxfmt
       pandoc
       pre-commit
       procs

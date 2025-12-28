@@ -7,17 +7,17 @@ Use ultrathink for complex task decomposition with parallel reads and sequential
 ### Process
 
 1. Explore & Plan:
-    - Scope analysis
-    - Parallel: WebFetch or use context7
-    - Iterative strategy refinement based on findings
+   - Scope analysis
+   - Parallel: WebFetch or use context7
+   - Iterative strategy refinement based on findings
 2. Implement:
-    - Sequential: Write, Edit, MultiEdit
-    - Dependency-ordered execution
+   - Sequential: Write, Edit, MultiEdit
+   - Dependency-ordered execution
 3. Verify:
-    - Mandatory: format, lint, test
-    - Parallel: read results
-    - Sequential: fix errors
-    - Repeat until pass
+   - Mandatory: format, lint, test
+   - Parallel: read results
+   - Sequential: fix errors
+   - Repeat until pass
 
 ### Implementation
 

@@ -26,12 +26,12 @@ nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#da
 ## TODO
 
 - [ ] READMEの整理
-    - [ ] インストール手順
+  - [ ] インストール手順
 - [ ] macOSのdefaults系の整理
-    - [ ] home-managerでも管理できそう
+  - [ ] home-managerでも管理できそう
 - [ ] nixのzshをデフォルトシェルにしたけどchshが自動で実行されない
 - [ ] .dotfilesの置き場所
-    - [ ] ~/.config/home-manager
-    - [ ] /etc/nix-darwin/
+  - [ ] ~/.config/home-manager
+  - [ ] /etc/nix-darwin/
 - [ ] zshの設定
 - [ ] その他ツールの設定をnixに入れるかどうか判断

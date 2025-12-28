@@ -9,11 +9,14 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
-        markdown = { 'markdownlint-cli2' },
-        javascript = { 'biome-check' },
-        javascriptreact = { 'biome-check' },
-        typescript = { 'biome-check' },
-        typescriptreact = { 'biome-check' },
+        markdown = { 'oxfmt' },
+        yaml = { 'oxfmt' },
+        json = { 'oxfmt' },
+        jsonc = { 'oxfmt' },
+        javascript = { 'oxlint', 'oxfmt' },
+        javascriptreact = { 'oxlint', 'oxfmt' },
+        typescript = { 'oxlint', 'oxfmt' },
+        typescriptreact = { 'oxlint', 'oxfmt' },
         python = {
           'ruff_fix',
           'ruff_format',
