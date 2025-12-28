@@ -43,6 +43,7 @@ in
       mycli
       neovim
       nh
+      opencode
       pandoc
       pre-commit
       procs
@@ -110,24 +111,25 @@ in
   xdg = {
     enable = true;
     configFile = {
-      "nvim".source = mkSymlink "./.config/nvim";
-      "zellij".source = mkSymlink "./.config/zellij";
-      "wezterm".source = mkSymlink "./.config/wezterm";
-      "tmux".source = mkSymlink "./.config/tmux";
-      "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
-      "alacritty".source = mkSymlink "./.config/alacritty";
-      "starship.toml".source = mkSymlink "./.config/starship.toml";
       "aerospace".source = mkSymlink "./.config/aerospace";
+      "alacritty".source = mkSymlink "./.config/alacritty";
       "codex/config.toml".source = mkSymlink "./.config/codex/config.toml";
       "fish".source = mkSymlink "./.config/fish";
       "ghostty".source = mkSymlink "./.config/ghostty";
+      "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
+      "nvim".source = mkSymlink "./.config/nvim";
+      "opencode".source = mkSymlink "./.config/opencode";
+      "starship.toml".source = mkSymlink "./.config/starship.toml";
+      "tmux".source = mkSymlink "./.config/tmux";
+      "wezterm".source = mkSymlink "./.config/wezterm";
+      "zellij".source = mkSymlink "./.config/zellij";
     };
   };
   home = {
     file = {
-      ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
       ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
       ".claude/agents".source = mkSymlink "./.config/claude/agents";
+      ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
     };
   };
 }
