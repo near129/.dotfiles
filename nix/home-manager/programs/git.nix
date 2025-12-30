@@ -26,7 +26,7 @@ in
       macosGitignore
     ];
     aliases = {
-      pushf = "push --force-with-lease";
+      pushf = "push --force-with-lease --force-if-includes";
       tree = "log --graph --pretty=format:'%C(auto)%h %d %s %C(blue)(%cr) %C(green)<%an>'";
       wls = "worktree list";
     };

@@ -2,15 +2,17 @@
 
 [![Tests](https://github.com/near129/.dotfiles/actions/workflows/test.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/test.yaml)
 
+Personal dotfiles managed with Nix (nix-darwin + home-manager)
+
 ## Requirements
 
-### Install [Nix](https://nixos.org/)
+### Install Nix
 
 ```shell
 sh <(curl -L https://nixos.org/nix/install)
 ```
 
-### Install [Homebrew](https://brew.sh/)(Only for macOS)
+### Install Homebrew (macOS only)
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -18,20 +20,17 @@ sh <(curl -L https://nixos.org/nix/install)
 
 ## Installation
 
+1. Clone this repository:
+
 ```shell
-nix --extra-experimental-features 'nix-command flakes' run nixpkgs#home-manager -- --extra-experimental-features "nix-command flakes" switch
-nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#darwin-rebuild" -- switch --flake ".#MacBook-Air"
+git clone https://github.com/near129/.dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
-## TODO
+2. Install nix-darwin and apply configuration (first time only):
 
-- [ ] READMEの整理
-  - [ ] インストール手順
-- [ ] macOSのdefaults系の整理
-  - [ ] home-managerでも管理できそう
-- [ ] nixのzshをデフォルトシェルにしたけどchshが自動で実行されない
-- [ ] .dotfilesの置き場所
-  - [ ] ~/.config/home-manager
-  - [ ] /etc/nix-darwin/
-- [ ] zshの設定
-- [ ] その他ツールの設定をnixに入れるかどうか判断
+```shell
+nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#darwin-rebuild" -- switch --flake ".#napoli25"
+# For subsequent runs
+nh darwin switch $HOME/.dotfiles -H napoli25
+```
