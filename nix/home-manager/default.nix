@@ -5,11 +5,9 @@
   ...
 }:
 let
-  mkSymlink =
-    path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${path}";
+  mkSymlink = p: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${p}";
 in
 {
-  nixpkgs.config.allowUnfree = true;
   home = {
     username = username;
     stateVersion = "25.05";
