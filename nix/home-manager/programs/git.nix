@@ -11,8 +11,6 @@ in
 {
   programs.git = {
     enable = true;
-    userName = "near129";
-    userEmail = "56579877+near129@users.noreply.github.com";
     signing = {
       signByDefault = true;
       format = "ssh";
@@ -25,22 +23,27 @@ in
       ".claude/settings.local.json"
       macosGitignore
     ];
-    aliases = {
-      pushf = "push --force-with-lease --force-if-includes";
-      tree = "log --graph --pretty=format:'%C(auto)%h %d %s %C(blue)(%cr) %C(green)<%an>'";
-      wls = "worktree list";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "near129";
+        email = "56579877+near129@users.noreply.github.com";
+      };
+      alias = {
+        pushf = "push --force-with-lease --force-if-includes";
+        tree = "log --graph --pretty=format:'%C(auto)%h %d %s %C(blue)(%cr) %C(green)<%an>'";
+        wls = "worktree list";
+      };
       init.defaultBranch = "main";
       merge.conflictstyle = "diff3";
     };
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side line-numbers";
-        syntaxTheme = "Nord";
-      };
-    };
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "side-by-side line-numbers";
+      syntaxTheme = "Nord";
+    };
+  };
 }
