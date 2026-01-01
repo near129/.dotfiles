@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   primaryUser,
   ...
 }:
@@ -16,15 +15,9 @@
 
   nix = {
     package = pkgs.nix;
-    gc = {
-      automatic = lib.mkDefault true;
-      options = lib.mkDefault "--delete-older-than 7d";
-    };
+    gc.automatic = true;
+    optimise.automatic = true;
     settings = {
-      # Disable auto-optimise-store because of this issue:
-      #   https://github.com/NixOS/nix/issues/7273
-      # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
-      auto-optimise-store = false;
       experimental-features = [
         "nix-command"
         "flakes"
