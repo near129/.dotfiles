@@ -19,7 +19,6 @@
     {
       darwinConfigurations = {
         napoli25 = import ./nix/hosts/napoli25.nix { inherit inputs; };
-        wm14 = import ./.private/nix/hosts/wm14.nix { inherit inputs; };
       };
     };
 }
