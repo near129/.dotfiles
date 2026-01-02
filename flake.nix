@@ -2,7 +2,6 @@
   description = "Nix configuration for macOS with nix-darwin and home-manager";
 
   inputs = {
-    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
