@@ -10,7 +10,7 @@
       "keycastr"
       "obs"
       "slack"
-      "tailscale"
+      "tailscale-app"
     ];
   };
 }
