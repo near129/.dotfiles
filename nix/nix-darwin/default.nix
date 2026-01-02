@@ -112,9 +112,9 @@
     ];
     casks = [
       "1password"
-      "aerospace"
       "alacritty"
       "arc"
+      "chrome-remote-desktop-host"
       "docker-desktop"
       "firefox"
       "ghostty"
@@ -122,6 +122,7 @@
       "karabiner-elements"
       "lm-studio"
       "middleclick"
+      "nikitabobko/tap/aerospace"
       "obsidian"
       "ollama-app"
       "visual-studio-code"

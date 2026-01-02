@@ -8,11 +8,16 @@ Personal dotfiles managed with Nix (nix-darwin + home-manager)
 
 ### Install Nix
 
+<https://github.com/NixOS/nix-installer>
+
 ```shell
-sh <(curl -L https://nixos.org/nix/install)
+curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | \
+  sh -s -- install
 ```
 
 ### Install Homebrew (macOS only)
+
+<https://brew.sh/ja/>
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -30,7 +35,8 @@ cd ~/.dotfiles
 2. Install nix-darwin and apply configuration (first time only):
 
 ```shell
-nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#darwin-rebuild" -- switch --flake ".#napoli25"
+sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
+sudo nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#darwin-rebuild" -- switch --flake ".#napoli25"
 # For subsequent runs
 nh darwin switch $HOME/.dotfiles -H napoli25
 ```
