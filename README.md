@@ -1,6 +1,6 @@
 # Dotfiles
 
-[![Tests](https://github.com/near129/.dotfiles/actions/workflows/test.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/test.yaml)
+[![Check](https://github.com/near129/.dotfiles/actions/workflows/check.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/check.yaml)
 
 Personal dotfiles managed with Nix (nix-darwin + home-manager)
 
