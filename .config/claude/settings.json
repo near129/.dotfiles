@@ -1,0 +1,98 @@
+{
+  "env": {
+    "CLAUDE_CODE_USE_VERTEX": "1",
+    "CLOUD_ML_REGION": "global",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(pwd:*)",
+      "Bash(cd:*)",
+      "Bash(find:*)",
+      "Bash(fd:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(jq:*)",
+      "Bash(mkdir:*)",
+      "Bash(git --no-pager diff:*)",
+      "Bash(git --no-pager log:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git show:*)",
+      "Edit(./**)",
+      "MultiEdit(./**)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_close",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__serena__find_file",
+      "mcp__serena__find_symbol",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__list_dir",
+      "mcp__serena__search_for_pattern",
+      "mcp__serena__think_about_collected_information",
+      "mcp__serena__find_referencing_symbols",
+      "Bash(uv add:*)",
+      "Bash(uv run ruff check:*)",
+      "Bash(uv run ruff format:*)",
+      "Bash(uv run mypy:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(npm run format)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm check:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm fmt:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm test run:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm run type-check:*)",
+      "Bash(pnpm run check:*)",
+      "Bash(pnpm run lint:*)",
+      "READ(~/.cache/claude/library-investigator/**)"
+    ],
+    "deny": ["Bash(sudo:*)"],
+    "ask": ["Bash(git push:*)", "Bash(rm:*)"],
+    "defaultMode": "plan"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Codeが許可を求めています\" with title \"Claude Code\" subtitle \"確認待ち\" sound name \"Glass\"'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Claude Code\" subtitle \"処理終了\" sound name \"Hero\"'"
+          }
+        ]
+      }
+    ]
+  }
+}

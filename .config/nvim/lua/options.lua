@@ -5,8 +5,6 @@ vim.opt.wrap = true -- Enable line wrapping for long lines
 vim.opt.textwidth = 0 -- Disable automatic line wrapping
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.visualbell = false -- Disable visual bell
-vim.opt.foldmethod = 'indent' -- Set folding method to 'indent'
-vim.opt.foldlevel = 99 -- Do not fold when opening files
 
 -- Editing settings
 vim.opt.infercase = true -- Ignore case during completion
@@ -38,3 +36,25 @@ vim.opt.listchars = { tab = '»-', trail = '-', eol = '↲', extends = '»', pre
 
 -- Disable IME in insert mode
 vim.opt.iminsert = 0
+
+-- fold
+vim.opt.foldlevel = 99
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
+-- Set indentation to 2 spaces for specific file types
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'typescript', 'html', 'css', 'json', 'jsonc', 'yaml', 'lua', 'nix' },
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+  end,
+})
+
+-- Set no expandtab for Go files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    vim.opt_local.expandtab = false
+  end,
+})

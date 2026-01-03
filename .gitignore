@@ -1,6 +1,2 @@
 /.config/nvim/lazy-lock.json
 /.luarc.json
-
-/.config/karabiner/karabiner.json
-/.config/karabiner/automatic_backups
-/.config/karabiner/assets/complex_modifications/[0-9]*.json
