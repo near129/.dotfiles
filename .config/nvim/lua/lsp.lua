@@ -9,7 +9,6 @@ vim.lsp.enable({
   'lua_ls',
   'nixd',
   'pyrefly',
-  'pyright',
   'ruff',
   'rust_analyzer',
   'tailwindcss',

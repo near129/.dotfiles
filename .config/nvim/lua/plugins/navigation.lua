@@ -1,8 +1,7 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.3',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
     evnet = 'VeryLazy',
     keys = {
       { '<leader>ff', '<cmd>Telescope find_files<cr>' },
@@ -14,7 +13,8 @@ return {
       { '<leader>fk', '<cmd>Telescope keymaps<cr>' },
       { '<leader>fd', '<cmd>Telescope diagnostics<cr>' },
       { '<leader>ft', '<cmd>Telescope treesitter<cr>' },
-      { '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>' },
+      { '<leader>fws', '<cmd>Telescope lsp_workspace_symbols<cr>' },
+      { '<leader>fds', '<cmd>Telescope lsp_document_symbols<cr>' },
       { 'gr', '<cmd>Telescope lsp_references<cr>' },
       { 'gd', '<cmd>Telescope lsp_definitions<cr>' },
       { 'gi', '<cmd>Telescope lsp_implementations<cr>' },
@@ -29,49 +29,25 @@ return {
             end,
           },
         },
-        vimgrep_arguments = {
-          'rg',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-          -- The above is the default
-          '--trim',
-          '--hidden',
-          '--glob',
-          '!**/.git/*',
-        },
       },
       pickers = {
-        find_files = {
-          find_command = {
-            'fd',
-            '--type',
-            'file',
+        live_grep = {
+          glob_pattern = { '!**/.git/*' },
+          additional_args = {
+            '--trim',
             '--hidden',
-            '--no-ignore',
-            '--exclude',
-            '.DS_Store',
-            '--exclude',
-            '.git',
-            '--exclude',
-            '.venv',
-            '--exclude',
-            '.ruff_cache/',
-            '--exclude',
-            '.mypy_cache/',
-            '--exclude',
-            '__pycache__',
-            '--exclude',
-            'node_modules',
-            '--exclude',
-            '.next',
           },
+        },
+        find_files = {
+          hidden = true,
         },
       },
     },
+    config = function(_, opts)
+      local telescope = require('telescope')
+      telescope.setup(opts)
+      telescope.load_extension('fzf')
+    end,
   },
   {
     'stevearc/oil.nvim',

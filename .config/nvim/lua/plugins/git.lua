@@ -6,20 +6,18 @@ return {
   },
   { 'sindrets/diffview.nvim', cmd = 'DiffviewOpen', config = true },
   {
-    'kdheepak/lazygit.nvim',
-    lazy = true,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
+    'folke/snacks.nvim',
+    ---@type snacks.Config
     keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      {
+        '<leader>lg',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'Lazygit',
+      },
     },
   },
+
+  { 'f-person/git-blame.nvim', event = { 'BufNewFile', 'BufReadPost' }, config = true },
 }

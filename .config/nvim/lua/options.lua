@@ -1,3 +1,4 @@
+vim.opt.showtabline = 0 -- Never show tabline
 vim.opt.number = true -- Show line numbers
 vim.opt.wildmenu = true -- Enhance command line completion
 vim.opt.showcmd = true -- Display commands at the bottom of the screen
@@ -39,8 +40,6 @@ vim.opt.iminsert = 0
 
 -- fold
 vim.opt.foldlevel = 99
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Set indentation to 2 spaces for specific file types
 vim.api.nvim_create_autocmd('FileType', {

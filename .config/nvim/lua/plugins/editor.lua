@@ -1,8 +1,64 @@
 ---@diagnostic disable: missing-parameter
 return {
-  { 'echasnovski/mini.jump', event = 'VeryLazy', config = true },
-  { 'echasnovski/mini.trailspace', event = 'VeryLazy', config = true },
-  { 'echasnovski/mini.pairs', event = 'VeryLazy', config = true },
+  { 'nvim-mini/mini.jump', event = 'VeryLazy', config = true },
+  { 'nvim-mini/mini.trailspace', event = 'VeryLazy', config = true },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    init = function()
+      vim.g.no_plugin_maps = true
+    end,
+    config = true,
+    opts = {
+      select = {
+        lookahead = true,
+        selection_modes = {
+          ['@parameter.outer'] = 'v',
+          ['@function.outer'] = 'V',
+          ['@class.outer'] = '<c-v>',
+        },
+      },
+    },
+    keys = {
+      {
+        'am',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
+        end,
+        desc = 'Select around function',
+        mode = { 'o', 'x' },
+      },
+      {
+        'im',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
+        end,
+        desc = 'Select inside function',
+        mode = { 'o', 'x' },
+      },
+      {
+        'ac',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')
+        end,
+        desc = 'Select around class',
+        mode = { 'o', 'x' },
+      },
+      {
+        'ic',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
+        end,
+        desc = 'Select inside class',
+        mode = { 'o', 'x' },
+      },
+    },
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+  },
   {
     'stevearc/conform.nvim',
     ---@type conform.setupOpts
@@ -53,16 +109,27 @@ return {
     config = true,
   },
   {
-    'ojroques/nvim-osc52',
-    evnet = { 'BufReadPost', 'BufNewFile' },
-    config = true,
+    'numToStr/Comment.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = {
+      { 'JoosepAlviste/nvim-ts-context-commentstring', opts = { enable_autocmd = false } },
+    },
+    opts = function()
+      return {
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      }
+    end,
+  },
+  {
+    'folke/snacks.nvim',
+    ---@type snacks.Config
     keys = {
       {
-        '<leader>c',
+        '<leader>bd',
         function()
-          require('osc52').copy_visual()
+          Snacks.bufdelete()
         end,
-        mode = 'v',
+        desc = 'Delete Buffer',
       },
     },
   },
