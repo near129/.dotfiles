@@ -28,7 +28,7 @@ return {
           { section = 'startup' },
         },
       },
-      notifier = {enable = true}
+      -- notifier = {enable = true}
     },
   },
   {

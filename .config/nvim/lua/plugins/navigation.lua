@@ -39,7 +39,7 @@ return {
           },
         },
         find_files = {
-          hidden = true,
+          find_command = { 'fd', '--type', 'f', '--color', 'never', '--hidden', '--exclude', '.git' },
         },
       },
     },
