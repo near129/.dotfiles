@@ -2,6 +2,7 @@
 {
   homebrew = {
     casks = [
+      "chrome-remote-desktop-host"
       "discord"
       "gimp"
       "google-chrome"

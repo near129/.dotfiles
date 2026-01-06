@@ -34,7 +34,10 @@ in
         wls = "worktree list";
       };
       init.defaultBranch = "main";
-      merge.conflictstyle = "diff3";
+      merge = {
+        conflictstyle = "diff3";
+        tool = "nvimdiff";
+      };
     };
   };
 

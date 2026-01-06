@@ -114,7 +114,6 @@
       "1password"
       "alacritty"
       "arc"
-      "chrome-remote-desktop-host"
       "docker-desktop"
       "firefox"
       "ghostty"

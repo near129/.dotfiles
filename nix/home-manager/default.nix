@@ -55,6 +55,7 @@ in
       starship
       terraform
       tmux
+      tree-sitter
       vivid
       wget
       xh
@@ -78,7 +79,6 @@ in
       nixd
       nixfmt-rfc-style
       pyrefly
-      pyright
       ruff
       shfmt
       stylua
