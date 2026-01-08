@@ -41,6 +41,13 @@ vim.opt.iminsert = 0
 -- fold
 vim.opt.foldlevel = 99
 
+-- diagnostics
+vim.diagnostic.config({
+  float = {
+    source = true,
+  },
+})
+
 -- Set indentation to 2 spaces for specific file types
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'javascript', 'typescript', 'html', 'css', 'json', 'jsonc', 'yaml', 'lua', 'nix' },
