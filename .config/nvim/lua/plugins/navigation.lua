@@ -2,7 +2,6 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
-    evnet = 'VeryLazy',
     keys = {
       { '<leader>ff', '<cmd>Telescope find_files<cr>' },
       { '<leader>fg', '<cmd>Telescope live_grep<cr>' },
@@ -60,7 +59,6 @@ return {
       delete_to_trash = true,
     },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    lazy = false,
     keys = {
       {
         '<leader>o',
@@ -88,7 +86,6 @@ return {
         },
       },
     },
-    config = true,
     keys = {
       {
         '<leader>fy',

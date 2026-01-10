@@ -2,6 +2,7 @@ return {
   {
     'oahlen/iceberg.nvim',
     priority = 1000,
+    lazy = false,
     config = function()
       vim.api.nvim_create_autocmd('ColorScheme', {
         pattern = 'iceberg',
@@ -15,7 +16,7 @@ return {
       vim.cmd.colorscheme('iceberg')
     end,
   },
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000, lazy = false },
   {
     'folke/snacks.nvim',
     priority = 1000,
@@ -32,7 +33,6 @@ return {
           { section = 'startup' },
         },
       },
-      -- notifier = {enable = true}
     },
   },
   {
@@ -69,7 +69,7 @@ return {
   {
     'jonahgoldwastaken/copilot-status.nvim',
     dependencies = { 'zbirenbaum/copilot.lua' },
-    event = 'BufReadPost',
+    event = { 'BufReadPost', 'BufNewFile' },
     config = true,
   },
   {
@@ -88,7 +88,7 @@ return {
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = {},
+    config = true,
     keys = {
       {
         '<leader>?',

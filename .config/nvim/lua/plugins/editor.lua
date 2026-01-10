@@ -1,13 +1,11 @@
 return {
-  { 'nvim-mini/mini.jump', event = 'VeryLazy', config = true },
-  { 'nvim-mini/mini.trailspace', event = 'VeryLazy', config = true },
+  { 'nvim-mini/mini.trailspace', event = { 'BufReadPost', 'BufNewFile' }, config = true },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     branch = 'main',
     init = function()
       vim.g.no_plugin_maps = true
     end,
-    config = true,
     opts = {
       select = {
         lookahead = true,
@@ -96,7 +94,6 @@ return {
   },
   {
     'folke/flash.nvim',
-    event = 'VeryLazy',
     ---@module 'flash'
     ---@type Flash.Config
     opts = {},

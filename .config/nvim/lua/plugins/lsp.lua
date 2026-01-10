@@ -44,9 +44,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     ---@class MasonLspconfigSettings
     opts = {
-      ensure_installed = {
-        'lua_ls',
-      },
       automatic_installation = false,
       automatic_enable = true,
     },
@@ -57,7 +54,6 @@ return {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope.nvim' },
     },
-    event = 'LspAttach',
     config = true,
     keys = {
       {
@@ -76,6 +72,6 @@ return {
   },
   {
     'b0o/schemastore.nvim',
-    event = 'LspAttach',
+    lazy = true,
   },
 }

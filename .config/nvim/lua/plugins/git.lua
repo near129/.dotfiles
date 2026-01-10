@@ -4,7 +4,6 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     config = true,
   },
-  { 'sindrets/diffview.nvim', cmd = 'DiffviewOpen', config = true },
   {
     'folke/snacks.nvim',
     ---@type snacks.Config
