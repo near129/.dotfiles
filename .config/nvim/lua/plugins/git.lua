@@ -17,6 +17,5 @@ return {
       },
     },
   },
-
   { 'f-person/git-blame.nvim', event = { 'BufNewFile', 'BufReadPost' }, config = true },
 }
