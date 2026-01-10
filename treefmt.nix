@@ -1,7 +1,7 @@
 { ... }:
 {
   # Used to find the project root
-  # projectRootFile = "flake.nix";
+  projectRootFile = "flake.nix";
   programs.fish_indent.enable = true;
   programs.nixfmt.enable = true;
   programs.oxfmt.enable = true;

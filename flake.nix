@@ -11,11 +11,30 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
-    inputs@{ ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      treefmt-nix,
+      systems,
+      ...
+    }:
+    let
+      eachSystem = nixpkgs.lib.genAttrs (import systems);
+      # eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
+    in
     {
+      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      checks = eachSystem (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
       darwinConfigurations = {
         napoli25 = import ./nix/hosts/napoli25.nix { inherit inputs; };
       };
