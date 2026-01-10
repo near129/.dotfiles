@@ -25,7 +25,6 @@
     }:
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
-      # eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (
         system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
       );
