@@ -1,4 +1,3 @@
----@diagnostic disable: missing-parameter
 return {
   { 'nvim-mini/mini.jump', event = 'VeryLazy', config = true },
   { 'nvim-mini/mini.trailspace', event = 'VeryLazy', config = true },
@@ -78,6 +77,7 @@ return {
           'ruff_format',
           'ruff_organize_imports',
         },
+        fish = { 'fish_indent' },
       },
       format_on_save = {
         timeout_ms = 1000,
@@ -95,18 +95,53 @@ return {
     },
   },
   {
-    'smoka7/hop.nvim',
-    version = '*',
-    event = { 'BufReadPost', 'BufNewFile' },
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@module 'flash'
+    ---@type Flash.Config
+    opts = {},
     keys = {
       {
-        '<space>',
+        's',
+        mode = { 'n', 'x', 'o' },
         function()
-          require('hop').hint_char1()
+          require('flash').jump()
         end,
+        desc = 'Flash',
+      },
+      {
+        'S',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').treesitter()
+        end,
+        desc = 'Flash Treesitter',
+      },
+      {
+        'r',
+        mode = 'o',
+        function()
+          require('flash').remote()
+        end,
+        desc = 'Remote Flash',
+      },
+      {
+        'R',
+        mode = { 'o', 'x' },
+        function()
+          require('flash').treesitter_search()
+        end,
+        desc = 'Treesitter Search',
+      },
+      {
+        '<c-s>',
+        mode = { 'c' },
+        function()
+          require('flash').toggle()
+        end,
+        desc = 'Toggle Flash Search',
       },
     },
-    config = true,
   },
   {
     'numToStr/Comment.nvim',
@@ -146,6 +181,7 @@ return {
 
           -- Override print to use snacks for `:=` command
           if vim.fn.has('nvim-0.11') == 1 then
+            ---@diagnostic disable-next-line: duplicate-set-field
             vim._print = function(_, ...)
               dd(...)
             end

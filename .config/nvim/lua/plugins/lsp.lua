@@ -1,4 +1,3 @@
----@diagnostic disable: missing-parameter
 return {
   {
     'folke/lazydev.nvim',
@@ -27,7 +26,6 @@ return {
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end, { desc = 'Toggle inlay_hint' })
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('LspAttach', { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client == nil then
@@ -65,7 +63,7 @@ return {
       {
         '<leader>ca',
         function()
-          require('tiny-code-action').code_action()
+          require('tiny-code-action').code_action({})
         end,
         desc = 'Code Action',
       },

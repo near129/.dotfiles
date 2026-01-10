@@ -70,21 +70,24 @@ return {
     },
   },
   {
-    'nvim-mini/mini.files',
-    version = false,
-    config = true,
-    keys = {
-      {
-        '<leader>mf',
-        '<cmd>lua MiniFiles.open()<cr>',
-        desc = 'Open MiniFiles file manager',
+    'A7Lavinraj/fyler.nvim',
+    dependencies = { 'nvim-mini/mini.icons', 'folke/snacks.nvim' },
+    branch = 'stable', -- Use stable branch for production
+    ---@module 'fyler'
+    ---@type FylerSetup
+    opts = {
+      hooks = {
+        on_rename = function(src_path, destination_path)
+          require('snacks').rename.on_rename_file(src_path, destination_path)
+        end,
+      },
+      views = {
+        ---@diagnostic disable-next-line: missing-fields
+        finder = {
+          delete_to_trash = true,
+        },
       },
     },
-  },
-  {
-    'A7Lavinraj/fyler.nvim',
-    dependencies = { 'nvim-mini/mini.icons' },
-    branch = 'stable', -- Use stable branch for production
     config = true,
     keys = {
       {

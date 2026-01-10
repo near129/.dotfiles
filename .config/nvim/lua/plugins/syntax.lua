@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -7,7 +6,6 @@ return {
     config = true,
     init = function(ctx)
       vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('TreesitterSetUp', {}),
         callback = function(ctx)
           local lang = vim.treesitter.language.get_lang(ctx.match)
           if not vim.tbl_contains(require('nvim-treesitter').get_installed(), lang) then

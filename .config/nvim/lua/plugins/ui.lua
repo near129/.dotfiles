@@ -1,16 +1,20 @@
 return {
   {
-    'cocopon/iceberg.vim',
+    'oahlen/iceberg.nvim',
     priority = 1000,
     config = function()
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = 'iceberg',
+        callback = function()
+          local hl = vim.api.nvim_set_hl
+          -- Increase brightness from default for better readability
+          hl(0, 'NonText', { fg = '#394165' })
+        end,
+      })
+      -- Note that the colorscheme must be set after the autocmd, otherwise the autocmd will not respond to the initial colorscheme change
       vim.cmd.colorscheme('iceberg')
-      vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#4b5055' })
-      vim.api.nvim_set_hl(0, 'HopNextKey', { fg = '#b4be82', bold = true })
-      vim.api.nvim_set_hl(0, 'HopNextKey1', { fg = '#e2a478', bold = true })
-      vim.api.nvim_set_hl(0, 'HopNextKey2', { fg = '#e2a478', bold = true })
     end,
   },
-  { 'nordtheme/vim', name = 'nord', priority = 1000 },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
   {
     'folke/snacks.nvim',
@@ -37,7 +41,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       options = {
-        theme = 'iceberg_dark',
+        theme = 'auto',
       },
       sections = {
         lualine_c = {

@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields
 return {
   {
     'saghen/blink.cmp',
@@ -19,13 +18,16 @@ return {
     event = 'InsertEnter',
     ---@module 'copilot'
     ---@type CopilotConfig
+    ---@diagnostic disable-line: missing-fields
     opts = {
       filetypes = {
         markdown = true,
         yaml = true,
       },
+      ---@diagnostic disable-next-line: missing-fields
       suggestion = {
         auto_trigger = true,
+        ---@diagnostic disable-next-line: missing-fields
         keymap = {
           accept = '<C-l>',
           accept_word = '<C-;>',
