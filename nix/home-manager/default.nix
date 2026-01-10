@@ -38,7 +38,6 @@ in
       jq
       k9s
       lazygit
-      mycli
       neovim
       nh
       opencode
