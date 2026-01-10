@@ -1,12 +1,12 @@
 # Nix
 if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-  source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
 end
 for p in (string split ' ' -- $NIX_PROFILES)
     fish_add_function_path "$p/share/fish/vendor_functions.d"
     fish_add_complete_path "$p/share/fish/vendor_completions.d"
     for f in $p/share/fish/vendor_conf.d/*.fish
-      test -f $f && source $f
+        test -f $f && source $f
     end
 end
 
@@ -56,11 +56,11 @@ abbr -a ll 'ls -l'
 abbr -a lla 'ls -la'
 abbr -a df 'df -kh'
 abbr -a du 'du -kh'
-abbr -a pbp 'pbpaste'
-abbr -a pbc 'pbcopy'
-abbr -a lg 'lazygit'
-abbr -a vi 'nvim'
-abbr -a vim 'nvim'
+abbr -a pbp pbpaste
+abbr -a pbc pbcopy
+abbr -a lg lazygit
+abbr -a vi nvim
+abbr -a vim nvim
 abbr -a gs 'git status'
 abbr -a --command git c commit
 abbr -a --command git a add

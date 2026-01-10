@@ -11,19 +11,19 @@ if is_windows then
   config.default_domain = 'WSL:Ubuntu'
 end
 
-config.default_prog = {'/run/current-system/sw/bin/fish'}
+config.default_prog = { '/run/current-system/sw/bin/fish' }
 local launch_menu = {}
 table.insert(launch_menu, {
   label = 'fish',
-  args = {'/run/current-system/sw/bin/fish'},
+  args = { '/run/current-system/sw/bin/fish' },
 })
 table.insert(launch_menu, {
   label = 'bash',
-  args = {'bash'},
+  args = { 'bash' },
 })
 table.insert(launch_menu, {
   label = 'zsh',
-  args = {'zsh'},
+  args = { 'zsh' },
 })
 config.launch_menu = launch_menu
 
@@ -97,16 +97,16 @@ config.use_ime = true
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
 table.insert(config.hyperlink_rules, {
   regex = [[[[:alnum:].]+:\d{1,5}]],
-  format = 'http://$0'
+  format = 'http://$0',
 })
 table.insert(config.hyperlink_rules, {
   regex = [[:(\d{1,5})]],
-  format = 'http://localhost:$1'
+  format = 'http://localhost:$1',
 })
 config.quick_select_patterns = {
   '-(?:-\\w{5,20})+', -- example: --dry-run --force-with-lease
 }
-config.audible_bell = "SystemBeep"
+config.audible_bell = 'SystemBeep'
 
 --key binding
 local super = is_mac and 'CMD' or 'ALT'
@@ -131,7 +131,7 @@ config.keys = {
   { key = 't', mods = super, action = act.SpawnTab('CurrentPaneDomain') },
   { key = 'c', mods = super, action = act.CopyTo('Clipboard') },
   { key = 'v', mods = super, action = act.PasteFrom('Clipboard') },
-  { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendString('\n')} -- for claude code
+  { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendString('\n') }, -- for claude code
 }
 config.key_tables = {
   manage_panes_mode = {

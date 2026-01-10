@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.zsh = {
     enable = true;
@@ -79,10 +84,10 @@
     '';
     initContent = lib.mkMerge [
       (lib.mkOrder 550 ''
-      fpath=(
-        "$fpath[@]"
-        "$XDG_DATA_HOME/zsh/site-functions"(N-/)
-      )
+        fpath=(
+          "$fpath[@]"
+          "$XDG_DATA_HOME/zsh/site-functions"(N-/)
+        )
       '')
       (lib.mkOrder 1000 ''
         (( $+commands[vivid] )) && export LS_COLORS=$(vivid generate iceberg-dark)

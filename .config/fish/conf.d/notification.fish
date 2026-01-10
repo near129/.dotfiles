@@ -6,16 +6,16 @@ function command_notifier --on-event fish_postexec
 
     if test $exit_status -eq 0
         set icon '✅'
-        set macos_sound 'Blow'
+        set macos_sound Blow
     else
         set icon '❌'
-        set macos_sound 'Basso'
+        set macos_sound Basso
     end
 
     if test (count $argv) -gt 0
         set cmd $argv[1]
     else
-        set cmd 'command'
+        set cmd command
     end
 
     set -l ignore_commands cat less man vi nvim ssh claude "uvx ipython" "uv run --with ipython ipython"
