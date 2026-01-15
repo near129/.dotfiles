@@ -67,13 +67,8 @@
       "Bash(pnpm run lint:*)",
       "READ(~/.cache/claude/library-investigator/**)"
     ],
-    "deny": [
-      "Bash(sudo:*)"
-    ],
-    "ask": [
-      "Bash(git push:*)",
-      "Bash(rm:*)"
-    ],
+    "deny": ["Bash(sudo:*)"],
+    "ask": ["Bash(git push:*)", "Bash(rm:*)"],
     "defaultMode": "plan"
   },
   "hooks": {
