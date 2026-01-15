@@ -9,7 +9,7 @@ return {
         callback = function()
           local hl = vim.api.nvim_set_hl
           -- Increase brightness from default for better readability
-          hl(0, 'NonText', { fg = '#394165' })
+          hl(0, 'NonText', { fg = '#4e598a' })
         end,
       })
       -- Note that the colorscheme must be set after the autocmd, otherwise the autocmd will not respond to the initial colorscheme change
