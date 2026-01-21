@@ -68,6 +68,7 @@ in
       uv
 
       # Language servers and formatters, linters
+      pyright
       basedpyright
       bash-language-server
       biome

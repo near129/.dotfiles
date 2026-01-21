@@ -125,7 +125,7 @@
       "obsidian"
       "ollama-app"
       "visual-studio-code"
-      "wezterm"
+      "wezterm@nightly"
       "zed"
       "zen"
     ];
