@@ -11,6 +11,7 @@
           "B"
           "SIM"
           "I"
+          "ARG"
         ];
       };
       cache-dir = "~/.cache/ruff";
