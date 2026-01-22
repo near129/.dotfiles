@@ -67,8 +67,13 @@
       "Bash(pnpm run lint:*)",
       "READ(~/.cache/claude/library-investigator/**)"
     ],
-    "deny": ["Bash(sudo:*)"],
-    "ask": ["Bash(git push:*)", "Bash(rm:*)"],
+    "deny": [
+      "Bash(sudo:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(rm:*)"
+    ],
     "defaultMode": "plan"
   },
   "hooks": {
@@ -96,6 +101,12 @@
     ]
   },
   "enabledPlugins": {
-    "context7@claude-plugins-official": true
-  }
+    "context7@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "model": "opusplan"
 }
