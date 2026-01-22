@@ -77,7 +77,7 @@ in
       lua-language-server
       markdownlint-cli2
       nixd
-      nixfmt-rfc-style
+      nixfmt
       pyrefly
       ruff
       shfmt
