@@ -6,3 +6,7 @@ require('lsp')
 require('mappings')
 require('commands')
 require('utils')
+
+if vim.env.WEZTERM_PANE ~= nil then
+  require('wezterm')
+end

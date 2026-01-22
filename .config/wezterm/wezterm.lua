@@ -124,6 +124,18 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = act.ActivateKeyTable({ name = 'manage_panes_mode', one_shot = false }),
   },
+  {
+    key = 'w',
+    mods = 'CTRL',
+    action = wezterm.action_callback(function(window, pane)
+      local process_name = pane:get_foreground_process_name()
+      if process_name:find('nvim') then
+        print('In nvim, skip wezterm pane switch')
+        return window:perform_action(act.SendKey({ key = 'w', mods = 'CTRL' }), pane)
+      end
+      return window:perform_action(act.ActivateKeyTable({ name = 'activate_pane', one_shot = true }), pane)
+    end),
+  },
   { key = 'p', mods = super, action = act.ActivateCommandPalette },
   { key = 'P', mods = super, action = act.ActivateCommandPalette },
   -- other
@@ -163,6 +175,12 @@ config.key_tables = {
     -- Cancel the mode by pressing escape
     { key = 'Escape', action = 'PopKeyTable' },
     { key = 'Enter', action = 'PopKeyTable' },
+  },
+  activate_pane = {
+    { key = 'h', action = act({ ActivatePaneDirection = 'Left' }) },
+    { key = 'j', action = act({ ActivatePaneDirection = 'Down' }) },
+    { key = 'k', action = act({ ActivatePaneDirection = 'Up' }) },
+    { key = 'l', action = act({ ActivatePaneDirection = 'Right' }) },
   },
 }
 
