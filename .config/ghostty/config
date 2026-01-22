@@ -1,2 +1,5 @@
 command = /run/current-system/sw/bin/fish
 cursor-style-blink = false
+font-family = Menlo
+font-family = "Source Han Code JP"
+font-size = 14

@@ -30,16 +30,18 @@ config.launch_menu = launch_menu
 -- font
 if is_mac then
   config.font = wezterm.font_with_fallback({
-    'Monaco',
+    'Menlo',
+    'Source Han Code JP',
     'HackGen35 Console NF',
   })
-  config.freetype_load_flags = 'NO_BITMAP' -- for monaco. ref: https://github.com/wez/wezterm/issues/2523
+  -- config.freetype_load_flags = 'NO_BITMAP' -- for monaco. ref: https://github.com/wez/wezterm/issues/2523
 else
   config.font = wezterm.font_with_fallback({
-    'HackGen35 Console NF',
+    'Source Han Code JP',
   })
 end
 config.font_size = 14
+config.front_end = 'WebGpu'
 
 --appearance
 local color_scheme_name = 'iceberg-dark'
