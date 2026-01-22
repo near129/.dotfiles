@@ -26,6 +26,9 @@ vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump({ count = -1 })
 end)
 
+-- File path operations
+vim.keymap.set('n', '<leader>cp', ':CopyRelativePath<CR>', { silent = true, desc = 'Copy relative path' })
+
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
