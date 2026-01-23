@@ -44,6 +44,10 @@ Exceptions allowed when:
 
 Do not install new tools solely for file generation/modification.
 
+## System-Specific Tools
+
+This system does not have `tree` command installed. Use `eza` command instead for directory tree visualization.
+
 ## Thinking
 
 - ALWAYS think in English, regardless of the user's language
