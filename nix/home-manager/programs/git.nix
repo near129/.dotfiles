@@ -21,6 +21,8 @@ in
       ".op.env" # 1Password environment variables
       ".serena"
       ".claude/settings.local.json"
+      ".worktree"
+      ".temp"
       macosGitignore
     ];
     settings = {
