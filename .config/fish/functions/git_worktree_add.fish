@@ -1,4 +1,4 @@
-function git_worktree_add --description 'Add a git worktree under ~/dev/git-worktrees/<repo>/<branch>'
+function git_worktree_add --description 'Add a git worktree under <repo>/.worktree/<branch>'
     if not type -q git
         echo "Error: git command not found."
         return 1
@@ -17,7 +17,7 @@ function git_worktree_add --description 'Add a git worktree under ~/dev/git-work
         return 1
     end
 
-    set base $HOME/dev/git-worktrees/(basename "$repo_root")
+    set base "$repo_root/.worktree"
     mkdir -p "$base"
 
     set dir_name (string replace -r '^origin/' '' -- "$name")
