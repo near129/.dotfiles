@@ -1,12 +1,15 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "CLAUDE_CODE_USE_VERTEX": "1",
     "CLOUD_ML_REGION": "global",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5@20251101"
   },
   "permissions": {
     "allow": [
       "Bash(ls:*)",
+      "Bash(eza:*)",
       "Bash(cat:*)",
       "Bash(pwd:*)",
       "Bash(cd:*)",
@@ -25,26 +28,8 @@
       "MultiEdit(./**)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_click",
-      "mcp__playwright__browser_type",
-      "mcp__playwright__browser_wait_for",
-      "mcp__playwright__browser_console_messages",
-      "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_take_screenshot",
-      "mcp__playwright__browser_press_key",
-      "mcp__playwright__browser_evaluate",
-      "mcp__playwright__browser_close",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
-      "mcp__serena__check_onboarding_performed",
-      "mcp__serena__find_file",
-      "mcp__serena__find_symbol",
-      "mcp__serena__get_symbols_overview",
-      "mcp__serena__list_dir",
-      "mcp__serena__search_for_pattern",
-      "mcp__serena__think_about_collected_information",
-      "mcp__serena__find_referencing_symbols",
       "Bash(uv add:*)",
       "Bash(uv run ruff check:*)",
       "Bash(uv run ruff format:*)",
@@ -64,8 +49,7 @@
       "Bash(pnpm build:*)",
       "Bash(pnpm run type-check:*)",
       "Bash(pnpm run check:*)",
-      "Bash(pnpm run lint:*)",
-      "READ(~/.cache/claude/library-investigator/**)"
+      "Bash(pnpm run lint:*)"
     ],
     "deny": ["Bash(sudo:*)"],
     "ask": ["Bash(git push:*)", "Bash(rm:*)"],
@@ -103,5 +87,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true
   },
-  "model": "opusplan"
+  "model": "opusplan",
+  "language": "日本語"
 }
