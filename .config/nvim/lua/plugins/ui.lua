@@ -50,27 +50,8 @@ return {
             path = 1,
           },
         },
-        lualine_x = {
-          {
-            function()
-              return require('copilot_status').status_string()
-            end,
-            cond = function()
-              return require('copilot_status').enabled()
-            end,
-          },
-          'encoding',
-          'fileformat',
-          'filetype',
-        },
       },
     },
-  },
-  {
-    'jonahgoldwastaken/copilot-status.nvim',
-    dependencies = { 'zbirenbaum/copilot.lua' },
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = true,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
