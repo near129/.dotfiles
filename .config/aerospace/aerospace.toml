@@ -187,6 +187,7 @@ alt-shift-semicolon = 'mode service'
 
 
 alt-space = 'fullscreen'
+alt-shift-space = 'layout floating tiling'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
