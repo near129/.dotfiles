@@ -123,6 +123,7 @@
       "docker-desktop"
       "firefox"
       "ghostty"
+      "google-japanese-ime"
       "jordanbaird-ice"
       "karabiner-elements"
       "lm-studio"
