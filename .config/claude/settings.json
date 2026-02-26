@@ -46,13 +46,8 @@
       "Bash(pnpm run check *)",
       "Bash(pnpm run lint *)"
     ],
-    "deny": [
-      "Bash(sudo *)"
-    ],
-    "ask": [
-      "Bash(git push *)",
-      "Bash(rm *)"
-    ],
+    "deny": ["Bash(sudo *)"],
+    "ask": ["Bash(git push *)", "Bash(rm *)"],
     "defaultMode": "plan"
   },
   "model": "opusplan",

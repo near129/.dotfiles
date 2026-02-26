@@ -11,10 +11,13 @@ Prefer **uv** for Python projects. However, respect existing tools when detected
 ## Priority Rules
 
 ### Default Behavior
+
 - Use uv for Python projects
 
 ### Exceptions: Existing Tool Detection
+
 Use existing tools when detected:
+
 - `[tool.poetry]` in `pyproject.toml` → use **poetry**
 - `Pipfile` exists → use **pipenv**
 - Only `requirements.txt` without `pyproject.toml` → use **pip**
@@ -96,6 +99,7 @@ default-groups = ["dev"]  # Groups to include by default
 ```
 
 Command examples:
+
 ```bash
 # Install specific group dependencies
 uv sync --group test
@@ -110,4 +114,5 @@ uv sync --all-groups
 ## Additional Information
 
 For more detailed information about uv:
+
 - Access `https://docs.astral.sh/uv/llms.txt` for latest documentation
