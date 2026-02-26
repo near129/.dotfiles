@@ -7,4 +7,7 @@
   programs.oxfmt.enable = true;
   programs.stylua.enable = true;
   programs.taplo.enable = true;
+  settings.formatter.oxfmt.excludes = [
+    ".config/nvim/lazy-lock.json"
+  ];
 }
