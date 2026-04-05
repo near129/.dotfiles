@@ -1,11 +1,15 @@
-model = "gpt-5.1-codex-max"
+#:schema https://developers.openai.com/codex/config-schema.json
+model = "gpt-5.4"
 model_verbosity = "high"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 hide_agent_reasoning = false
+personality = "pragmatic"
+model_reasoning_effort = "high"
 
 [features]
 web_search_request = true
+multi_agent = true
 
 [sandbox_workspace_write]
 network_access = true

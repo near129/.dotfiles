@@ -3,8 +3,7 @@
   "env": {
     "CLAUDE_CODE_USE_VERTEX": "1",
     "CLOUD_ML_REGION": "global",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5@20251101"
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6"
   },
   "permissions": {
     "allow": [
@@ -19,16 +18,21 @@
       "Bash(rg *)",
       "Bash(jq *)",
       "Bash(mkdir *)",
-      "Bash(git --no-pager diff *)",
-      "Bash(git --no-pager log *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
       "Bash(git merge-base *)",
       "Bash(git ls-tree *)",
       "Bash(git show *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr diff *)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:docs.astral.sh)",
+      "WebSearch",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
       "Bash(uv run ruff check *)",
       "Bash(uv run ruff format *)",
       "Bash(uv run mypy *)",
@@ -52,13 +56,35 @@
   },
   "model": "opusplan",
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
     "Notification": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude Codeが許可を求めています\" with title \"Claude Code\" subtitle \"確認待ち\" sound name \"Glass\"'"
+            "command": "~/.claude/hook-notify.sh"
           }
         ]
       }
@@ -69,22 +95,34 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Claude Code\" subtitle \"処理終了\" sound name \"Hero\"'"
+            "command": "~/.claude/hook-notify.sh"
           }
         ]
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
   "enabledPlugins": {
     "context7@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true
+    "claude-md-management@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
   },
   "language": "日本語"
 }

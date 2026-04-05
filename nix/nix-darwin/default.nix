@@ -43,6 +43,7 @@
   system = {
     stateVersion = 6;
     primaryUser = primaryUser;
+    startup.chime = false;
     defaults = {
       menuExtraClock.Show24Hour = true;
       dock = {
@@ -116,10 +117,14 @@
     taps = [
       "nikitabobko/tap"
     ];
+    brews = [
+    ];
     casks = [
       "1password"
       "alacritty"
       "arc"
+      "claude-code"
+      "codex-app"
       "docker-desktop"
       "firefox"
       "ghostty"

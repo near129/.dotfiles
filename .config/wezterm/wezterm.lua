@@ -1,5 +1,6 @@
 local wezterm = require('wezterm')
 local act = wezterm.action
+local tab_title = require('tab_title')
 
 local is_mac = wezterm.target_triple:find('darwin')
 local is_windows = wezterm.target_triple:find('windows')
@@ -46,52 +47,29 @@ config.front_end = 'WebGpu'
 --appearance
 local color_scheme_name = 'iceberg-dark'
 -- local color_scheme_name = 'nord'
-config.color_scheme = color_scheme_name
 local color = wezterm.color.get_builtin_schemes()[color_scheme_name]
 config.colors = color
 config.colors.tab_bar = {
   background = color.background,
+  active_tab = {
+    bg_color = color.ansi[5],
+    fg_color = color.background,
+    intensity = 'Bold',
+  },
+  inactive_tab = {
+    bg_color = color.background,
+    fg_color = color.ansi[5],
+  },
 }
+
+-- タブタイトル設定
+tab_title.setup()
+
 config.adjust_window_size_when_changing_font_size = false
-config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
-config.window_padding = { left = 0, right = 0, top = 10, bottom = 0 }
+config.window_decorations = 'RESIZE'
 config.use_fancy_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 config.tab_max_width = 32
-local tabline = wezterm.plugin.require('https://github.com/michaelbrusegard/tabline.wez')
-tabline.setup({
-  options = {
-    theme = color_scheme_name,
-    theme_overrides = {
-      manage_panes_mode = {
-        a = { fg = color.background, bg = color.ansi[6] },
-        b = { fg = color.ansi[6], bg = color.ansi[1] },
-        c = { fg = color.foreground, bg = color.ansi[1] },
-      },
-    },
-  },
-  sections = {
-    tabline_a = {
-      { 'mode', fmt = string.lower },
-    },
-    tabline_b = {},
-    tab_active = {
-      { Attribute = { Intensity = 'Bold' } },
-      { Foreground = { Color = config.colors.ansi[6] } },
-      'index',
-      'ResetAttributes',
-      { Foreground = { Color = config.colors.foreground } },
-      { 'parent', padding = 0 },
-      '/',
-      { Attribute = { Intensity = 'Bold' } },
-      { 'cwd', padding = { left = 0, right = 1 } },
-      { 'zoomed', padding = 0 },
-    },
-    tab_inactive = { 'index', { 'process', icons_only = true, padding = 0 } },
-    tabline_x = {},
-    tabline_y = {},
-  },
-})
 
 -- other
 config.window_close_confirmation = 'NeverPrompt'
@@ -145,7 +123,6 @@ config.keys = {
   { key = 't', mods = super, action = act.SpawnTab('CurrentPaneDomain') },
   { key = 'c', mods = super, action = act.CopyTo('Clipboard') },
   { key = 'v', mods = super, action = act.PasteFrom('Clipboard') },
-  { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendString('\n') }, -- for claude code
 }
 config.key_tables = {
   manage_panes_mode = {
@@ -177,6 +154,7 @@ config.key_tables = {
     { key = 'Enter', action = 'PopKeyTable' },
   },
   activate_pane = {
+    { key = 'w', action = act.SendKey({ key = 'w', mods = 'CTRL' }) },
     { key = 'h', action = act({ ActivatePaneDirection = 'Left' }) },
     { key = 'j', action = act({ ActivatePaneDirection = 'Down' }) },
     { key = 'k', action = act({ ActivatePaneDirection = 'Up' }) },

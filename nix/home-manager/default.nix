@@ -27,7 +27,6 @@ in
       fd
       ffmpeg
       # fish # installed via nix-darwin
-      fishPlugins.tide
       gh
       (google-cloud-sdk.withExtraComponents (
         with pkgs.google-cloud-sdk.components;
@@ -119,8 +118,10 @@ in
       "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
       "nvim".source = mkSymlink "./.config/nvim";
       "opencode".source = mkSymlink "./.config/opencode";
+      "pnpm".source = mkSymlink "./.config/pnpm";
       "starship.toml".source = mkSymlink "./.config/starship.toml";
       "tmux".source = mkSymlink "./.config/tmux";
+      "uv".source = mkSymlink "./.config/uv";
       "wezterm".source = mkSymlink "./.config/wezterm";
       "zellij".source = mkSymlink "./.config/zellij";
     };
@@ -130,6 +131,8 @@ in
       ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
       ".claude/agents".source = mkSymlink "./.config/claude/agents";
       ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
+      ".claude/statusline.sh".source = mkSymlink "./.config/claude/statusline.sh";
+      ".claude/hook-notify.sh".source = mkSymlink "./.config/claude/hook-notify.sh";
     };
   };
 }
