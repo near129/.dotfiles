@@ -8,7 +8,7 @@ export const MacOSNotifications: Plugin = async ({ client, $ }) => {
         // Show terminal toast
         await client.tui.showToast({
           body: {
-            message: "✅ Session completed!",
+            message: "Session completed!",
             variant: "success",
             title: "OpenCode",
           },
@@ -21,19 +21,19 @@ export const MacOSNotifications: Plugin = async ({ client, $ }) => {
 
     "permission.ask": async (permissionInfo, output) => {
       // Show notification when approval is needed
-      const actionTitle = permissionInfo.title || "Unknown action";
+      const actionType = permissionInfo.type || "unknown";
 
       // Show terminal toast
       await client.tui.showToast({
         body: {
-          message: `! Approval needed for: ${actionTitle}`,
+          message: `Approval needed for: ${actionType}`,
           variant: "warning",
           title: "Permission Required",
         },
       });
 
       // Show macOS system notification
-      await $`osascript -e 'display notification "Approval needed for: ${actionTitle}" with title "OpenCode - Permission Required" sound name "Ping"'`;
+      await $`osascript -e 'display notification "Approval needed for: ${actionType}" with title "OpenCode - Permission Required" sound name "Ping"'`;
 
       // Let OpenCode prompt the user (don't change the default behavior)
       output.status = "ask";
