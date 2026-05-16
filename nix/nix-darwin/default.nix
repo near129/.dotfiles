@@ -116,14 +116,17 @@
     };
     taps = [
       "nikitabobko/tap"
+      "k1LoW/tap"
     ];
     brews = [
+      "playwright-cli"
+      "k1LoW/tap/mo"
     ];
     casks = [
       "1password"
       "alacritty"
       "arc"
-      "claude-code"
+      "claude-code@latest"
       "codex-app"
       "docker-desktop"
       "firefox"

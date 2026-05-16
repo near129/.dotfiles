@@ -28,12 +28,11 @@ in
       ffmpeg
       # fish # installed via nix-darwin
       gh
-      (google-cloud-sdk.withExtraComponents (
-        with pkgs.google-cloud-sdk.components;
+      (google-cloud-sdk.withExtraComponents
         [
-          cloud-run-proxy
+          google-cloud-sdk.components.cloud-run-proxy
         ]
-      ))
+      )
       jq
       k9s
       lazygit
@@ -129,6 +128,7 @@ in
   home = {
     file = {
       ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
+      ".claude/skills".source = mkSymlink "./.config/claude/skills";
       ".claude/agents".source = mkSymlink "./.config/claude/agents";
       ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
       ".claude/statusline.sh".source = mkSymlink "./.config/claude/statusline.sh";

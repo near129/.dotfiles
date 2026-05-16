@@ -4,7 +4,7 @@
 let
   macosGitignorePath = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore";
-    sha256 = "1bmxv9qm6mv7m8kqrggc6ddzi508257q9ryrm6ngyj0nli06caqs";
+    sha256 = "0wlwv586qv4ln3hgg8hl5cl1a67l5gpzcwahbyzs46lcabci8nvz";
   };
   macosGitignore = builtins.readFile macosGitignorePath;
 in
@@ -24,6 +24,7 @@ in
       ".claude/worktrees"
       ".worktree"
       ".temp"
+      ".playwright*/"
       macosGitignore
     ];
     settings = {
