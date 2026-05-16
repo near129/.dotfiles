@@ -1,6 +1,6 @@
 #!/bin/bash
 # Claude Code Hook Notification Script
-# Outputs JSON with terminalSequence for terminal notifications and progress indicators
+# Outputs JSON with terminalSequence for terminal notifications
 
 set -euo pipefail
 
@@ -14,14 +14,6 @@ osc777() {
   printf '\e]777;notify;%s;%s\e\\' "$title" "$body"
 }
 
-progress_start() {
-  printf '\e]9;4;3\e\\'
-}
-
-progress_end() {
-  printf '\e]9;4;0\e\\'
-}
-
 bell() {
   printf '\a'
 }
@@ -32,19 +24,13 @@ output_sequence() {
 }
 
 case "$EVENT" in
-  "UserPromptSubmit")
-    output_sequence "$(progress_start)"
-    ;;
-  "SessionEnd")
-    output_sequence "$(progress_end)"
-    ;;
   "Stop")
-    output_sequence "$(progress_end)$(osc777 "Claude Code" "完了")$(bell)"
+    output_sequence "$(osc777 "Claude Code" "完了")$(bell)"
     ;;
   "Notification")
     TITLE=$(echo "$INPUT" | jq -r '.title // "Claude Code"')
     MESSAGE=$(echo "$INPUT" | jq -r '.message // ""')
-    output_sequence "$(progress_end)$(osc777 "$TITLE" "$MESSAGE")$(bell)"
+    output_sequence "$(osc777 "$TITLE" "$MESSAGE")$(bell)"
     ;;
 esac
 
