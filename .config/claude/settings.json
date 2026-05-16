@@ -3,7 +3,9 @@
   "env": {
     "CLAUDE_CODE_USE_VERTEX": "1",
     "CLOUD_ML_REGION": "global",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6"
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
   },
   "permissions": {
     "allow": [
@@ -124,5 +126,6 @@
       }
     }
   },
-  "language": "日本語"
+  "language": "日本語",
+  "effortLevel": "high"
 }
