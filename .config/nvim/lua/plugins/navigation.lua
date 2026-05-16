@@ -12,7 +12,7 @@ return {
       { '<leader>fk', '<cmd>Telescope keymaps<cr>' },
       { '<leader>fd', '<cmd>Telescope diagnostics<cr>' },
       { '<leader>ft', '<cmd>Telescope treesitter<cr>' },
-      { '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>' },
+      { '<leader>fs', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>' },
       { '<leader>fc', '<cmd>Telescope git_bcommits<cr>' },
       { 'gr', '<cmd>Telescope lsp_references<cr>' },
       { 'gd', '<cmd>Telescope lsp_definitions<cr>' },
