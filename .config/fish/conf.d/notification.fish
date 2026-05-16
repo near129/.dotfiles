@@ -6,10 +6,8 @@ function command_notifier --on-event fish_postexec
 
     if test $exit_status -eq 0
         set icon '✅'
-        set macos_sound Blow
     else
         set icon '❌'
-        set macos_sound Basso
     end
 
     if test (count $argv) -gt 0
@@ -25,23 +23,9 @@ function command_notifier --on-event fish_postexec
         end
     end
 
-    switch (uname -s)
-        case Darwin
-            set title "$icon $cmd"
-            set message "Finished with exit code $exit_status"
-
-            osascript \
-                -e 'on run argv' \
-                -e 'set msg to item 1 of argv' \
-                -e 'set ttl to item 2 of argv' \
-                -e 'set soundName to item 3 of argv' \
-                -e 'display notification msg with title ttl sound name soundName' \
-                -e 'end run' \
-                "$message" "$title" "$macos_sound"
-            # osascript -e "display notification \"Finished with exit code $exit_status\" with title \"$icon $cmd\" sound name \"$macOS_sound\""
-        case Linux
-            if type -q notify-send
-                notify-send "$icon $cmd" "Finished with exit code $exit_status"
-            end
+    if test -w /dev/tty
+        set title "$icon $cmd"
+        set message "Finished with exit code $exit_status"
+        printf '\033]777;notify;%s;%s\033\\\a' "$title" "$message" > /dev/tty
     end
 end

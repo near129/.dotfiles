@@ -1,6 +1,15 @@
 import type { Plugin } from "@opencode-ai/plugin";
+import { appendFile } from "node:fs/promises";
 
-export const MacOSNotifications: Plugin = async ({ client, $ }) => {
+const sendOsc777 = async (title: string, body: string) => {
+  try {
+    await appendFile("/dev/tty", `\x1b]777;notify;${title};${body}\x1b\\\x07`);
+  } catch {
+    // No controlling TTY is available.
+  }
+};
+
+export const MacOSNotifications: Plugin = async ({ client }) => {
   return {
     event: async ({ event }) => {
       // Session completion notification
@@ -14,8 +23,7 @@ export const MacOSNotifications: Plugin = async ({ client, $ }) => {
           },
         });
 
-        // Show macOS system notification
-        await $`osascript -e 'display notification "Session completed!" with title "OpenCode" sound name "Glass"'`;
+        await sendOsc777("OpenCode", "Session completed!");
       }
     },
 
@@ -32,8 +40,10 @@ export const MacOSNotifications: Plugin = async ({ client, $ }) => {
         },
       });
 
-      // Show macOS system notification
-      await $`osascript -e 'display notification "Approval needed for: ${actionType}" with title "OpenCode - Permission Required" sound name "Ping"'`;
+      await sendOsc777(
+        "OpenCode - Permission Required",
+        `Approval needed for: ${actionType}`,
+      );
 
       // Let OpenCode prompt the user (don't change the default behavior)
       output.status = "ask";
