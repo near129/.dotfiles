@@ -40,10 +40,7 @@ export const MacOSNotifications: Plugin = async ({ client }) => {
         },
       });
 
-      await sendOsc777(
-        "OpenCode - Permission Required",
-        `Approval needed for: ${actionType}`,
-      );
+      await sendOsc777("OpenCode - Permission Required", `Approval needed for: ${actionType}`);
 
       // Let OpenCode prompt the user (don't change the default behavior)
       output.status = "ask";

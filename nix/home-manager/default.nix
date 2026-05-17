@@ -28,11 +28,9 @@ in
       ffmpeg
       # fish # installed via nix-darwin
       gh
-      (google-cloud-sdk.withExtraComponents
-        [
-          google-cloud-sdk.components.cloud-run-proxy
-        ]
-      )
+      (google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.cloud-run-proxy
+      ])
       jq
       k9s
       lazygit

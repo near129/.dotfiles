@@ -34,6 +34,7 @@ When multiple tools can accomplish the same task, prefer the one with the smalle
 - **General principle**: Prefer read-only tools over read-write tools, and tools without network access over those with it, when the task does not require those capabilities.
 
 Examples:
+
 - Filtering/transforming JSON output → `jq`, not `python -c` or a Python script
 - Querying structured data → `jq`, `awk`, `grep` before reaching for a scripting language
 - File inspection → dedicated read tools (`cat`, `jq`, etc.) over a script that could have side effects
