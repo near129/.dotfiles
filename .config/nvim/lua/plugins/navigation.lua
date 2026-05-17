@@ -1,52 +1,208 @@
 return {
   {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
-    keys = {
-      { '<leader>ff', '<cmd>Telescope find_files<cr>' },
-      { '<leader>fg', '<cmd>Telescope live_grep<cr>' },
-      { '<leader>fb', '<cmd>Telescope buffers<cr>' },
-      { '<leader>fh', '<cmd>Telescope help_tags<cr>' },
-      { '<leader>fhc', '<cmd>Telescope command_history<cr>' },
-      { '<leader>fhs', '<cmd>Telescope search_history<cr>' },
-      { '<leader>fk', '<cmd>Telescope keymaps<cr>' },
-      { '<leader>fd', '<cmd>Telescope diagnostics<cr>' },
-      { '<leader>ft', '<cmd>Telescope treesitter<cr>' },
-      { '<leader>fs', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>' },
-      { '<leader>fc', '<cmd>Telescope git_bcommits<cr>' },
-      { 'gr', '<cmd>Telescope lsp_references<cr>' },
-      { 'gd', '<cmd>Telescope lsp_definitions<cr>' },
-      { 'gi', '<cmd>Telescope lsp_implementations<cr>' },
-      { 'gt', '<cmd>Telescope lsp_type_definitions<cr>' },
-    },
+    'folke/snacks.nvim',
+    ---@type snacks.Config
     opts = {
-      defaults = {
-        mappings = {
-          i = {
-            ['<esc>'] = function(...)
-              return require('telescope.actions').close(...)
-            end,
+      picker = {
+        sources = {
+          files = {
+            hidden = true,
           },
-        },
-      },
-      pickers = {
-        live_grep = {
-          glob_pattern = { '!**/.git/*' },
-          additional_args = {
-            '--trim',
-            '--hidden',
+          grep = {
+            hidden = true,
+            args = { '--trim' },
           },
-        },
-        find_files = {
-          find_command = { 'fd', '--type', 'f', '--color', 'never', '--hidden', '--exclude', '.git' },
+          projects = {
+            max_depth = 5,
+          },
         },
       },
     },
-    config = function(_, opts)
-      local telescope = require('telescope')
-      telescope.setup(opts)
-      telescope.load_extension('fzf')
-    end,
+    keys = {
+      {
+        '<leader><space>',
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = 'Smart Find Files',
+      },
+      {
+        '<leader>,',
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = 'Buffers',
+      },
+      {
+        '<leader>/',
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = 'Grep',
+      },
+      {
+        '<leader>:',
+        function()
+          Snacks.picker.command_history()
+        end,
+        desc = 'Command History',
+      },
+      {
+        '<leader>fb',
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = 'Buffers',
+      },
+      {
+        '<leader>ff',
+        function()
+          Snacks.picker.files()
+        end,
+        desc = 'Find Files',
+      },
+      {
+        '<leader>fg',
+        function()
+          Snacks.picker.git_files()
+        end,
+        desc = 'Find Git Files',
+      },
+      {
+        '<leader>fp',
+        function()
+          Snacks.picker.projects()
+        end,
+        desc = 'Projects',
+      },
+      {
+        '<leader>fr',
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = 'Recent',
+      },
+      {
+        '<leader>gf',
+        function()
+          Snacks.picker.git_log_file()
+        end,
+        desc = 'Git Log File',
+      },
+      {
+        '<leader>sg',
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = 'Grep',
+      },
+      {
+        '<leader>s/',
+        function()
+          Snacks.picker.search_history()
+        end,
+        desc = 'Search History',
+      },
+      {
+        '<leader>sc',
+        function()
+          Snacks.picker.command_history()
+        end,
+        desc = 'Command History',
+      },
+      {
+        '<leader>sd',
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = 'Diagnostics',
+      },
+      {
+        '<leader>sD',
+        function()
+          Snacks.picker.diagnostics_buffer()
+        end,
+        desc = 'Buffer Diagnostics',
+      },
+      {
+        '<leader>sh',
+        function()
+          Snacks.picker.help()
+        end,
+        desc = 'Help Pages',
+      },
+      {
+        '<leader>sk',
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = 'Keymaps',
+      },
+      {
+        '<leader>sR',
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = 'Resume',
+      },
+      {
+        '<leader>ss',
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = 'LSP Symbols',
+      },
+      {
+        '<leader>sS',
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = 'LSP Workspace Symbols',
+      },
+      {
+        '<leader>ft',
+        function()
+          Snacks.picker.treesitter()
+        end,
+        desc = 'Treesitter',
+      },
+      {
+        'gd',
+        function()
+          Snacks.picker.lsp_definitions()
+        end,
+        desc = 'Goto Definition',
+      },
+      {
+        'gD',
+        function()
+          Snacks.picker.lsp_declarations()
+        end,
+        desc = 'Goto Declaration',
+      },
+      {
+        'gr',
+        function()
+          Snacks.picker.lsp_references()
+        end,
+        nowait = true,
+        desc = 'References',
+      },
+      {
+        'gI',
+        function()
+          Snacks.picker.lsp_implementations()
+        end,
+        desc = 'Goto Implementation',
+      },
+      {
+        'gy',
+        function()
+          Snacks.picker.lsp_type_definitions()
+        end,
+        desc = 'Goto T[y]pe Definition',
+      },
+    },
   },
   {
     'stevearc/oil.nvim',
