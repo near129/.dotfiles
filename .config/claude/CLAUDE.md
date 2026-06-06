@@ -69,6 +69,10 @@ Avoid `git -C <path>` whenever possible. The `-C` flag changes the working direc
 
 When the user asks to work in a worktree without specifying a branch or path, use the `EnterWorktree` tool. Skip it only when the user's instructions make it clearly unnecessary; when in doubt, use it.
 
+`EnterWorktree` creates worktrees from the default branch. When the project or situation requires starting from another branch, create the branch from the correct base first, then use `EnterWorktree`.
+
+Do not add `worktree` to branch names solely because they are used for worktrees.
+
 When entering a worktree for a project, install dependencies before running project tools if they are not already installed — or if you know they will be missing (e.g., `node_modules` absent after a fresh worktree checkout). Run the appropriate install command first:
 
 - **Node.js**: `npm ci` (preferred for reproducibility) or `npm install`
