@@ -8,7 +8,6 @@
   programs.zsh = {
     enable = true;
     package = pkgs.emptyDirectory;
-    dotDir = "${config.xdg.configHome}/zsh";
     completionInit = "autoload -U compinit && compinit -C -d $HOME/.cache/zsh/zcompdump";
     autosuggestion.enable = true;
     history = {

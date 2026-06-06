@@ -16,15 +16,15 @@ config.default_prog = { '/run/current-system/sw/bin/fish' }
 local launch_menu = {}
 table.insert(launch_menu, {
   label = 'fish',
-  args = { '/run/current-system/sw/bin/fish' },
+  args = { '/run/current-system/sw/bin/fish', '-l' },
 })
 table.insert(launch_menu, {
   label = 'bash',
-  args = { 'bash' },
+  args = { 'bash', '-l' },
 })
 table.insert(launch_menu, {
   label = 'zsh',
-  args = { 'zsh' },
+  args = { 'zsh', '-l' },
 })
 config.launch_menu = launch_menu
 

@@ -26,6 +26,6 @@ function command_notifier --on-event fish_postexec
     if test -w /dev/tty
         set title "$icon $cmd"
         set message "Finished with exit code $exit_status"
-        printf '\033]777;notify;%s;%s\033\\\a' "$title" "$message" >/dev/tty
+        printf '\033]777;notify;%s;%s\033\a' "$title" "$message" >/dev/tty
     end
 end
