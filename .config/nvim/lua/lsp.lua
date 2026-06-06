@@ -1,5 +1,5 @@
 vim.lsp.enable({
-  'basedpyright',
+  -- 'basedpyright',
   'bashls',
   'cssls',
   'docker_language_server',
@@ -8,7 +8,7 @@ vim.lsp.enable({
   'jsonls',
   'lua_ls',
   'nixd',
-  -- 'pyrefly',
+  'pyrefly',
   'ruff',
   'rust_analyzer',
   'tailwindcss',
