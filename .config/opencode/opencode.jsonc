@@ -2,6 +2,19 @@
   "$schema": "https://opencode.ai/config.json",
   "share": "disabled",
   "autoupdate": false,
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git branch *": "allow",
+      "git config --get *": "allow",
+      "git rev-parse *": "allow",
+      "git worktree *": "allow",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "sudo *": "deny",
+    },
+  },
   "mcp": {
     "context7": {
       "type": "remote",
