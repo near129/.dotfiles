@@ -10,7 +10,7 @@ in
 {
   home = {
     username = username;
-    stateVersion = "25.05";
+    stateVersion = "26.05";
     packages = with pkgs; [
       _1password-cli
       awscli2
@@ -127,6 +127,7 @@ in
     file = {
       ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
       ".claude/skills".source = mkSymlink "./.config/claude/skills";
+      ".agents/skills".source = mkSymlink "./.config/claude/skills";
       ".claude/agents".source = mkSymlink "./.config/claude/agents";
       ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
       ".claude/statusline.sh".source = mkSymlink "./.config/claude/statusline.sh";

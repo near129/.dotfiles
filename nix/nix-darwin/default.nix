@@ -41,7 +41,7 @@
   ];
 
   system = {
-    stateVersion = 6;
+    stateVersion = 7;
     primaryUser = primaryUser;
     startup.chime = false;
     defaults = {
