@@ -61,13 +61,8 @@
       "Bash(uv run ruff format *)",
       "Bash(echo \"exit: $?\")"
     ],
-    "deny": [
-      "Bash(sudo *)"
-    ],
-    "ask": [
-      "Bash(git push *)",
-      "Bash(rm *)"
-    ],
+    "deny": ["Bash(sudo *)"],
+    "ask": ["Bash(git push *)", "Bash(rm *)"],
     "defaultMode": "plan"
   },
   "model": "opusplan",
