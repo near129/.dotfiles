@@ -1,71 +1,59 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "env": {
-    "CLAUDE_CODE_USE_VERTEX": "1",
-    "CLOUD_ML_REGION": "global",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
-  },
+  "env": {},
   "permissions": {
-    "allow": [
-      "Bash(ls *)",
-      "Bash(eza *)",
-      "Bash(cat *)",
-      "Bash(pwd *)",
-      "Bash(cd *)",
-      "Bash(find *)",
-      "Bash(fd *)",
-      "Bash(grep *)",
-      "Bash(rg *)",
-      "Bash(jq *)",
-      "Bash(mkdir *)",
-      "Bash(git diff *)",
-      "Bash(git log *)",
-      "Bash(git ls-tree *)",
-      "Bash(git merge-base *)",
-      "Bash(git show *)",
-      "Bash(gh issue list *)",
-      "Bash(gh issue view *)",
-      "Bash(gh pr checks *)",
-      "Bash(gh pr diff *)",
-      "Bash(gh pr list *)",
-      "Bash(gh pr view *)",
-      "Bash(gh run list *)",
-      "Bash(gh run view *)",
-      "Bash(gh run watch *)",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:docs.astral.sh)",
-      "WebSearch",
-      "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs",
-      "mcp__plugin_context7_context7__resolve-library-id",
-      "mcp__plugin_context7_context7__query-docs",
-      "Bash(npm run build)",
-      "Bash(npm run format)",
-      "Bash(npm run lint)",
-      "Bash(pnpm build)",
-      "Bash(pnpm check)",
-      "Bash(pnpm format)",
-      "Bash(pnpm install *)",
-      "Bash(pnpm lint)",
-      "Bash(pnpm run check *)",
-      "Bash(pnpm run lint *)",
-      "Bash(pnpm run type-check *)",
-      "Bash(pnpm test)",
-      "Bash(terraform validate *)",
-      "Bash(uv run mypy *)",
-      "Bash(uv run pytest *)",
-      "Bash(uv run ruff check *)",
-      "Bash(uv run ruff format *)",
-      "Bash(echo \"exit: $?\")"
-    ],
     "deny": ["Bash(sudo *)"],
     "ask": ["Bash(git push *)", "Bash(rm *)"],
-    "defaultMode": "plan"
+    "defaultMode": "auto"
   },
-  "model": "opusplan",
+  "sandbox": {
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "*.github.com",
+        "*.githubusercontent.com",
+        "registry.npmjs.org",
+        "*.npmjs.org",
+        "pypi.org",
+        "*.pythonhosted.org",
+        "crates.io",
+        "*.crates.io",
+        "static.rust-lang.org",
+        "proxy.golang.org",
+        "sum.golang.org",
+        "*.golang.org",
+        "cache.nixos.org",
+        "channels.nixos.org",
+        "*.cachix.org",
+        "registry.terraform.io",
+        "releases.hashicorp.com",
+        "registry-1.docker.io",
+        "auth.docker.io",
+        "*.docker.io"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.cache/uv",
+        "~/.local/share/uv",
+        "~/.cargo",
+        "~/.rustup",
+        "~/go",
+        "~/Library/Caches/go-build",
+        "~/.npm",
+        "~/.cache/pnpm",
+        "~/.local/share/pnpm",
+        "~/Library/Caches/node-gyp",
+        "~/.cache/pre-commit",
+        "~/.cache/ruff",
+        "~/.cache/nix",
+        "~/.local/share/direnv",
+        "~/.terraform.d",
+        "~/Library/Caches/ms-playwright"
+      ]
+    }
+  },
+  "model": "opus",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -122,9 +110,7 @@
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
     "codex@openai-codex": true,
     "skill-creator@claude-plugins-official": true
   },
@@ -137,5 +123,8 @@
     }
   },
   "language": "日本語",
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
+  "preferredNotifChannel": "iterm2_with_bell"
 }
