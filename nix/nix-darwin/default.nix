@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   primaryUser,
   ...
@@ -110,6 +111,7 @@
     # https://brew.sh/
     enable = true;
     onActivation = {
+      extraEnv.XDG_CONFIG_HOME = config.home-manager.users.${config.system.primaryUser}.xdg.configHome;
       autoUpdate = true;
       upgrade = true;
       cleanup = "uninstall";

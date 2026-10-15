@@ -30,6 +30,7 @@ in
       (google-cloud-sdk.withExtraComponents [
         google-cloud-sdk.components.cloud-run-proxy
       ])
+      imagemagick
       jq
       k9s
       lazygit
