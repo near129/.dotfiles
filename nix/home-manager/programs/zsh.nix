@@ -145,8 +145,6 @@
             fi
             ;;
         esac
-        export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
-        export CODEX_HOME="$XDG_CONFIG_HOME/codex"
       '')
       (lib.mkOrder 1500 "[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true")
     ];

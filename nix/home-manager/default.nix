@@ -16,7 +16,6 @@ in
       awscli2
       bottom
       claude-code
-      codex
       delta
       direnv
       diskus
@@ -99,6 +98,7 @@ in
   programs.starship.enable = true;
   programs.zoxide.enable = true;
   imports = [
+    ./programs/codex.nix
     ./programs/git.nix
     ./programs/fzf.nix
     ./programs/ruff.nix
@@ -109,8 +109,6 @@ in
     configFile = {
       "aerospace".source = mkSymlink "./.config/aerospace";
       "alacritty".source = mkSymlink "./.config/alacritty";
-      "codex/config.toml".source = mkSymlink "./.config/codex/config.toml";
-      "codex/AGENTS.md".source = mkSymlink "./.config/agents/AGENTS.md";
       "fish".source = mkSymlink "./.config/fish";
       "ghostty".source = mkSymlink "./.config/ghostty";
       "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
@@ -133,6 +131,8 @@ in
       ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
       ".claude/statusline.sh".source = mkSymlink "./.config/claude/statusline.sh";
       ".claude/hook-notify.sh".source = mkSymlink "./.config/claude/hook-notify.sh";
+      ".codex/AGENTS.md".source = mkSymlink "./.config/agents/AGENTS.md";
+      ".codex/rules".source = mkSymlink "./.config/codex/rules";
       ".copilot/copilot-instructions.md".source = mkSymlink "./.config/agents/AGENTS.md";
       ".copilot/skills".source = mkSymlink "./.config/agents/skills";
     };
