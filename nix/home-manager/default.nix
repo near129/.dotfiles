@@ -110,6 +110,7 @@ in
       "aerospace".source = mkSymlink "./.config/aerospace";
       "alacritty".source = mkSymlink "./.config/alacritty";
       "codex/config.toml".source = mkSymlink "./.config/codex/config.toml";
+      "codex/AGENTS.md".source = mkSymlink "./.config/agents/AGENTS.md";
       "fish".source = mkSymlink "./.config/fish";
       "ghostty".source = mkSymlink "./.config/ghostty";
       "karabiner/karabiner.json".source = mkSymlink "./.config/karabiner/karabiner.json";
@@ -125,13 +126,15 @@ in
   };
   home = {
     file = {
-      ".claude/CLAUDE.md".source = mkSymlink "./.config/claude/CLAUDE.md";
-      ".claude/skills".source = mkSymlink "./.config/claude/skills";
-      ".agents/skills".source = mkSymlink "./.config/claude/skills";
+      ".claude/CLAUDE.md".source = mkSymlink "./.config/agents/AGENTS.md";
+      ".claude/skills".source = mkSymlink "./.config/agents/skills";
+      ".agents/skills".source = mkSymlink "./.config/agents/skills";
       ".claude/agents".source = mkSymlink "./.config/claude/agents";
       ".claude/settings.json".source = mkSymlink "./.config/claude/settings.json";
       ".claude/statusline.sh".source = mkSymlink "./.config/claude/statusline.sh";
       ".claude/hook-notify.sh".source = mkSymlink "./.config/claude/hook-notify.sh";
+      ".copilot/copilot-instructions.md".source = mkSymlink "./.config/agents/AGENTS.md";
+      ".copilot/skills".source = mkSymlink "./.config/agents/skills";
     };
   };
 }
