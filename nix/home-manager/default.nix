@@ -35,7 +35,6 @@ in
       k9s
       lazygit
       neovim
-      nh
       opencode
       oxlint
       oxfmt
@@ -102,6 +101,7 @@ in
     ./programs/codex.nix
     ./programs/git.nix
     ./programs/fzf.nix
+    ./programs/nh.nix
     ./programs/ruff.nix
     ./programs/zsh.nix
   ];

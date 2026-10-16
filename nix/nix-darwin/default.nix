@@ -16,7 +16,10 @@
 
   nix = {
     package = pkgs.nix;
-    gc.automatic = true;
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
     optimise.automatic = true;
     settings = {
       experimental-features = [
