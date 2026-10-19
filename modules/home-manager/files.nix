@@ -41,7 +41,6 @@ in
         ".claude/CLAUDE.md".source = mkSymlink ".config/agents/AGENTS.md";
         ".claude/skills".source = mkSymlink ".config/agents/skills";
         ".agents/skills".source = mkSymlink ".config/agents/skills";
-        ".claude/agents".source = mkSymlink ".config/claude/agents";
         ".claude/settings.json".source = mkSymlink ".config/claude/settings.json";
         ".claude/statusline.sh".source = mkSymlink ".config/claude/statusline.sh";
         ".claude/hook-notify.sh".source = mkSymlink ".config/claude/hook-notify.sh";
