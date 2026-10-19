@@ -1,0 +1,1 @@
+{ imports = [ ../workstation/home.nix ]; }

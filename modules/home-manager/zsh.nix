@@ -4,10 +4,14 @@
   pkgs,
   ...
 }:
+let
+  homebrewPrefix = if pkgs.stdenv.hostPlatform.isAarch64 then "/opt/homebrew" else "/usr/local";
+in
 {
   programs.zsh = {
     enable = true;
-    package = pkgs.emptyDirectory;
+    dotDir = "${config.xdg.configHome}/zsh";
+    package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emptyDirectory else pkgs.zsh;
     completionInit = "autoload -U compinit && compinit -C -d $HOME/.cache/zsh/zcompdump";
     autosuggestion.enable = true;
     history = {
@@ -40,6 +44,11 @@
 
       gs = "git status";
     };
+    profileExtra = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+      if [[ -x ${homebrewPrefix}/bin/brew ]]; then
+        eval "$(${homebrewPrefix}/bin/brew shellenv)"
+      fi
+    '';
     envExtra = ''
       ### locale ###
       export LANG="en_US.UTF-8"
@@ -60,26 +69,6 @@
         "$HOME/.cargo/bin"(N-/) # for rust
         "$path[@]"
       )
-    '';
-    profileExtra = ''
-      case $OSTYPE in
-      darwin*)
-        if [[ $CPUTYPE == "arm64" ]]; then
-          HOMEBREW_PREFIX="/opt/homebrew"
-        else
-          HOMEBREW_PREFIX="/usr/local"
-        fi
-        ;;
-      linux*)
-        HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-        ;;
-      esac
-
-      if [[ -d $HOMEBREW_PREFIX ]]; then
-          eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-      else
-          unset HOMEBREW_PREFIX
-      fi
     '';
     initContent = lib.mkMerge [
       (lib.mkOrder 550 ''
@@ -146,6 +135,11 @@
             ;;
         esac
       '')
+      (lib.mkOrder 2000 (
+        lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+          path=("${homebrewPrefix}/bin" "${homebrewPrefix}/sbin" "$path[@]")
+        ''
+      ))
       (lib.mkOrder 1500 "[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local || true")
     ];
   };

@@ -1,42 +1,59 @@
 # Dotfiles
 
-[![Check](https://github.com/near129/.dotfiles/actions/workflows/check.yaml/badge.svg)](https://github.com/near129/.dotfiles/actions/workflows/check.yaml)
+## 初回準備
 
-Personal dotfiles managed with Nix (nix-darwin + home-manager)
-
-## Requirements
-
-### Install Nix
-
-<https://github.com/NixOS/nix-installer>
-
-```shell
-curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | \
-  sh -s -- install
+```sh
+mkdir -p ~/.config
+git clone https://github.com/near129/.dotfiles.git ~/.config/dotfiles
+cd ~/.config/dotfiles
 ```
 
-### Install Homebrew (macOS only)
+## 初回適用
 
-<https://brew.sh/ja/>
+nix-darwinとHome Managerをまとめて適用する場合:
 
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```sh
+sudo nix --extra-experimental-features 'nix-command flakes' \
+  run nix-darwin/master#darwin-rebuild -- switch --flake .#default
 ```
 
-## Installation
+Home Managerだけを適用する場合:
 
-1. Clone this repository:
-
-```shell
-git clone https://github.com/near129/.dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+```sh
+nix --extra-experimental-features 'nix-command flakes' \
+  run home-manager/master -- switch --flake .#near129
 ```
 
-2. Install nix-darwin and apply configuration (first time only):
+## 設定の適用
 
-```shell
-sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
-sudo nix --extra-experimental-features 'nix-command flakes' run "nix-darwin/master#darwin-rebuild" -- switch --flake ".#napoli25"
-# For subsequent runs
-nh darwin switch $HOME/.dotfiles -H napoli25
+```sh
+# nix-darwin＋Home Manager
+nh darwin switch -H default
+
+# Home Manager
+nh home switch -c near129
+```
+
+## 依存の更新
+
+```sh
+cd ~/.config/dotfiles
+nix flake update
+```
+
+更新と適用をまとめて行う場合:
+
+```sh
+# nix-darwin＋Home Manager
+nh darwin switch -H default --update
+
+# Home Manager単独
+nh home switch -c near129 --update
+```
+
+## 検証
+
+```sh
+cd ~/.config/dotfiles
+nix flake check
 ```

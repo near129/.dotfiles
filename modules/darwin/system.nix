@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  primaryUser,
   ...
 }:
 {
@@ -14,39 +12,7 @@
     fish
   ];
 
-  nix = {
-    package = pkgs.nix;
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
-    optimise.automatic = true;
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      substituters = [
-        "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-    };
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
-  fonts.packages = with pkgs; [
-    noto-fonts-cjk-sans
-    hackgen-font
-    hackgen-nf-font
-    source-han-code-jp
-  ];
-
   system = {
-    stateVersion = 7;
-    primaryUser = primaryUser;
     startup.chime = false;
     defaults = {
       menuExtraClock.Show24Hour = true;
@@ -108,52 +74,6 @@
       "8.8.4.4"
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
-    ];
-  };
-  homebrew = {
-    # https://brew.sh/
-    enable = true;
-    onActivation = {
-      extraEnv.XDG_CONFIG_HOME = config.home-manager.users.${config.system.primaryUser}.xdg.configHome;
-      autoUpdate = true;
-      upgrade = true;
-      cleanup = "uninstall";
-    };
-    taps = [
-      "nikitabobko/tap"
-      "k1LoW/tap"
-    ];
-    brews = [
-      "playwright-cli"
-      "k1LoW/tap/mo"
-    ];
-    casks = [
-      "1password"
-      "alacritty"
-      "arc"
-      "claude"
-      "claude-code@latest"
-      "codex-app"
-      "copilot-cli"
-      "docker-desktop"
-      "firefox"
-      "ghostty"
-      "gimp"
-      "github-copilot-app"
-      "google-japanese-ime"
-      "inkscape"
-      "karabiner-elements"
-      "lm-studio"
-      "middleclick"
-      "nikitabobko/tap/aerospace"
-      "obsidian"
-      "ollama-app"
-      "thaw"
-      "visual-studio-code"
-      "wezterm@nightly"
-      "windows-app"
-      "zed"
-      "zen"
     ];
   };
 }

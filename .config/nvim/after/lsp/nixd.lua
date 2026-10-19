@@ -1,20 +1,19 @@
+local options = {}
+if vim.env.NIXD_SYSTEM_OPTIONS_EXPR then
+  options.system = { expr = vim.env.NIXD_SYSTEM_OPTIONS_EXPR }
+end
+if vim.env.NIXD_HOME_OPTIONS_EXPR then
+  options.home_manager = { expr = vim.env.NIXD_HOME_OPTIONS_EXPR }
+end
+
 return {
   settings = {
     nixd = {
-      nixpkgs = {
-        expr = 'import <nixpkgs> { }',
-      },
+      nixpkgs = vim.env.NIXD_NIXPKGS_EXPR and { expr = vim.env.NIXD_NIXPKGS_EXPR } or nil,
       formatting = {
         command = { 'nixfmt' },
       },
-      options = {
-        nix_darwin = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).darwinConfigurations.napoli25.options',
-        },
-        home_manager = {
-          expr = '(builtins.getFlake ("git+file://" + toString ./../../../..)).homeConfigurations.napoli25.options',
-        },
-      },
+      options = options,
     },
   },
 }

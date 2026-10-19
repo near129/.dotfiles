@@ -15,12 +15,12 @@ switch (uname -s)
     case Darwin
         switch (uname -m)
             case arm64
-                eval (/opt/homebrew/bin/brew shellenv)
+                test -x /opt/homebrew/bin/brew && eval (/opt/homebrew/bin/brew shellenv)
             case x86_64
-                eval (/usr/local/bin/brew shellenv)
+                test -x /usr/local/bin/brew && eval (/usr/local/bin/brew shellenv)
         end
     case Linux
-        eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        test -x /home/linuxbrew/.linuxbrew/bin/brew && eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 if set -q HOMEBREW_PREFIX
     fish_add_complete_path "$HOMEBREW_PREFIX/share/fish/vendor_completions.d"
@@ -37,6 +37,9 @@ fish_add_path /usr/local/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/go/bin
+if set -q HOMEBREW_PREFIX
+    fish_add_path --path --move --prepend "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin"
+end
 
 fish_config theme choose Nord
 starship init fish | source

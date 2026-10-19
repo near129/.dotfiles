@@ -1,4 +1,6 @@
 {
+  lib,
+  pkgs,
   ...
 }:
 let
@@ -11,12 +13,6 @@ in
 {
   programs.git = {
     enable = true;
-    signing = {
-      signByDefault = true;
-      format = "ssh";
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+0IqYbnBD7Cjh+DvaSucRW02cbc5i4peT86vfYMDH1";
-      signer = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-    };
     ignores = [
       ".op.env" # 1Password environment variables
       ".serena"
@@ -25,13 +21,9 @@ in
       ".worktree"
       ".temp"
       ".playwright*/"
-      macosGitignore
-    ];
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ macosGitignore ];
     settings = {
-      user = {
-        name = "near129";
-        email = "56579877+near129@users.noreply.github.com";
-      };
       alias = {
         pushf = "push --force-with-lease --force-if-includes";
         tree = "log --graph --pretty=format:'%C(auto)%h %d %s %C(blue)(%cr) %C(green)<%an>'";
