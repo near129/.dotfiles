@@ -7,7 +7,7 @@
       options = [
         "--select-1"
         "--exit-0"
-        "--preview '(bat  --color=always --style=header,grid --line-range :100 {} || exa -T -L 2) 2>/dev/null'"
+        "--preview '(bat  --color=always --style=header,grid --line-range :100 {} || eza -T -L 2) 2>/dev/null'"
       ];
     };
     colors = {
