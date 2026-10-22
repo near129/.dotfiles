@@ -8,6 +8,12 @@
     watchIdAuth = true;
   };
 
+  # Roots chaining to the compromised eMudhra intermediates: https://emudhra.we-have-a-problem.com/
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
+
   environment.systemPackages = with pkgs; [
     fish
   ];
