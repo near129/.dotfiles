@@ -4,17 +4,32 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.1.0
+
+      - name: Verify Actions lockfile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-actions-lock --pin v0.4.0
+          gh actions-lock --verify
+
   check:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@31.11.3
 
       - name: Check Flake
-        run: nix flake check
+        run: nix flake check --no-update-lock-file

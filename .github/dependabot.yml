@@ -6,3 +6,22 @@ updates:
       default-days: 10
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+    groups:
+      flake-inputs:
+        patterns:
+          - "*"
