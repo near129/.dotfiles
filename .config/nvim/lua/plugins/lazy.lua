@@ -25,5 +25,6 @@ require('lazy').setup({
     { import = 'plugins.syntax' },
     { import = 'plugins.git' },
     { import = 'plugins.navigation' },
+    { import = 'plugins.markdown' },
   },
 })
