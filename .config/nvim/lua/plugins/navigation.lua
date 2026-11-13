@@ -13,6 +13,10 @@ return {
             args = { '--trim' },
           },
           projects = {
+            finder = require('picker.projects'),
+            dev = { '~/dev' },
+            projects = {},
+            exclude = { 'node_modules' },
             max_depth = 5,
           },
         },
@@ -74,6 +78,13 @@ return {
           Snacks.picker.projects()
         end,
         desc = 'Projects',
+      },
+      {
+        '<leader>fw',
+        function()
+          require('picker.worktrees').pick()
+        end,
+        desc = 'Git Worktrees',
       },
       {
         '<leader>fr',
@@ -245,6 +256,11 @@ return {
     keys = {
       {
         '<leader>fy',
+        '<cmd>Fyler<cr>',
+        desc = 'Open Fyler View',
+      },
+      {
+        '<leader>a',
         '<cmd>Fyler<cr>',
         desc = 'Open Fyler View',
       },
