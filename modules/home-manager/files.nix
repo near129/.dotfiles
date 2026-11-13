@@ -1,6 +1,17 @@
 { config, lib, ... }:
 let
   mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.sourceDirectory}/${path}";
+  skillNames = builtins.attrNames (
+    lib.filterAttrs (_: type: type == "directory") (builtins.readDir ../../.config/agents/skills)
+  );
+  mkSkillLinks =
+    targetDir:
+    lib.listToAttrs (
+      map (
+        name:
+        lib.nameValuePair "${targetDir}/${name}" { source = mkSymlink ".config/agents/skills/${name}"; }
+      ) skillNames
+    );
 in
 {
   options.dotfiles.sourceDirectory = lib.mkOption {
@@ -37,18 +48,20 @@ in
       };
     };
     home = {
-      file = {
-        ".claude/CLAUDE.md".source = mkSymlink ".config/agents/AGENTS.md";
-        ".claude/skills".source = mkSymlink ".config/agents/skills";
-        ".agents/skills".source = mkSymlink ".config/agents/skills";
-        ".claude/settings.json".source = mkSymlink ".config/claude/settings.json";
-        ".claude/statusline.sh".source = mkSymlink ".config/claude/statusline.sh";
-        ".claude/hook-notify.sh".source = mkSymlink ".config/claude/hook-notify.sh";
-        ".codex/AGENTS.md".source = mkSymlink ".config/agents/AGENTS.md";
-        ".codex/rules".source = mkSymlink ".config/codex/rules";
-        ".copilot/copilot-instructions.md".source = mkSymlink ".config/agents/AGENTS.md";
-        ".copilot/skills".source = mkSymlink ".config/agents/skills";
-      };
+      file = lib.mkMerge [
+        (mkSkillLinks ".claude/skills")
+        (mkSkillLinks ".agents/skills")
+        (mkSkillLinks ".copilot/skills")
+        {
+          ".claude/CLAUDE.md".source = mkSymlink ".config/agents/AGENTS.md";
+          ".claude/settings.json".source = mkSymlink ".config/claude/settings.json";
+          ".claude/statusline.sh".source = mkSymlink ".config/claude/statusline.sh";
+          ".claude/hook-notify.sh".source = mkSymlink ".config/claude/hook-notify.sh";
+          ".codex/AGENTS.md".source = mkSymlink ".config/agents/AGENTS.md";
+          ".codex/rules".source = mkSymlink ".config/codex/rules";
+          ".copilot/copilot-instructions.md".source = mkSymlink ".config/agents/AGENTS.md";
+        }
+      ];
     };
   };
 }
