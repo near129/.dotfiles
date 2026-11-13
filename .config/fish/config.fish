@@ -62,6 +62,7 @@ abbr -a lg lazygit
 abbr -a vi nvim
 abbr -a vim nvim
 abbr -a gs 'git status'
+abbr -a wcd git_worktree_cd
 abbr -a --command git c commit
 abbr -a --command git a add
 abbr -a --command git w worktree

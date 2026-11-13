@@ -33,6 +33,7 @@ in
         "aerospace".source = mkSymlink ".config/aerospace";
         "alacritty".source = mkSymlink ".config/alacritty";
         "fish/config.fish".source = mkSymlink ".config/fish/config.fish";
+        "fish/completions".source = mkSymlink ".config/fish/completions";
         "fish/functions".source = mkSymlink ".config/fish/functions";
         "fish/conf.d/notification.fish".source = mkSymlink ".config/fish/conf.d/notification.fish";
         "ghostty".source = mkSymlink ".config/ghostty";
