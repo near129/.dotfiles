@@ -27,7 +27,9 @@ vim.keymap.set('n', ']d', function()
 end)
 
 -- File path operations
-vim.keymap.set('n', '<leader>cp', ':CopyRelativePath<CR>', { silent = true, desc = 'Copy relative path' })
+-- `:` (not `<cmd>`) so visual mode becomes `:'<,'>CopyRelativePath`
+vim.keymap.set({ 'n', 'x' }, '<leader>cp', ':CopyRelativePath<CR>', { silent = true, desc = 'Copy relative path' })
+vim.keymap.set('n', '<C-w>f', '<cmd>leftabove vertical wincmd f<CR>', { desc = 'Open file under cursor in left vsplit' })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
