@@ -39,7 +39,13 @@ function M.pick()
     source = 'worktrees',
     title = 'Git Worktrees',
     items = vim.tbl_map(function(e)
-      return { file = e.path, text = e.branch .. ' ' .. e.path, dir = true, branch = e.branch, current = e.path == current }
+      return {
+        file = e.path,
+        text = e.branch .. ' ' .. e.path,
+        dir = true,
+        branch = e.branch,
+        current = e.path == current,
+      }
     end, entries),
     format = function(item)
       return {
