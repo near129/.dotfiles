@@ -2,10 +2,103 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {},
   "permissions": {
-    "deny": ["Bash(sudo *)"],
-    "ask": ["Bash(git push *)", "Bash(rm *)"],
+    "deny": [
+      "Bash(sudo *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(rm *)"
+    ],
     "defaultMode": "auto"
   },
+  "model": "opus",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hook-notify.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh -c 'rex __internal session-start --agent claude 2>/dev/null || true'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "skill-creator@claude-plugins-official": true,
+    "yomiyasu@yomiyasu": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "yomiyasu": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/nanaism/yomiyasu.git"
+      }
+    }
+  },
+  "language": "日本語",
   "sandbox": {
     "network": {
       "allowedDomains": [
@@ -53,78 +146,8 @@
       ]
     }
   },
-  "model": "opus",
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hook-notify.sh"
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hook-notify.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hook-notify.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hook-notify.sh"
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
-  "enabledPlugins": {
-    "context7@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "codex@openai-codex": true,
-    "skill-creator@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "openai-codex": {
-      "source": {
-        "source": "github",
-        "repo": "openai/codex-plugin-cc"
-      }
-    }
-  },
-  "language": "日本語",
   "effortLevel": "high",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "preferredNotifChannel": "iterm2_with_bell"
+  "preferredNotifChannel": "auto"
 }
