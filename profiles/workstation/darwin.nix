@@ -11,6 +11,7 @@
     "1password"
     "alacritty"
     "arc"
+    "azooKey"
     "claude"
     "claude-code@latest"
     "codex"
