@@ -2,80 +2,64 @@
 model = "gpt-6.1-sol"
 model_verbosity = "high"
 approval_policy = "on-request"
+approvals_reviewer = "auto_review"
 hide_agent_reasoning = false
-personality = "pragmatic"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 allow_login_shell = true
-default_permissions = "default"
+sandbox_mode = "workspace-write"
 web_search = "live"
 
 [shell_environment_policy]
 inherit = "all"
+ignore_default_excludes = true
 
-[features]
-terminal_resize_reflow = true
-apps = true
-js_repl = false
-# codex_git_commit = true
+[sandbox_workspace_write]
+network_access = true
+writable_roots = [
+  "~/.cache",
+  "~/.local/state",
+  "~/.npm",
+  "~/.local/share/pnpm/store",
+  "~/Library/pnpm/store",
+  "~/Library/Caches/pnpm",
+  "~/Library/Caches/Yarn",
+  "~/Library/Caches/pip",
+  "~/Library/Caches/Homebrew",
+  "~/Library/Caches/go-build",
+  "~/go/pkg/mod",
+  "~/.cargo/registry",
+  "~/.cargo/git",
+  "~/.cargo/.package-cache",
+  "~/.cargo/.package-cache-mutate",
+  "~/.cargo/.global-cache",
+  "~/.cargo/.global-cache-shm",
+  "~/.cargo/.global-cache-wal",
+]
 
-[permissions.default]
-extends = ":workspace"
-
-[permissions.default.workspace_roots]
-"~/.cache" = true
-"~/.local/state" = true
-"~/.npm" = true
-
-[permissions.custom.network]
+[features.network_proxy]
 enabled = true
 
-[mcp_servers.context7]
-url = "https://mcp.context7.com/mcp"
-
-[mcp_servers.grep]
-url = "https://mcp.grep.app"
-
-[plugins."google-calendar@openai-curated"]
-enabled = true
-
-[plugins."gmail@openai-curated"]
-enabled = true
-
-[plugins."github@openai-curated"]
-enabled = true
-
-[plugins."google-drive@openai-curated"]
-enabled = true
-
-[plugins."slack@openai-curated"]
-enabled = true
-
-[plugins."documents@openai-primary-runtime"]
-enabled = true
-
-[plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
-
-[plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[plugins."pdf@openai-primary-runtime"]
-enabled = true
-
-[plugins."browser@openai-bundled"]
-enabled = true
-
-[plugins."template-creator@openai-primary-runtime"]
-enabled = true
-
-[plugins."visualize@openai-bundled"]
-enabled = true
-
-[plugins."codex-app-tools@openai-bundled"]
-enabled = true
-
-[plugins."unified-computer-use@openai-bundled"]
-enabled = true
-
-[plugins."computer-use@openai-bundled"]
-enabled = true
+[features.network_proxy.domains]
+"api.github.com" = "allow"
+"cache.nixos.org" = "allow"
+"codeload.github.com" = "allow"
+"crates.io" = "allow"
+"files.pythonhosted.org" = "allow"
+"formulae.brew.sh" = "allow"
+"ghcr.io" = "allow"
+"github.com" = "allow"
+"index.crates.io" = "allow"
+"nodejs.org" = "allow"
+"objects.githubusercontent.com" = "allow"
+"pkg-containers.githubusercontent.com" = "allow"
+"proxy.golang.org" = "allow"
+"pypi.org" = "allow"
+"raw.githubusercontent.com" = "allow"
+"registry.npmjs.org" = "allow"
+"registry.yarnpkg.com" = "allow"
+"release-assets.githubusercontent.com" = "allow"
+"releases.astral.sh" = "allow"
+"releases.nixos.org" = "allow"
+"static.crates.io" = "allow"
+"static.rust-lang.org" = "allow"
+"sum.golang.org" = "allow"
