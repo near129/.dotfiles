@@ -4,7 +4,6 @@
 
   ];
   homebrew.casks = [
-    "chrome-remote-desktop-host"
     "discord"
     "google-drive"
     "keycastr"

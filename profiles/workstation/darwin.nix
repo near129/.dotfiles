@@ -10,12 +10,10 @@
   homebrew.casks = [
     "1password"
     "alacritty"
-    "arc"
     "azooKey"
     "claude"
     "claude-code@latest"
     "codex"
-    "codex-app"
     "copilot-cli"
     "docker-desktop"
     "firefox"
