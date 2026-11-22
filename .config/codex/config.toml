@@ -1,5 +1,5 @@
 #:schema https://developers.openai.com/codex/config-schema.json
-model = "gpt-6.1-sol"
+model = "gpt-6.2-sol"
 model_verbosity = "high"
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
