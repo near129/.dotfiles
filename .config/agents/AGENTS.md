@@ -40,6 +40,8 @@ Prefer modern CLI alternatives:
 
 Use `rg` and `jq` to filter output and keep context concise.
 
+On macOS, delete files with `trash` instead of `rm` so they can be restored from the Trash.
+
 ## Working in a Worktree
 
 When asked to work in a worktree without a specified branch or path, create one using the tool's built-in worktree helper if available, otherwise `git worktree add`.
