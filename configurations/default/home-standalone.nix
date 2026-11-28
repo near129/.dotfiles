@@ -20,5 +20,15 @@ in
       NIXD_HOME_OPTIONS_EXPR = "${flake}.homeConfigurations.near129.options";
     };
   };
-  programs.nh.flake = config.dotfiles.sourceDirectory;
+  programs.nh = {
+    flake = config.dotfiles.sourceDirectory;
+    clean = {
+      enable = true;
+      extraArgs = [
+        "--keep-since"
+        "30d"
+        "--keep-one"
+      ];
+    };
+  };
 }
